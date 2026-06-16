@@ -90,6 +90,7 @@ class Gutenberg_Yjs_Update_V2_Array_Decoder {
 	private RleDecoder $parent_info_decoder;
 	private UintOptRleDecoder $type_ref_decoder;
 	private UintOptRleDecoder $len_decoder;
+	private bool $has_key_clock_stream;
 
 	/**
 	 * @var array<int, string>
@@ -100,7 +101,9 @@ class Gutenberg_Yjs_Update_V2_Array_Decoder {
 		$decoder = new Decoding( $update );
 		$decoder->readVarUint(); // feature flag.
 
-		$this->key_clock_decoder   = new IntDiffOptRleDecoder( new Decoding( $decoder->readVarUint8Array() ) );
+		$key_clock_bytes            = $decoder->readVarUint8Array();
+		$this->has_key_clock_stream = '' !== $key_clock_bytes;
+		$this->key_clock_decoder    = new IntDiffOptRleDecoder( new Decoding( $key_clock_bytes ) );
 		$this->client_decoder      = new UintOptRleDecoder( new Decoding( $decoder->readVarUint8Array() ) );
 		$this->left_clock_decoder  = new IntDiffOptRleDecoder( new Decoding( $decoder->readVarUint8Array() ) );
 		$this->right_clock_decoder = new IntDiffOptRleDecoder( new Decoding( $decoder->readVarUint8Array() ) );
@@ -153,6 +156,10 @@ class Gutenberg_Yjs_Update_V2_Array_Decoder {
 	}
 
 	public function read_key(): string {
+		if ( ! $this->has_key_clock_stream ) {
+			return $this->read_string();
+		}
+
 		$key_clock = $this->key_clock_decoder->read();
 		if ( ! array_key_exists( $key_clock, $this->keys ) ) {
 			$this->keys[ $key_clock ] = $this->read_string();
