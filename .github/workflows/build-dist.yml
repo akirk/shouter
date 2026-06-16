@@ -14,16 +14,8 @@ jobs:
     if: github.event_name == 'push' && !startsWith(github.ref_name, 'dist/')
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Shouter
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          path: shouter
-
-      - name: Checkout yjs-php
-        uses: actions/checkout@v4
-        with:
-          repository: Automattic/yjs-php
-          path: yjs-php
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -32,11 +24,9 @@ jobs:
           tools: composer
 
       - name: Install dependencies
-        working-directory: shouter
         run: composer install --no-dev --optimize-autoloader
 
       - name: Push to dist branch
-        working-directory: shouter
         env:
           BRANCH_NAME: ${{ github.ref_name }}
         run: |

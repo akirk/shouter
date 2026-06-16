@@ -46,16 +46,15 @@ This started as a Yjs/RTC observability probe. The notes below document what was
 
 ## Composer and Dist Branches
 
-Local source development expects a sibling checkout of `yjs-php`:
+`composer.json` points Composer at the upstream GitHub repository for `yjs/yjs-php`:
 
 ```sh
-git clone https://github.com/Automattic/yjs-php.git ../yjs-php
 composer install
 ```
 
-`composer.json` declares that sibling directory as a Composer path repository for `yjs/yjs-php`. The local install symlinks `vendor/yjs/yjs-php` to `../yjs-php`, so changes to the library can be tested without copying files into this plugin.
+The package is installed from `https://github.com/Automattic/yjs-php`, because it is not currently available through the default Packagist repository.
 
-The source branch intentionally ignores `vendor/` and `composer.lock`. Deployable branches are built by `.github/workflows/build-dist.yml`, following the same dist-branch approach used by the Cookbook plugin. On every push to a non-`dist/` branch, the workflow checks out Shouter, checks out `Automattic/yjs-php` as a sibling directory, runs `composer install --no-dev --optimize-autoloader`, force-adds `vendor/`, and pushes the result to `dist/<branch>`.
+The source branch intentionally ignores `vendor/` and `composer.lock`. Deployable branches are built by `.github/workflows/build-dist.yml`, following the same dist-branch approach used by the Cookbook plugin. On every push to a non-`dist/` branch, the workflow runs `composer install --no-dev --optimize-autoloader`, force-adds `vendor/`, and pushes the result to `dist/<branch>`.
 
 `blueprint.json` installs the plugin from `akirk/shouter` at `dist/main`, so Playground receives a build that already contains Composer dependencies and can load `vendor/autoload.php` during plugin bootstrap.
 
