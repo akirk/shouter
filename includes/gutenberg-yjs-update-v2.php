@@ -1,14 +1,14 @@
 <?php
 /**
- * Minimal PHP encoder for the subset of Yjs updateV2 used by Shouter.
+ * Minimal PHP encoder for the subset of Yjs updateV2 used by Gutenberg RTC prototypes.
  *
- * @package Shouter
+ * @package Gutenberg_Yjs_Update_V2
  */
 
 /**
  * Byte encoder for lib0-style primitive values.
  */
-class Shouter_Binary_Encoder {
+class Gutenberg_Yjs_Binary_Encoder {
 	/**
 	 * Encoded bytes.
 	 *
@@ -82,7 +82,7 @@ class Shouter_Binary_Encoder {
 
 	/**
 	 * Writes a lib0 "any" value. This intentionally covers the data types that
-	 * Shouter emits into paragraph block updates.
+	 * Gutenberg paragraph updates emit into paragraph block updates.
 	 *
 	 * @param mixed $value Value.
 	 */
@@ -148,7 +148,7 @@ class Shouter_Binary_Encoder {
 /**
  * Byte decoder for lib0-style primitive values.
  */
-class Shouter_Binary_Decoder {
+class Gutenberg_Yjs_Binary_Decoder {
 	private string $data;
 	private int $offset = 0;
 
@@ -235,7 +235,7 @@ class Shouter_Binary_Decoder {
 	}
 
 	/**
-	 * Reads a lib0 "any" value for the value types Shouter needs to inspect.
+	 * Reads a lib0 "any" value for the value types Gutenberg paragraph tooling needs to inspect.
 	 *
 	 * @return mixed
 	 */
@@ -280,13 +280,13 @@ class Shouter_Binary_Decoder {
 /**
  * lib0 RLE encoder.
  */
-class Shouter_Rle_Encoder {
-	private Shouter_Binary_Encoder $encoder;
+class Gutenberg_Yjs_Rle_Encoder {
+	private Gutenberg_Yjs_Binary_Encoder $encoder;
 	private $state = null;
 	private int $count = 0;
 
 	public function __construct() {
-		$this->encoder = new Shouter_Binary_Encoder();
+		$this->encoder = new Gutenberg_Yjs_Binary_Encoder();
 	}
 
 	public function write_uint8( int $value ): void {
@@ -312,13 +312,13 @@ class Shouter_Rle_Encoder {
 /**
  * lib0 RleDecoder for uint8 values.
  */
-class Shouter_Rle_Decoder {
-	private Shouter_Binary_Decoder $decoder;
+class Gutenberg_Yjs_Rle_Decoder {
+	private Gutenberg_Yjs_Binary_Decoder $decoder;
 	private ?int $state = null;
 	private int $count = 0;
 
 	public function __construct( string $bytes ) {
-		$this->decoder = new Shouter_Binary_Decoder( $bytes );
+		$this->decoder = new Gutenberg_Yjs_Binary_Decoder( $bytes );
 	}
 
 	public function read_uint8(): int {
@@ -335,13 +335,13 @@ class Shouter_Rle_Decoder {
 /**
  * lib0 UintOptRleEncoder.
  */
-class Shouter_Uint_Opt_Rle_Encoder {
-	private Shouter_Binary_Encoder $encoder;
+class Gutenberg_Yjs_Uint_Opt_Rle_Encoder {
+	private Gutenberg_Yjs_Binary_Encoder $encoder;
 	private int $state = 0;
 	private int $count = 0;
 
 	public function __construct() {
-		$this->encoder = new Shouter_Binary_Encoder();
+		$this->encoder = new Gutenberg_Yjs_Binary_Encoder();
 	}
 
 	public function write( int $value ): void {
@@ -375,15 +375,15 @@ class Shouter_Uint_Opt_Rle_Encoder {
 /**
  * lib0 UintOptRleDecoder.
  */
-class Shouter_Uint_Opt_Rle_Decoder {
-	private Shouter_Binary_Decoder $decoder;
+class Gutenberg_Yjs_Uint_Opt_Rle_Decoder {
+	private Gutenberg_Yjs_Binary_Decoder $decoder;
 	private int $state = 0;
 	private int $count = 0;
 
 	public function __construct( $bytes_or_decoder ) {
-		$this->decoder = $bytes_or_decoder instanceof Shouter_Binary_Decoder
+		$this->decoder = $bytes_or_decoder instanceof Gutenberg_Yjs_Binary_Decoder
 			? $bytes_or_decoder
-			: new Shouter_Binary_Decoder( (string) $bytes_or_decoder );
+			: new Gutenberg_Yjs_Binary_Decoder( (string) $bytes_or_decoder );
 	}
 
 	public function read(): int {
@@ -401,14 +401,14 @@ class Shouter_Uint_Opt_Rle_Decoder {
 /**
  * lib0 IntDiffOptRleEncoder.
  */
-class Shouter_Int_Diff_Opt_Rle_Encoder {
-	private Shouter_Binary_Encoder $encoder;
+class Gutenberg_Yjs_Int_Diff_Opt_Rle_Encoder {
+	private Gutenberg_Yjs_Binary_Encoder $encoder;
 	private int $state = 0;
 	private int $count = 0;
 	private int $diff = 0;
 
 	public function __construct() {
-		$this->encoder = new Shouter_Binary_Encoder();
+		$this->encoder = new Gutenberg_Yjs_Binary_Encoder();
 	}
 
 	public function write( int $value ): void {
@@ -444,14 +444,14 @@ class Shouter_Int_Diff_Opt_Rle_Encoder {
 /**
  * lib0 IntDiffOptRleDecoder.
  */
-class Shouter_Int_Diff_Opt_Rle_Decoder {
-	private Shouter_Binary_Decoder $decoder;
+class Gutenberg_Yjs_Int_Diff_Opt_Rle_Decoder {
+	private Gutenberg_Yjs_Binary_Decoder $decoder;
 	private int $state = 0;
 	private int $count = 0;
 	private int $diff = 0;
 
 	public function __construct( string $bytes ) {
-		$this->decoder = new Shouter_Binary_Decoder( $bytes );
+		$this->decoder = new Gutenberg_Yjs_Binary_Decoder( $bytes );
 	}
 
 	public function read(): int {
@@ -471,12 +471,12 @@ class Shouter_Int_Diff_Opt_Rle_Decoder {
 /**
  * lib0 StringEncoder.
  */
-class Shouter_String_Encoder {
-	private Shouter_Uint_Opt_Rle_Encoder $lengths;
+class Gutenberg_Yjs_String_Encoder {
+	private Gutenberg_Yjs_Uint_Opt_Rle_Encoder $lengths;
 	private string $buffer = '';
 
 	public function __construct() {
-		$this->lengths = new Shouter_Uint_Opt_Rle_Encoder();
+		$this->lengths = new Gutenberg_Yjs_Uint_Opt_Rle_Encoder();
 	}
 
 	public function write( string $value ): void {
@@ -485,7 +485,7 @@ class Shouter_String_Encoder {
 	}
 
 	public function to_string(): string {
-		$encoder = new Shouter_Binary_Encoder();
+		$encoder = new Gutenberg_Yjs_Binary_Encoder();
 		$encoder->write_var_string( $this->buffer );
 		$encoder->write_bytes( $this->lengths->to_string() );
 		return $encoder->to_string();
@@ -495,15 +495,15 @@ class Shouter_String_Encoder {
 /**
  * lib0 StringDecoder.
  */
-class Shouter_String_Decoder {
-	private Shouter_Uint_Opt_Rle_Decoder $lengths;
+class Gutenberg_Yjs_String_Decoder {
+	private Gutenberg_Yjs_Uint_Opt_Rle_Decoder $lengths;
 	private string $string;
 	private int $offset = 0;
 
 	public function __construct( string $bytes ) {
-		$decoder       = new Shouter_Binary_Decoder( $bytes );
+		$decoder       = new Gutenberg_Yjs_Binary_Decoder( $bytes );
 		$this->string  = $decoder->read_var_string();
-		$this->lengths = new Shouter_Uint_Opt_Rle_Decoder( $decoder );
+		$this->lengths = new Gutenberg_Yjs_Uint_Opt_Rle_Decoder( $decoder );
 	}
 
 	public function read(): string {
@@ -517,29 +517,29 @@ class Shouter_String_Decoder {
 /**
  * Minimal Yjs updateV2 encoder.
  */
-class Shouter_Yjs_Update_V2_Encoder {
-	private Shouter_Binary_Encoder $rest_encoder;
-	private Shouter_Int_Diff_Opt_Rle_Encoder $key_clock_encoder;
-	private Shouter_Uint_Opt_Rle_Encoder $client_encoder;
-	private Shouter_Int_Diff_Opt_Rle_Encoder $left_clock_encoder;
-	private Shouter_Int_Diff_Opt_Rle_Encoder $right_clock_encoder;
-	private Shouter_Rle_Encoder $info_encoder;
-	private Shouter_String_Encoder $string_encoder;
-	private Shouter_Rle_Encoder $parent_info_encoder;
-	private Shouter_Uint_Opt_Rle_Encoder $type_ref_encoder;
-	private Shouter_Uint_Opt_Rle_Encoder $len_encoder;
+class Gutenberg_Yjs_Update_V2_Encoder {
+	private Gutenberg_Yjs_Binary_Encoder $rest_encoder;
+	private Gutenberg_Yjs_Int_Diff_Opt_Rle_Encoder $key_clock_encoder;
+	private Gutenberg_Yjs_Uint_Opt_Rle_Encoder $client_encoder;
+	private Gutenberg_Yjs_Int_Diff_Opt_Rle_Encoder $left_clock_encoder;
+	private Gutenberg_Yjs_Int_Diff_Opt_Rle_Encoder $right_clock_encoder;
+	private Gutenberg_Yjs_Rle_Encoder $info_encoder;
+	private Gutenberg_Yjs_String_Encoder $string_encoder;
+	private Gutenberg_Yjs_Rle_Encoder $parent_info_encoder;
+	private Gutenberg_Yjs_Uint_Opt_Rle_Encoder $type_ref_encoder;
+	private Gutenberg_Yjs_Uint_Opt_Rle_Encoder $len_encoder;
 
 	public function __construct() {
-		$this->rest_encoder        = new Shouter_Binary_Encoder();
-		$this->key_clock_encoder   = new Shouter_Int_Diff_Opt_Rle_Encoder();
-		$this->client_encoder      = new Shouter_Uint_Opt_Rle_Encoder();
-		$this->left_clock_encoder  = new Shouter_Int_Diff_Opt_Rle_Encoder();
-		$this->right_clock_encoder = new Shouter_Int_Diff_Opt_Rle_Encoder();
-		$this->info_encoder        = new Shouter_Rle_Encoder();
-		$this->string_encoder      = new Shouter_String_Encoder();
-		$this->parent_info_encoder = new Shouter_Rle_Encoder();
-		$this->type_ref_encoder    = new Shouter_Uint_Opt_Rle_Encoder();
-		$this->len_encoder         = new Shouter_Uint_Opt_Rle_Encoder();
+		$this->rest_encoder        = new Gutenberg_Yjs_Binary_Encoder();
+		$this->key_clock_encoder   = new Gutenberg_Yjs_Int_Diff_Opt_Rle_Encoder();
+		$this->client_encoder      = new Gutenberg_Yjs_Uint_Opt_Rle_Encoder();
+		$this->left_clock_encoder  = new Gutenberg_Yjs_Int_Diff_Opt_Rle_Encoder();
+		$this->right_clock_encoder = new Gutenberg_Yjs_Int_Diff_Opt_Rle_Encoder();
+		$this->info_encoder        = new Gutenberg_Yjs_Rle_Encoder();
+		$this->string_encoder      = new Gutenberg_Yjs_String_Encoder();
+		$this->parent_info_encoder = new Gutenberg_Yjs_Rle_Encoder();
+		$this->type_ref_encoder    = new Gutenberg_Yjs_Uint_Opt_Rle_Encoder();
+		$this->len_encoder         = new Gutenberg_Yjs_Uint_Opt_Rle_Encoder();
 	}
 
 	public function write_rest_var_uint( int $value ): void {
@@ -588,7 +588,7 @@ class Shouter_Yjs_Update_V2_Encoder {
 	}
 
 	public function to_string(): string {
-		$encoder = new Shouter_Binary_Encoder();
+		$encoder = new Gutenberg_Yjs_Binary_Encoder();
 		$encoder->write_var_uint( 0 );
 		$encoder->write_var_uint8_array( $this->key_clock_encoder->to_string() );
 		$encoder->write_var_uint8_array( $this->client_encoder->to_string() );
@@ -607,17 +607,17 @@ class Shouter_Yjs_Update_V2_Encoder {
 /**
  * Minimal Yjs updateV2 decoder.
  */
-class Shouter_Yjs_Update_V2_Decoder {
-	private Shouter_Binary_Decoder $rest_decoder;
-	private Shouter_Int_Diff_Opt_Rle_Decoder $key_clock_decoder;
-	private Shouter_Uint_Opt_Rle_Decoder $client_decoder;
-	private Shouter_Int_Diff_Opt_Rle_Decoder $left_clock_decoder;
-	private Shouter_Int_Diff_Opt_Rle_Decoder $right_clock_decoder;
-	private Shouter_Rle_Decoder $info_decoder;
-	private Shouter_String_Decoder $string_decoder;
-	private Shouter_Rle_Decoder $parent_info_decoder;
-	private Shouter_Uint_Opt_Rle_Decoder $type_ref_decoder;
-	private Shouter_Uint_Opt_Rle_Decoder $len_decoder;
+class Gutenberg_Yjs_Update_V2_Decoder {
+	private Gutenberg_Yjs_Binary_Decoder $rest_decoder;
+	private Gutenberg_Yjs_Int_Diff_Opt_Rle_Decoder $key_clock_decoder;
+	private Gutenberg_Yjs_Uint_Opt_Rle_Decoder $client_decoder;
+	private Gutenberg_Yjs_Int_Diff_Opt_Rle_Decoder $left_clock_decoder;
+	private Gutenberg_Yjs_Int_Diff_Opt_Rle_Decoder $right_clock_decoder;
+	private Gutenberg_Yjs_Rle_Decoder $info_decoder;
+	private Gutenberg_Yjs_String_Decoder $string_decoder;
+	private Gutenberg_Yjs_Rle_Decoder $parent_info_decoder;
+	private Gutenberg_Yjs_Uint_Opt_Rle_Decoder $type_ref_decoder;
+	private Gutenberg_Yjs_Uint_Opt_Rle_Decoder $len_decoder;
 
 	/**
 	 * @var array<int, string>
@@ -625,19 +625,19 @@ class Shouter_Yjs_Update_V2_Decoder {
 	private array $keys = array();
 
 	public function __construct( string $update ) {
-		$decoder = new Shouter_Binary_Decoder( $update );
+		$decoder = new Gutenberg_Yjs_Binary_Decoder( $update );
 		$decoder->read_var_uint(); // feature flag.
 
-		$this->key_clock_decoder   = new Shouter_Int_Diff_Opt_Rle_Decoder( $decoder->read_var_uint8_array() );
-		$this->client_decoder      = new Shouter_Uint_Opt_Rle_Decoder( $decoder->read_var_uint8_array() );
-		$this->left_clock_decoder  = new Shouter_Int_Diff_Opt_Rle_Decoder( $decoder->read_var_uint8_array() );
-		$this->right_clock_decoder = new Shouter_Int_Diff_Opt_Rle_Decoder( $decoder->read_var_uint8_array() );
-		$this->info_decoder        = new Shouter_Rle_Decoder( $decoder->read_var_uint8_array() );
-		$this->string_decoder      = new Shouter_String_Decoder( $decoder->read_var_uint8_array() );
-		$this->parent_info_decoder = new Shouter_Rle_Decoder( $decoder->read_var_uint8_array() );
-		$this->type_ref_decoder    = new Shouter_Uint_Opt_Rle_Decoder( $decoder->read_var_uint8_array() );
-		$this->len_decoder         = new Shouter_Uint_Opt_Rle_Decoder( $decoder->read_var_uint8_array() );
-		$this->rest_decoder        = new Shouter_Binary_Decoder( $decoder->read_remaining_bytes() );
+		$this->key_clock_decoder   = new Gutenberg_Yjs_Int_Diff_Opt_Rle_Decoder( $decoder->read_var_uint8_array() );
+		$this->client_decoder      = new Gutenberg_Yjs_Uint_Opt_Rle_Decoder( $decoder->read_var_uint8_array() );
+		$this->left_clock_decoder  = new Gutenberg_Yjs_Int_Diff_Opt_Rle_Decoder( $decoder->read_var_uint8_array() );
+		$this->right_clock_decoder = new Gutenberg_Yjs_Int_Diff_Opt_Rle_Decoder( $decoder->read_var_uint8_array() );
+		$this->info_decoder        = new Gutenberg_Yjs_Rle_Decoder( $decoder->read_var_uint8_array() );
+		$this->string_decoder      = new Gutenberg_Yjs_String_Decoder( $decoder->read_var_uint8_array() );
+		$this->parent_info_decoder = new Gutenberg_Yjs_Rle_Decoder( $decoder->read_var_uint8_array() );
+		$this->type_ref_decoder    = new Gutenberg_Yjs_Uint_Opt_Rle_Decoder( $decoder->read_var_uint8_array() );
+		$this->len_decoder         = new Gutenberg_Yjs_Uint_Opt_Rle_Decoder( $decoder->read_var_uint8_array() );
+		$this->rest_decoder        = new Gutenberg_Yjs_Binary_Decoder( $decoder->read_remaining_bytes() );
 	}
 
 	public function read_left_id(): array {
@@ -704,8 +704,8 @@ class Shouter_Yjs_Update_V2_Decoder {
  *
  * @return array<string, mixed>
  */
-function shouter_yjs_decode_update_v2( string $update ): array {
-	$decoder       = new Shouter_Yjs_Update_V2_Decoder( $update );
+function gutenberg_yjs_decode_update_v2( string $update ): array {
+	$decoder       = new Gutenberg_Yjs_Update_V2_Decoder( $update );
 	$state_count   = $decoder->read_rest_var_uint();
 	$client_blocks = array();
 	$structs       = array();
@@ -769,7 +769,7 @@ function shouter_yjs_decode_update_v2( string $update ): array {
 					}
 				}
 
-				$content = shouter_yjs_decode_item_content( $decoder, $content_ref );
+				$content = gutenberg_yjs_decode_item_content( $decoder, $content_ref );
 				$length  = $content['length'];
 				$struct  = array(
 					'kind'          => 'item',
@@ -810,14 +810,14 @@ function shouter_yjs_decode_update_v2( string $update ): array {
  *
  * @return array<string, mixed>
  */
-function shouter_yjs_decode_item_content( Shouter_Yjs_Update_V2_Decoder $decoder, int $content_ref ): array {
+function gutenberg_yjs_decode_item_content( Gutenberg_Yjs_Update_V2_Decoder $decoder, int $content_ref ): array {
 	switch ( $content_ref ) {
 		case 4:
 			$text = $decoder->read_string();
 			return array(
 				'type'   => 'string',
 				'value'  => $text,
-				'length' => shouter_yjs_utf16_clock_len( $text ),
+				'length' => gutenberg_yjs_utf16_clock_len( $text ),
 			);
 		case 7:
 			$type_ref = $decoder->read_type_ref();
@@ -854,46 +854,46 @@ function shouter_yjs_decode_item_content( Shouter_Yjs_Update_V2_Decoder $decoder
 
 /**
  * Encodes a fresh document containing one paragraph block. This is primarily a
- * byte-for-byte fixture target while the generic update builder is developed.
+ * byte-for-byte fixture target.
  */
-function shouter_yjs_encode_single_paragraph_document_update_v2( int $client_id, string $paragraph_text, string $block_client_id ): string {
-	$encoder = new Shouter_Yjs_Update_V2_Encoder();
+function gutenberg_yjs_encode_single_paragraph_document_update_v2( int $client_id, string $paragraph_text, string $block_client_id ): string {
+	$encoder = new Gutenberg_Yjs_Update_V2_Encoder();
 
 	$encoder->write_rest_var_uint( 1 ); // one client state.
 	$encoder->write_rest_var_uint( 8 ); // eight structs.
 	$encoder->write_client( $client_id );
 	$encoder->write_rest_var_uint( 0 ); // start clock.
 
-	shouter_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'root', 'key' => 'document' ), 'blocks', function ( Shouter_Yjs_Update_V2_Encoder $encoder ): void {
+	gutenberg_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'root', 'key' => 'document' ), 'blocks', function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ): void {
 		$encoder->write_type_ref( 0 ); // Y.Array.
 	} );
 
-	shouter_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 0 ), null, function ( Shouter_Yjs_Update_V2_Encoder $encoder ): void {
+	gutenberg_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 0 ), null, function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ): void {
 		$encoder->write_type_ref( 1 ); // Y.Map.
 	} );
 
-	shouter_yjs_write_item( $encoder, 8, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 1 ), 'name', function ( Shouter_Yjs_Update_V2_Encoder $encoder ): void {
+	gutenberg_yjs_write_item( $encoder, 8, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 1 ), 'name', function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ): void {
 		$encoder->write_len( 1 );
 		$encoder->write_any( 'core/paragraph' );
 	} );
 
-	shouter_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 1 ), 'attributes', function ( Shouter_Yjs_Update_V2_Encoder $encoder ): void {
+	gutenberg_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 1 ), 'attributes', function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ): void {
 		$encoder->write_type_ref( 1 ); // Y.Map.
 	} );
 
-	shouter_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 3 ), 'content', function ( Shouter_Yjs_Update_V2_Encoder $encoder ): void {
+	gutenberg_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 3 ), 'content', function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ): void {
 		$encoder->write_type_ref( 2 ); // Y.Text.
 	} );
 
-	shouter_yjs_write_item( $encoder, 4, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 4 ), null, function ( Shouter_Yjs_Update_V2_Encoder $encoder ) use ( $paragraph_text ): void {
+	gutenberg_yjs_write_item( $encoder, 4, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 4 ), null, function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ) use ( $paragraph_text ): void {
 		$encoder->write_string( $paragraph_text );
 	} );
 
-	shouter_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 1 ), 'innerBlocks', function ( Shouter_Yjs_Update_V2_Encoder $encoder ): void {
+	gutenberg_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 1 ), 'innerBlocks', function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ): void {
 		$encoder->write_type_ref( 0 ); // Y.Array.
 	} );
 
-	shouter_yjs_write_item( $encoder, 8, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 1 ), 'clientId', function ( Shouter_Yjs_Update_V2_Encoder $encoder ) use ( $block_client_id ): void {
+	gutenberg_yjs_write_item( $encoder, 8, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => 1 ), 'clientId', function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ) use ( $block_client_id ): void {
 		$encoder->write_len( 1 );
 		$encoder->write_any( $block_client_id );
 	} );
@@ -914,8 +914,8 @@ function shouter_yjs_encode_single_paragraph_document_update_v2( int $client_id,
  * @param int    $left_origin_clock   Clock of the block item to insert after.
  * @return string Binary updateV2 bytes.
  */
-function shouter_yjs_encode_paragraph_insert_after_update_v2( int $client_id, string $paragraph_text, string $block_client_id, int $left_origin_client, int $left_origin_clock, int $start_clock = 0, ?array $right_origin = null, ?array $content_insert = null ): string {
-	$encoder = new Shouter_Yjs_Update_V2_Encoder();
+function gutenberg_yjs_encode_paragraph_insert_after_update_v2( int $client_id, string $paragraph_text, string $block_client_id, int $left_origin_client, int $left_origin_clock, int $start_clock = 0, ?array $right_origin = null, ?array $content_insert = null ): string {
+	$encoder = new Gutenberg_Yjs_Update_V2_Encoder();
 	$has_text = '' !== $paragraph_text;
 	$has_content_insert = is_array( $content_insert ) && ! empty( $content_insert['text'] ) && ! empty( $content_insert['parent'] );
 
@@ -924,7 +924,7 @@ function shouter_yjs_encode_paragraph_insert_after_update_v2( int $client_id, st
 	$encoder->write_client( $client_id );
 	$encoder->write_rest_var_uint( $start_clock );
 
-	shouter_yjs_write_item(
+	gutenberg_yjs_write_item(
 		$encoder,
 		7,
 		array(
@@ -934,16 +934,16 @@ function shouter_yjs_encode_paragraph_insert_after_update_v2( int $client_id, st
 		$right_origin,
 		array(),
 		null,
-		function ( Shouter_Yjs_Update_V2_Encoder $encoder ): void {
+		function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ): void {
 			$encoder->write_type_ref( 1 ); // Y.Map block.
 		}
 	);
 
-	shouter_yjs_write_paragraph_block_fields( $encoder, $client_id, $paragraph_text, $block_client_id, $start_clock );
+	gutenberg_yjs_write_paragraph_block_fields( $encoder, $client_id, $paragraph_text, $block_client_id, $start_clock );
 
 	if ( $has_content_insert ) {
 		$parent = $content_insert['parent'];
-		shouter_yjs_write_item(
+		gutenberg_yjs_write_item(
 			$encoder,
 			4,
 			isset( $content_insert['origin'] ) && is_array( $content_insert['origin'] ) ? $content_insert['origin'] : null,
@@ -954,7 +954,7 @@ function shouter_yjs_encode_paragraph_insert_after_update_v2( int $client_id, st
 				'clock'  => (int) $parent['clock'],
 			),
 			null,
-			function ( Shouter_Yjs_Update_V2_Encoder $encoder ) use ( $content_insert ): void {
+			function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ) use ( $content_insert ): void {
 				$encoder->write_string( (string) $content_insert['text'] );
 			}
 		);
@@ -968,7 +968,7 @@ function shouter_yjs_encode_paragraph_insert_after_update_v2( int $client_id, st
 /**
  * Writes the nested fields for a newly inserted paragraph block map.
  */
-function shouter_yjs_write_paragraph_block_fields( Shouter_Yjs_Update_V2_Encoder $encoder, int $client_id, string $paragraph_text, string $block_client_id, int $block_clock ): void {
+function gutenberg_yjs_write_paragraph_block_fields( Gutenberg_Yjs_Update_V2_Encoder $encoder, int $client_id, string $paragraph_text, string $block_client_id, int $block_clock ): void {
 	$name_clock          = $block_clock + 1;
 	$is_valid_clock      = $name_clock + 1;
 	$attributes_clock    = $is_valid_clock + 1;
@@ -976,40 +976,40 @@ function shouter_yjs_write_paragraph_block_fields( Shouter_Yjs_Update_V2_Encoder
 
 	unset( $name_clock, $is_valid_clock );
 
-	shouter_yjs_write_item( $encoder, 8, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $block_clock ), 'name', function ( Shouter_Yjs_Update_V2_Encoder $encoder ): void {
+	gutenberg_yjs_write_item( $encoder, 8, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $block_clock ), 'name', function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ): void {
 		$encoder->write_len( 1 );
 		$encoder->write_any( 'core/paragraph' );
 	} );
 
-	shouter_yjs_write_item( $encoder, 8, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $block_clock ), 'isValid', function ( Shouter_Yjs_Update_V2_Encoder $encoder ): void {
+	gutenberg_yjs_write_item( $encoder, 8, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $block_clock ), 'isValid', function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ): void {
 		$encoder->write_len( 1 );
 		$encoder->write_any( true );
 	} );
 
-	shouter_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $block_clock ), 'attributes', function ( Shouter_Yjs_Update_V2_Encoder $encoder ): void {
+	gutenberg_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $block_clock ), 'attributes', function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ): void {
 		$encoder->write_type_ref( 1 ); // Y.Map.
 	} );
 
-	shouter_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $attributes_clock ), 'content', function ( Shouter_Yjs_Update_V2_Encoder $encoder ): void {
+	gutenberg_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $attributes_clock ), 'content', function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ): void {
 		$encoder->write_type_ref( 2 ); // Y.Text.
 	} );
 
 	if ( '' !== $paragraph_text ) {
-		shouter_yjs_write_item( $encoder, 4, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $content_type_clock ), null, function ( Shouter_Yjs_Update_V2_Encoder $encoder ) use ( $paragraph_text ): void {
+		gutenberg_yjs_write_item( $encoder, 4, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $content_type_clock ), null, function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ) use ( $paragraph_text ): void {
 			$encoder->write_string( $paragraph_text );
 		} );
 	}
 
-	shouter_yjs_write_item( $encoder, 8, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $attributes_clock ), 'dropCap', function ( Shouter_Yjs_Update_V2_Encoder $encoder ): void {
+	gutenberg_yjs_write_item( $encoder, 8, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $attributes_clock ), 'dropCap', function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ): void {
 		$encoder->write_len( 1 );
 		$encoder->write_any( false );
 	} );
 
-	shouter_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $block_clock ), 'innerBlocks', function ( Shouter_Yjs_Update_V2_Encoder $encoder ): void {
+	gutenberg_yjs_write_item( $encoder, 7, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $block_clock ), 'innerBlocks', function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ): void {
 		$encoder->write_type_ref( 0 ); // Y.Array.
 	} );
 
-	shouter_yjs_write_item( $encoder, 8, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $block_clock ), 'clientId', function ( Shouter_Yjs_Update_V2_Encoder $encoder ) use ( $block_client_id ): void {
+	gutenberg_yjs_write_item( $encoder, 8, null, null, array( 'type' => 'id', 'client' => $client_id, 'clock' => $block_clock ), 'clientId', function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ) use ( $block_client_id ): void {
 		$encoder->write_len( 1 );
 		$encoder->write_any( $block_client_id );
 	} );
@@ -1018,7 +1018,7 @@ function shouter_yjs_write_paragraph_block_fields( Shouter_Yjs_Update_V2_Encoder
 /**
  * Gets the Yjs clock length for a JS string, measured in UTF-16 code units.
  */
-function shouter_yjs_utf16_clock_len( string $value ): int {
+function gutenberg_yjs_utf16_clock_len( string $value ): int {
 	if ( function_exists( 'mb_convert_encoding' ) ) {
 		return intdiv( strlen( mb_convert_encoding( $value, 'UTF-16LE', 'UTF-8' ) ), 2 );
 	}
@@ -1028,12 +1028,12 @@ function shouter_yjs_utf16_clock_len( string $value ): int {
 
 /**
  * Gets the number of Yjs client-clock ticks consumed by one inserted paragraph
- * block generated by shouter_yjs_encode_paragraph_insert_after_update_v2().
+ * block generated by gutenberg_yjs_encode_paragraph_insert_after_update_v2().
  */
-function shouter_yjs_paragraph_insert_clock_len( string $paragraph_text, ?array $content_insert = null ): int {
-	$length = 8 + shouter_yjs_utf16_clock_len( $paragraph_text );
+function gutenberg_yjs_paragraph_insert_clock_len( string $paragraph_text, ?array $content_insert = null ): int {
+	$length = 8 + gutenberg_yjs_utf16_clock_len( $paragraph_text );
 	if ( is_array( $content_insert ) && isset( $content_insert['text'] ) ) {
-		$length += shouter_yjs_utf16_clock_len( (string) $content_insert['text'] );
+		$length += gutenberg_yjs_utf16_clock_len( (string) $content_insert['text'] );
 	}
 
 	return $length;
@@ -1042,7 +1042,7 @@ function shouter_yjs_paragraph_insert_clock_len( string $paragraph_text, ?array 
 /**
  * Writes a Yjs Item struct.
  *
- * @param Shouter_Yjs_Update_V2_Encoder $encoder       Encoder.
+ * @param Gutenberg_Yjs_Update_V2_Encoder $encoder       Encoder.
  * @param int                           $content_ref   Yjs content ref.
  * @param array<string, int>|null        $origin        Left origin ID.
  * @param array<string, int>|null        $right_origin  Right origin ID.
@@ -1050,7 +1050,7 @@ function shouter_yjs_paragraph_insert_clock_len( string $paragraph_text, ?array 
  * @param string|null                    $parent_sub    Map key.
  * @param callable                       $write_content Content writer.
  */
-function shouter_yjs_write_item( Shouter_Yjs_Update_V2_Encoder $encoder, int $content_ref, ?array $origin, ?array $right_origin, array $parent, ?string $parent_sub, callable $write_content ): void {
+function gutenberg_yjs_write_item( Gutenberg_Yjs_Update_V2_Encoder $encoder, int $content_ref, ?array $origin, ?array $right_origin, array $parent, ?string $parent_sub, callable $write_content ): void {
 	$info = $content_ref & 0x1f;
 	if ( null !== $origin ) {
 		$info |= 0x80;

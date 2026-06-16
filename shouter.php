@@ -20,7 +20,7 @@ const SHOUTER_ROOM_STATE_META_KEY = '_shouter_room_state';
 const SHOUTER_AWARENESS_NUDGE_TTL = 20;
 const SHOUTER_ROOM_STATE_SCHEMA_VERSION = 2;
 
-require_once __DIR__ . '/includes/yjs-update-v2.php';
+require_once __DIR__ . '/includes/gutenberg-yjs-update-v2.php';
 
 add_action( 'admin_init', 'shouter_register_settings' );
 add_action( 'admin_menu', 'shouter_register_settings_page' );
@@ -273,7 +273,7 @@ function shouter_emit_bot_paragraph_after( int $post_id, string $room, string $s
 	$start_clock   = shouter_get_bot_clock( $post_id, $bot_client_id );
 	$block_id      = wp_generate_uuid4();
 	$content_insert = shouter_build_content_insert_for_shouted_paragraph( $post_id, $shouted_text, $source_text );
-	$update        = shouter_yjs_encode_paragraph_insert_after_update_v2(
+	$update        = gutenberg_yjs_encode_paragraph_insert_after_update_v2(
 		$bot_client_id,
 		$shouted_text,
 		$block_id,
@@ -316,7 +316,7 @@ function shouter_emit_bot_paragraph_after( int $post_id, string $room, string $s
 
 	try {
 		$state   = shouter_get_room_state( $post_id );
-		$decoded = shouter_yjs_decode_update_v2( $update );
+		$decoded = gutenberg_yjs_decode_update_v2( $update );
 		shouter_apply_decoded_update_to_room_state( $state, $decoded );
 		shouter_set_room_state( $post_id, $state );
 	} catch ( RuntimeException $exception ) {
@@ -329,7 +329,7 @@ function shouter_emit_bot_paragraph_after( int $post_id, string $room, string $s
 		);
 	}
 
-	$clock_len = shouter_yjs_paragraph_insert_clock_len( $shouted_text, $content_insert );
+	$clock_len = gutenberg_yjs_paragraph_insert_clock_len( $shouted_text, $content_insert );
 	shouter_set_bot_clock( $post_id, $bot_client_id, $start_clock + $clock_len );
 
 	return array(
@@ -375,7 +375,7 @@ function shouter_build_bot_awareness( WP_User $bot_user, int $post_id, string $s
 						'item'  => null,
 						'assoc' => 0,
 					),
-					'absoluteOffset'   => shouter_yjs_utf16_clock_len( $shouted_text ),
+					'absoluteOffset'   => gutenberg_yjs_utf16_clock_len( $shouted_text ),
 					'attributeKey'     => 'content',
 				),
 			),
@@ -616,7 +616,7 @@ function shouter_respond_to_wp_sync_requests( $response, WP_REST_Server $server,
 			}
 
 			try {
-				$decoded = shouter_yjs_decode_update_v2( $binary );
+				$decoded = gutenberg_yjs_decode_update_v2( $binary );
 			} catch ( RuntimeException $exception ) {
 				shouter_log(
 					'bot-rtc-decode-error',
@@ -972,7 +972,7 @@ function shouter_room_state_note_text_item( array &$state, array $struct, string
 	$state['blocks'][ $block ]['content'] = (string) ( $state['blocks'][ $block ]['content'] ?? '' ) . $text;
 	$state['text_items_to_block'][ $id ]  = array(
 		'block'  => $block,
-		'length' => (int) ( $struct['length'] ?? shouter_yjs_utf16_clock_len( $text ) ),
+		'length' => (int) ( $struct['length'] ?? gutenberg_yjs_utf16_clock_len( $text ) ),
 		'origin' => isset( $struct['origin'] ) && is_array( $struct['origin'] ) ? $struct['origin'] : null,
 		'text'   => $text,
 	);
@@ -1062,11 +1062,11 @@ function shouter_room_state_note_root_content_item( array &$state, array $struct
 
 	$content = isset( $struct['content'] ) && is_array( $struct['content'] ) ? $struct['content'] : array();
 	$text    = isset( $content['value'] ) ? (string) $content['value'] : '';
-	$length  = (int) ( $struct['length'] ?? shouter_yjs_utf16_clock_len( $text ) );
+	$length  = (int) ( $struct['length'] ?? gutenberg_yjs_utf16_clock_len( $text ) );
 
 	$state['root_content'] .= $text;
 	$state['root_content_items'][ $id ] = array(
-		'offset' => shouter_yjs_utf16_clock_len( (string) $state['root_content'] ) - $length,
+		'offset' => gutenberg_yjs_utf16_clock_len( (string) $state['root_content'] ) - $length,
 		'length' => $length,
 		'text'   => $text,
 	);
@@ -1149,7 +1149,7 @@ function shouter_root_content_position_to_yjs_ids( array $state, int $offset ): 
 
 	$origin       = null;
 	$right_origin = null;
-	$utf16_offset = shouter_yjs_utf16_clock_len( substr( (string) ( $state['root_content'] ?? '' ), 0, $offset ) );
+	$utf16_offset = gutenberg_yjs_utf16_clock_len( substr( (string) ( $state['root_content'] ?? '' ), 0, $offset ) );
 
 	foreach ( $items as $item_key => $item ) {
 		$item_id = shouter_yjs_id_from_key( (string) $item_key );
@@ -1428,7 +1428,7 @@ function shouter_decode_update_entry( $update, string $room, int $client_id, int
 	if ( 'update' === $type || 'compaction' === $type ) {
 		$result['y_update_v2'] = shouter_decode_update_v2_summary( $reader );
 		try {
-			$result['y_update_v2_structs'] = shouter_summarize_decoded_yjs_update( shouter_yjs_decode_update_v2( $binary ) );
+			$result['y_update_v2_structs'] = shouter_summarize_decoded_yjs_update( gutenberg_yjs_decode_update_v2( $binary ) );
 		} catch ( RuntimeException $exception ) {
 			$result['y_update_v2_decode_error'] = $exception->getMessage();
 		}

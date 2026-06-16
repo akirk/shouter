@@ -220,11 +220,11 @@ This mattered because Gutenberg's `core-data` `editEntityRecord()` calls `getSyn
 
 For the bot itself to insert the shouted paragraph as another collaborator, PHP must generate a valid Gutenberg/Yjs updateV2 payload for the post CRDT document. The sync server stores and forwards update bytes, but it does not create or validate the semantic Yjs document mutation.
 
-Shouter now has a narrow PHP encoder for this path:
+Shouter now consumes a narrow, plugin-neutral PHP encoder library for this path:
 
-- `includes/yjs-update-v2.php` implements the lib0/Yjs updateV2 streams needed for `Y.Map`, `Y.Array`, `Y.Text`, `ContentType`, `ContentAny`, and `ContentString`.
-- `shouter_yjs_decode_update_v2()` decodes incoming updateV2 structs into PHP arrays with item IDs, origins, parent keys, map keys, and content values.
-- `shouter_yjs_encode_paragraph_insert_after_update_v2()` emits a paragraph block insertion after a known existing block item ID, optionally bounded by a right-origin item ID so the bot paragraph lands between the completed paragraph and the following empty paragraph.
+- `includes/gutenberg-yjs-update-v2.php` implements the lib0/Yjs updateV2 streams needed for `Y.Map`, `Y.Array`, `Y.Text`, `ContentType`, `ContentAny`, and `ContentString`.
+- `gutenberg_yjs_decode_update_v2()` decodes incoming updateV2 structs into PHP arrays with item IDs, origins, parent keys, map keys, and content values.
+- `gutenberg_yjs_encode_paragraph_insert_after_update_v2()` emits a paragraph block insertion after a known existing block item ID, optionally bounded by a right-origin item ID so the bot paragraph lands between the completed paragraph and the following empty paragraph.
 - `shouter_respond_to_wp_sync_requests()` runs after Gutenberg accepts `/wp-sync/v1/updates`, updates a lightweight PHP room-state index, detects a new empty paragraph after a known non-empty paragraph, and emits the shouted paragraph as the configured bot user.
 - Shouter submits a throttled bot awareness packet through `/wp-sync/v1/updates` before Gutenberg handles a post-room sync request, so the bot can appear as a collaborator as soon as the editor joins.
 - `shouter_emit_bot_paragraph_after()` submits that update to `/wp-sync/v1/updates` as the configured bot user and reports the bot cursor at the end of the inserted text via awareness.
