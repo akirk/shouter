@@ -1,5 +1,7 @@
 # Shouter
 
+[Try in Playground](https://playground.wordpress.net/?blueprint-url=https%3A%2F%2Fraw.githubusercontent.com%2Fakirk%2Fshouter%2Frefs%2Fheads%2Fmain%2Fblueprint.json)
+
 Shouter is a WordPress/Gutenberg prototype for exploring whether a PHP-only bot can participate in Gutenberg's RTC sync stream and insert a follow-up paragraph that repeats a user's completed paragraph in uppercase, with punctuation replaced by exclamation marks.
 
 For example:
