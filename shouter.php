@@ -17,7 +17,7 @@ const SHOUTER_OPTION_BOT_USER_ID = 'shouter_bot_user_id';
 const SHOUTER_BOT_CLOCK_META_KEY = '_shouter_bot_clock';
 const SHOUTER_ROOM_STATE_META_KEY = '_shouter_room_state';
 const SHOUTER_AWARENESS_NUDGE_TTL = 20;
-const SHOUTER_ROOM_STATE_SCHEMA_VERSION = 2;
+const SHOUTER_ROOM_STATE_SCHEMA_VERSION = 3;
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/includes/gutenberg-yjs-update-v2.php';

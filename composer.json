@@ -3,15 +3,6 @@
 	"description": "PHP-only Gutenberg RTC paragraph shouter prototype.",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
-	"repositories": [
-		{
-			"type": "path",
-			"url": "../yjs-php",
-			"options": {
-				"symlink": true
-			}
-		}
-	],
 	"require": {
 		"php": ">=8.1",
 		"yjs/yjs-php": "dev-trunk"
