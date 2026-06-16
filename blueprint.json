@@ -1,0 +1,41 @@
+{
+  "steps": [
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "gutenberg"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "git:directory",
+        "url": "https://github.com/akirk/shouter",
+        "ref": "HEAD"
+      },
+      "options": {
+        "activate": true,
+        "targetFolderName": "shouter"
+      }
+    },
+    {
+      "step": "defineWpConfigConsts",
+      "consts": {
+        "WP_ALLOW_COLLABORATION": true
+      }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once '/wordpress/wp-load.php'; $data = array( 'user_login' => 'shouter', 'user_pass' => 'password', 'role' => 'administrator', 'display_name' => 'Shouter',); wp_insert_user( $data ); ?>"
+    }
+  ],
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "meta": {
+    "title": "Shouter Bot in Real Time Collaboration",
+    "author": "Alex Kirk"
+  }
+}
