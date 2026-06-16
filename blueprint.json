@@ -1,4 +1,5 @@
 {
+  "landingPage": "/wp-admin/post-new.php",
   "steps": [
     {
       "step": "installPlugin",
@@ -20,6 +21,9 @@
       "options": {
         "activate": true,
         "targetFolderName": "shouter"
+      },
+      "progress": {
+        "caption": "Installing plugin from GitHub: akirk/shouter"
       }
     },
     {
@@ -30,12 +34,21 @@
     },
     {
       "step": "runPHP",
-      "code": "<?php require_once '/wordpress/wp-load.php'; $data = array( 'user_login' => 'shouter', 'user_pass' => 'password', 'role' => 'administrator', 'display_name' => 'Shouter',); wp_insert_user( $data ); ?>"
+      "code": "<?php require_once '/wordpress/wp-load.php'; $data = array( 'user_login' => 'shouter', 'user_pass' => 'password', 'role' => 'administrator', 'display_name' => 'Shouter',); wp_insert_user( $data ); ?>",
+      "progress": {
+        "caption": "createUser: shouter"
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "shouter_bot_user_id": "2"
+      }
     }
   ],
   "$schema": "https://playground.wordpress.net/blueprint-schema.json",
   "meta": {
-    "title": "Shouter Bot in Real Time Collaboration",
-    "author": "Alex Kirk"
+    "title": "Shouter",
+    "author": "https://github.com/akirk/playground-step-library"
   }
 }

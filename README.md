@@ -237,7 +237,9 @@ The encoder has been verified byte-for-byte against official Yjs for a canonical
 
 The WordPress REST path has also been verified with a synthetic `/wp-sync/v1/updates` request. The request submitted two user-authored updateV2 payloads (`hello`, then a following empty paragraph). Shouter decoded those updates, emitted a second `/wp-sync/v1/updates` request as the configured bot user, and the logged bot update decoded as a paragraph containing `HELLO` with the expected left and right Yjs origins.
 
-The remaining verification gap is live Gutenberg editor traffic on a post the configured bot user can edit. Recent solo-editor logs showed Shouter attempting the PHP-only awareness nudge, but WordPress rejected it for posts authored by another user because the configured bot user currently has the `author` role.
+Live Gutenberg logs on post `39460` also show the PHP-only path emitting bot-authored RTC updates. One early insert exposed a stale room-state/reconstruction bug and produced scrambled text (`HOW ARE OYYOU!`). After adding schema-versioned room-state reset, origin-based text reconstruction, and root `document.content` insertion, a later bot update decoded as a 10-struct paragraph insert containing `GOOD!`, `isValid: true`, `attributes.dropCap: false`, a matching `document.content` string insert, and bot awareness with the cursor at the end of the inserted text.
+
+The main remaining verification caveat is live documents with old Shouter room history. Existing posts that already contain pre-fix `_shouter_room_state` data or bot clock history can still show artifacts from earlier experiments. A fresh post, or a post whose Shouter room state has been rebuilt from current Gutenberg updates, is the cleanest live validation target.
 
 ## Current scope and edge cases
 
@@ -254,41 +256,12 @@ The responder is intentionally narrow:
 
 There is also a likely reactivation detail after renaming the main plugin file to `shouter.php`: WordPress tracks active plugins by plugin basename, so an install that had `gutenberg-yjs-probe/gutenberg-yjs-probe.php` active may need `gutenberg-yjs-probe/shouter.php` activated.
 
-## Next instrumentation step
+## Next verification step
 
-To dissect canonical block tasks, the editor probe should log block-level diffs in addition to text diffs.
+The next clean validation should use a fresh Gutenberg post that the configured bot user can edit:
 
-For each editor state change, capture:
-
-- Block order.
-- Block `clientId`.
-- Block `name`, for example `core/paragraph` or `core/image`.
-- Block `attributes`.
-- Inner block structure.
-- Serialized block markup from `wp.blocks.serialize( blocks )`.
-
-Expected result for image insertion:
-
-The next probe should show a new or replaced block with:
-
-```json
-{
-  "name": "core/image",
-  "attributes": {}
-}
-```
-
-or, after media selection:
-
-```json
-{
-  "name": "core/image",
-  "attributes": {
-    "id": 123,
-    "url": "...",
-    "alt": "..."
-  }
-}
-```
-
-This would give the PHP log enough information to distinguish text edits, paragraph splits, slash-command replacement, block insertion, and later image attribute updates.
+- Open the post editor and confirm Shouter emits bot awareness immediately through `/wp-sync/v1/updates`.
+- Type a paragraph and press Enter to create the following empty paragraph.
+- Confirm the log shows a user-authored empty paragraph update followed by `bot-rtc-auto-insert` with a bot-authored update.
+- Confirm the decoded bot update includes the shouted paragraph text, `isValid: true`, `attributes.dropCap: false`, and a matching `document.content` insert.
+- Confirm both the visual editor and code editor represent the same inserted paragraph.

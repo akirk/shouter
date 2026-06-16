@@ -94,7 +94,7 @@ function shouter_render_settings_page(): void {
 	?>
 	<div class="wrap">
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-		<p><?php esc_html_e( 'Choose the WordPress user Shouter should use when emitting RTC updates. The PHP-only RTC emitter still needs to generate Gutenberg/Yjs updates before this user can appear as a distinct collaborator.', 'shouter' ); ?></p>
+		<p><?php esc_html_e( 'Choose the WordPress user Shouter should use when emitting PHP-generated Gutenberg RTC updates and awareness.', 'shouter' ); ?></p>
 		<form method="post" action="options.php">
 			<?php
 			settings_fields( 'shouter' );
