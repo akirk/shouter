@@ -233,7 +233,6 @@ Shouter now consumes a narrow, plugin-neutral PHP encoder library for this path:
 - Bot paragraph updates now mirror Gutenberg's paragraph map shape more closely by including `isValid: true` and `attributes.dropCap: false`.
 - When the root `document.content` Y.Text is known, Shouter can include a matching serialized paragraph string item so the code editor content can converge with the visual block tree.
 - Incoming paragraph text is reconstructed from Yjs item origins instead of request order, so middle insertions or out-of-order text item delivery are less likely to produce scrambled shouted text.
-- `/wp-json/shouter/v1/insert-after` is a development endpoint for exercising that PHP-only RTC emission when the caller knows `left_origin_client` and `left_origin_clock`.
 
 The encoder has been verified byte-for-byte against official Yjs for a canonical single-paragraph document, and official Yjs can apply the PHP-generated right-origin-bounded update to turn an existing `[hello, ""]` blocks array into `[hello, HELLO, ""]`.
 

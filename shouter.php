@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const SHOUTER_REST_NAMESPACE = 'shouter/v1';
 const SHOUTER_OPTION_BOT_USER_ID = 'shouter_bot_user_id';
 const SHOUTER_BOT_CLOCK_META_KEY = '_shouter_bot_clock';
 const SHOUTER_ROOM_STATE_META_KEY = '_shouter_room_state';
@@ -24,7 +23,6 @@ require_once __DIR__ . '/includes/gutenberg-yjs-update-v2.php';
 
 add_action( 'admin_init', 'shouter_register_settings' );
 add_action( 'admin_menu', 'shouter_register_settings_page' );
-add_action( 'rest_api_init', 'shouter_register_rest_routes' );
 add_filter( 'rest_pre_dispatch', 'shouter_log_wp_sync_requests', 10, 3 );
 add_filter( 'rest_post_dispatch', 'shouter_respond_to_wp_sync_requests', 10, 3 );
 
@@ -420,71 +418,6 @@ function shouter_shout_text( string $text ): string {
 }
 
 /**
- * Registers REST routes.
- */
-function shouter_register_rest_routes(): void {
-	register_rest_route(
-		SHOUTER_REST_NAMESPACE,
-		'/updates',
-		array(
-			'methods'             => WP_REST_Server::CREATABLE,
-			'callback'            => 'shouter_handle_updates',
-			'permission_callback' => 'shouter_check_permissions',
-			'args'                => array(
-				'rooms' => array(
-					'required' => true,
-					'type'     => 'array',
-				),
-			),
-		)
-	);
-
-	register_rest_route(
-		SHOUTER_REST_NAMESPACE,
-		'/insert-after',
-		array(
-			'methods'             => WP_REST_Server::CREATABLE,
-			'callback'            => 'shouter_handle_insert_after',
-			'permission_callback' => 'shouter_check_permissions',
-			'args'                => array(
-				'post_id'            => array(
-					'required' => true,
-					'type'     => 'integer',
-				),
-				'room'               => array(
-					'required' => true,
-					'type'     => 'string',
-				),
-				'text'               => array(
-					'required' => true,
-					'type'     => 'string',
-				),
-				'left_origin_client' => array(
-					'required' => true,
-					'type'     => 'integer',
-				),
-				'left_origin_clock'  => array(
-					'required' => true,
-					'type'     => 'integer',
-				),
-				'right_origin_client' => array(
-					'required' => false,
-					'type'     => 'integer',
-				),
-				'right_origin_clock'  => array(
-					'required' => false,
-					'type'     => 'integer',
-				),
-				'shouted'            => array(
-					'required' => false,
-					'type'     => 'boolean',
-				),
-			),
-		)
-	);
-}
-
-/**
  * Passively logs real Gutenberg sync requests without intercepting them.
  *
  * @param mixed           $result  Response to replace requested version with.
@@ -667,103 +600,6 @@ function shouter_respond_to_wp_sync_requests( $response, WP_REST_Server $server,
 	}
 
 	return $response;
-}
-
-/**
- * Checks whether the current user may use the probe.
- *
- * @return true|WP_Error
- */
-function shouter_check_permissions() {
-	if ( current_user_can( 'edit_posts' ) ) {
-		return true;
-	}
-
-	return new WP_Error(
-		'shouter_forbidden',
-		__( 'You do not have permission to inspect sync updates.', 'shouter' ),
-		array( 'status' => rest_authorization_required_code() )
-	);
-}
-
-/**
- * Handles a Gutenberg-style rooms payload and logs decoded updates.
- *
- * @param WP_REST_Request $request Request object.
- * @return WP_REST_Response
- */
-function shouter_handle_updates( WP_REST_Request $request ): WP_REST_Response {
-	$rooms = shouter_get_request_rooms( $request );
-	if ( ! is_array( $rooms ) ) {
-		return new WP_REST_Response(
-			array(
-				'ok'    => false,
-				'error' => 'missing_rooms',
-			),
-			400
-		);
-	}
-
-	$results = shouter_decode_rooms_for_logging( $rooms );
-
-	return new WP_REST_Response(
-		array(
-			'ok'    => true,
-			'rooms' => $results,
-		),
-		200
-	);
-}
-
-/**
- * Development endpoint for emitting a PHP-generated bot RTC paragraph insert.
- *
- * @param WP_REST_Request $request Request object.
- * @return WP_REST_Response
- */
-function shouter_handle_insert_after( WP_REST_Request $request ): WP_REST_Response {
-	$text = (string) $request->get_param( 'text' );
-	if ( ! $request->get_param( 'shouted' ) ) {
-		$text = shouter_shout_text( $text );
-	}
-
-	$result = shouter_emit_bot_paragraph_after(
-		(int) $request->get_param( 'post_id' ),
-		(string) $request->get_param( 'room' ),
-		$text,
-		(int) $request->get_param( 'left_origin_client' ),
-		(int) $request->get_param( 'left_origin_clock' ),
-		null !== $request->get_param( 'right_origin_client' ) && null !== $request->get_param( 'right_origin_clock' )
-			? array(
-				'client' => (int) $request->get_param( 'right_origin_client' ),
-				'clock'  => (int) $request->get_param( 'right_origin_clock' ),
-			)
-			: null
-	);
-
-	shouter_log(
-		'bot-rtc-insert',
-		is_wp_error( $result )
-			? array(
-				'ok'      => false,
-				'code'    => $result->get_error_code(),
-				'message' => $result->get_error_message(),
-			)
-			: $result
-	);
-
-	if ( is_wp_error( $result ) ) {
-		return new WP_REST_Response(
-			array(
-				'ok'      => false,
-				'code'    => $result->get_error_code(),
-				'message' => $result->get_error_message(),
-			),
-			400
-		);
-	}
-
-	return new WP_REST_Response( $result, 200 );
 }
 
 /**
