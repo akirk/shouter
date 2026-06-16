@@ -19,6 +19,7 @@ const SHOUTER_ROOM_STATE_META_KEY = '_shouter_room_state';
 const SHOUTER_AWARENESS_NUDGE_TTL = 20;
 const SHOUTER_ROOM_STATE_SCHEMA_VERSION = 2;
 
+require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/includes/gutenberg-yjs-update-v2.php';
 
 add_action( 'admin_init', 'shouter_register_settings' );

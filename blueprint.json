@@ -16,7 +16,7 @@
       "pluginData": {
         "resource": "git:directory",
         "url": "https://github.com/akirk/shouter",
-        "ref": "HEAD"
+        "ref": "dist/main"
       },
       "options": {
         "activate": true,
