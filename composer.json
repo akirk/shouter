@@ -6,12 +6,12 @@
 	"repositories": [
 		{
 			"type": "vcs",
-			"url": "https://github.com/Automattic/yjs-php"
+			"url": "https://github.com/maxschmeling/y-php"
 		}
 	],
 	"require": {
 		"php": ">=8.1",
-		"yjs/yjs-php": "dev-trunk"
+		"maxschmeling/y-php": "dev-main"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true
