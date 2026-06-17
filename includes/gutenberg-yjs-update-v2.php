@@ -2,7 +2,7 @@
 /**
  * Gutenberg-specific helpers for Yjs updateV2 payloads.
  *
- * The low-level lib0/Yjs primitives are provided by yjs/yjs-php, loaded
+ * The low-level lib0/Yjs primitives are provided by maxschmeling/y-php, loaded
  * through Composer.
  *
  * @package Gutenberg_Yjs_Update_V2
@@ -13,12 +13,15 @@ use Yjs\Lib0\Encoding;
 use Yjs\Lib0\IntDiffOptRleDecoder;
 use Yjs\Lib0\IntDiffOptRleEncoder;
 use Yjs\Lib0\RleDecoder;
-use Yjs\Lib0\RleEncoder;
 use Yjs\Lib0\UintOptRleDecoder;
 use Yjs\Lib0\UintOptRleEncoder;
-use Yjs\Structs\AbstractContent;
-use Yjs\Structs\ContentString;
-use Yjs\Structs\ContentType;
+
+const GUTENBERG_YJS_CONTENT_STRING = 4;
+const GUTENBERG_YJS_CONTENT_TYPE   = 7;
+const GUTENBERG_YJS_CONTENT_ANY    = 8;
+const GUTENBERG_YJS_TYPE_ARRAY     = 0;
+const GUTENBERG_YJS_TYPE_MAP       = 1;
+const GUTENBERG_YJS_TYPE_TEXT      = 2;
 
 /**
  * lib0-compatible string stream wrapper.
@@ -43,8 +46,8 @@ class Gutenberg_Yjs_String_Encoder {
 	public function to_string(): string {
 		$encoder = new Encoding();
 		$encoder->writeVarString( $this->buffer );
-		$encoder->writeUint8Array( $this->length_encoder->toUint8Array() );
-		return $encoder->toUint8Array();
+		gutenberg_yjs_encoding_write_bytes( $encoder, gutenberg_yjs_encoder_to_string( $this->length_encoder ) );
+		return gutenberg_yjs_encoding_to_string( $encoder );
 	}
 }
 
@@ -112,7 +115,7 @@ class Gutenberg_Yjs_Update_V2_Array_Decoder {
 		$this->parent_info_decoder = new RleDecoder( new Decoding( $decoder->readVarUint8Array() ), static fn( Decoding $d ): int => $d->readVarUint() );
 		$this->type_ref_decoder    = new UintOptRleDecoder( new Decoding( $decoder->readVarUint8Array() ) );
 		$this->len_decoder         = new UintOptRleDecoder( new Decoding( $decoder->readVarUint8Array() ) );
-		$this->rest_decoder        = new Decoding( $decoder->getRemainingData() );
+		$this->rest_decoder        = new Decoding( gutenberg_yjs_decoder_remaining_data( $decoder ) );
 	}
 
 	public function read_num_clients(): int {
@@ -193,9 +196,9 @@ class Gutenberg_Yjs_Update_V2_Encoder {
 	private UintOptRleEncoder $client_encoder;
 	private IntDiffOptRleEncoder $left_clock_encoder;
 	private IntDiffOptRleEncoder $right_clock_encoder;
-	private RleEncoder $info_encoder;
+	private Gutenberg_Yjs_Rle_Encoder $info_encoder;
 	private Gutenberg_Yjs_String_Encoder $string_encoder;
-	private RleEncoder $parent_info_encoder;
+	private Gutenberg_Yjs_Rle_Encoder $parent_info_encoder;
 	private UintOptRleEncoder $type_ref_encoder;
 	private UintOptRleEncoder $len_encoder;
 
@@ -210,15 +213,59 @@ class Gutenberg_Yjs_Update_V2_Encoder {
 		$this->client_encoder      = new UintOptRleEncoder();
 		$this->left_clock_encoder  = new IntDiffOptRleEncoder();
 		$this->right_clock_encoder = new IntDiffOptRleEncoder();
-		$this->info_encoder        = new RleEncoder( static fn( Encoding $e, int $v ): Encoding => $e->writeUint8( $v ) );
+		$this->info_encoder        = new Gutenberg_Yjs_Rle_Encoder(
+			static function ( Encoding $e, int $v ): void {
+				$e->writeUint8( $v );
+			}
+		);
 		$this->string_encoder      = new Gutenberg_Yjs_String_Encoder();
-		$this->parent_info_encoder = new RleEncoder( static fn( Encoding $e, int $v ): Encoding => $e->writeVarUint( $v ) );
+		$this->parent_info_encoder = new Gutenberg_Yjs_Rle_Encoder(
+			static function ( Encoding $e, int $v ): void {
+				$e->writeVarUint( $v );
+			}
+		);
 		$this->type_ref_encoder    = new UintOptRleEncoder();
 		$this->len_encoder         = new UintOptRleEncoder();
 	}
 
 	public function write_rest_var_uint( int $value ): void {
 		$this->rest_encoder->writeVarUint( $value );
+	}
+
+	/**
+	 * @param array<int,array<int,array{clock:int,length:int}>> $ranges Delete ranges keyed by client ID.
+	 */
+	public function write_delete_set( array $ranges ): void {
+		if ( empty( $ranges ) ) {
+			$this->write_rest_var_uint( 0 );
+			return;
+		}
+
+		krsort( $ranges, SORT_NUMERIC );
+		$this->write_rest_var_uint( count( $ranges ) );
+
+		foreach ( $ranges as $client_id => $client_ranges ) {
+			usort(
+				$client_ranges,
+				static fn( array $a, array $b ): int => ( (int) $a['clock'] ) <=> ( (int) $b['clock'] )
+			);
+
+			$this->write_rest_var_uint( (int) $client_id );
+			$this->write_rest_var_uint( count( $client_ranges ) );
+
+			$cursor = 0;
+			foreach ( $client_ranges as $range ) {
+				$clock  = (int) $range['clock'];
+				$length = (int) $range['length'];
+				if ( $length <= 0 ) {
+					continue;
+				}
+
+				$this->write_rest_var_uint( $clock - $cursor );
+				$this->write_rest_var_uint( $length - 1 );
+				$cursor = $clock + $length;
+			}
+		}
 	}
 
 	public function write_info( int $value ): void {
@@ -277,18 +324,115 @@ class Gutenberg_Yjs_Update_V2_Encoder {
 	public function to_string(): string {
 		$encoder = new Encoding();
 		$encoder->writeVarUint( 0 );
-		$encoder->writeVarUint8Array( $this->key_clock_encoder->toUint8Array() );
-		$encoder->writeVarUint8Array( $this->client_encoder->toUint8Array() );
-		$encoder->writeVarUint8Array( $this->left_clock_encoder->toUint8Array() );
-		$encoder->writeVarUint8Array( $this->right_clock_encoder->toUint8Array() );
-		$encoder->writeVarUint8Array( $this->info_encoder->toUint8Array() );
+		$encoder->writeVarUint8Array( gutenberg_yjs_encoder_to_string( $this->key_clock_encoder ) );
+		$encoder->writeVarUint8Array( gutenberg_yjs_encoder_to_string( $this->client_encoder ) );
+		$encoder->writeVarUint8Array( gutenberg_yjs_encoder_to_string( $this->left_clock_encoder ) );
+		$encoder->writeVarUint8Array( gutenberg_yjs_encoder_to_string( $this->right_clock_encoder ) );
+		$encoder->writeVarUint8Array( $this->info_encoder->to_string() );
 		$encoder->writeVarUint8Array( $this->string_encoder->to_string() );
-		$encoder->writeVarUint8Array( $this->parent_info_encoder->toUint8Array() );
-		$encoder->writeVarUint8Array( $this->type_ref_encoder->toUint8Array() );
-		$encoder->writeVarUint8Array( $this->len_encoder->toUint8Array() );
-		$encoder->writeUint8Array( $this->rest_encoder->toUint8Array() );
+		$encoder->writeVarUint8Array( $this->parent_info_encoder->to_string() );
+		$encoder->writeVarUint8Array( gutenberg_yjs_encoder_to_string( $this->type_ref_encoder ) );
+		$encoder->writeVarUint8Array( gutenberg_yjs_encoder_to_string( $this->len_encoder ) );
+		gutenberg_yjs_encoding_write_bytes( $encoder, gutenberg_yjs_encoding_to_string( $this->rest_encoder ) );
+		return gutenberg_yjs_encoding_to_string( $encoder );
+	}
+}
+
+/**
+ * Local RLE encoder with the final-run flush behavior this update writer needs.
+ */
+class Gutenberg_Yjs_Rle_Encoder {
+	private Encoding $encoder;
+	private $writer;
+	private ?int $state = null;
+	private int $count = 0;
+
+	public function __construct( callable $writer ) {
+		$this->encoder = new Encoding();
+		$this->writer  = $writer;
+	}
+
+	public function write( int $value ): void {
+		if ( $this->state === $value ) {
+			$this->count++;
+			return;
+		}
+
+		$this->flush_count();
+		$this->count = 1;
+		( $this->writer )( $this->encoder, $value );
+		$this->state = $value;
+	}
+
+	public function to_string(): string {
+		$this->flush_count();
+		return gutenberg_yjs_encoding_to_string( $this->encoder );
+	}
+
+	private function flush_count(): void {
+		if ( $this->count > 0 ) {
+			$this->encoder->writeVarUint( $this->count - 1 );
+			$this->count = 0;
+		}
+	}
+}
+
+/**
+ * Returns bytes from either yjs-php's older toUint8Array() API or y-php's toString().
+ */
+function gutenberg_yjs_encoder_to_string( object $encoder ): string {
+	if ( method_exists( $encoder, 'toString' ) ) {
+		return $encoder->toString();
+	}
+
+	if ( method_exists( $encoder, 'toUint8Array' ) ) {
 		return $encoder->toUint8Array();
 	}
+
+	throw new RuntimeException( 'Unsupported Yjs encoder implementation.' );
+}
+
+/**
+ * Returns bytes from a lib0 Encoding instance.
+ */
+function gutenberg_yjs_encoding_to_string( Encoding $encoder ): string {
+	return gutenberg_yjs_encoder_to_string( $encoder );
+}
+
+/**
+ * Writes raw bytes with either the newer writeBytes() or older writeUint8Array().
+ */
+function gutenberg_yjs_encoding_write_bytes( Encoding $encoder, string $bytes ): void {
+	if ( method_exists( $encoder, 'writeBytes' ) ) {
+		$encoder->writeBytes( $bytes );
+		return;
+	}
+
+	if ( method_exists( $encoder, 'writeUint8Array' ) ) {
+		$encoder->writeUint8Array( $bytes );
+		return;
+	}
+
+	throw new RuntimeException( 'Unsupported Yjs encoding implementation.' );
+}
+
+/**
+ * Reads the remaining bytes from a lib0 Decoding instance.
+ */
+function gutenberg_yjs_decoder_remaining_data( Decoding $decoder ): string {
+	if ( method_exists( $decoder, 'getRemainingData' ) ) {
+		return $decoder->getRemainingData();
+	}
+
+	$buffer_property = new ReflectionProperty( $decoder, 'buffer' );
+	$buffer_property->setAccessible( true );
+	$position_property = new ReflectionProperty( $decoder, 'position' );
+	$position_property->setAccessible( true );
+
+	$buffer   = (string) $buffer_property->getValue( $decoder );
+	$position = (int) $position_property->getValue( $decoder );
+
+	return substr( $buffer, $position );
 }
 
 /**
@@ -298,7 +442,7 @@ class Gutenberg_Yjs_Update_V2_Encoder {
  */
 function gutenberg_yjs_decode_update_v2( string $update ): array {
 	if ( ! class_exists( Decoding::class ) ) {
-		throw new RuntimeException( 'yjs/yjs-php is not loaded. Run composer install for Shouter.' );
+		throw new RuntimeException( 'maxschmeling/y-php is not loaded. Run composer install for Shouter.' );
 	}
 
 	$decoder       = new Gutenberg_Yjs_Update_V2_Array_Decoder( $update );
@@ -422,7 +566,7 @@ function gutenberg_yjs_read_id( Gutenberg_Yjs_Update_V2_Array_Decoder $decoder, 
  */
 function gutenberg_yjs_decode_item_content( Gutenberg_Yjs_Update_V2_Array_Decoder $decoder, int $content_ref ): array {
 	switch ( $content_ref ) {
-		case AbstractContent::TYPE_STRING:
+		case GUTENBERG_YJS_CONTENT_STRING:
 			$text = $decoder->read_string();
 			return array(
 				'type'   => 'string',
@@ -430,12 +574,12 @@ function gutenberg_yjs_decode_item_content( Gutenberg_Yjs_Update_V2_Array_Decode
 				'length' => gutenberg_yjs_utf16_clock_len( $text ),
 			);
 
-		case AbstractContent::TYPE_TYPE:
+		case GUTENBERG_YJS_CONTENT_TYPE:
 			$type_ref = $decoder->read_type_ref();
 			$types    = array(
-				ContentType::YARRAY => 'Y.Array',
-				ContentType::YMAP   => 'Y.Map',
-				ContentType::YTEXT  => 'Y.Text',
+				GUTENBERG_YJS_TYPE_ARRAY => 'Y.Array',
+				GUTENBERG_YJS_TYPE_MAP   => 'Y.Map',
+				GUTENBERG_YJS_TYPE_TEXT  => 'Y.Text',
 			);
 			return array(
 				'type'     => 'type',
@@ -444,7 +588,7 @@ function gutenberg_yjs_decode_item_content( Gutenberg_Yjs_Update_V2_Array_Decode
 				'length'   => 1,
 			);
 
-		case AbstractContent::TYPE_ANY:
+		case GUTENBERG_YJS_CONTENT_ANY:
 			$length = $decoder->read_len();
 			$values = array();
 			for ( $i = 0; $i < $length; $i++ ) {
@@ -506,7 +650,7 @@ function gutenberg_yjs_encode_single_paragraph_document_update_v2( int $client_i
 		$encoder->write_any( $block_client_id );
 	} );
 
-	$encoder->write_rest_var_uint( 0 ); // delete set.
+	$encoder->write_delete_set( array() );
 
 	return $encoder->to_string();
 }
@@ -563,7 +707,46 @@ function gutenberg_yjs_encode_paragraph_insert_after_update_v2( int $client_id, 
 		);
 	}
 
-	$encoder->write_rest_var_uint( 0 ); // delete set.
+	$encoder->write_delete_set( array() );
+
+	return $encoder->to_string();
+}
+
+/**
+ * Encodes a Yjs updateV2 that replaces text in an existing Y.Text.
+ *
+ * @param array{client:int,clock:int}|null $origin       Character before the inserted text.
+ * @param array{client:int,clock:int}|null $right_origin First character after/beside the inserted text.
+ * @param array{client:int,clock:int}|null $parent       Y.Text item ID, used only when there is no origin or right origin.
+ * @param array<int,array<int,array{clock:int,length:int}>> $delete_ranges Delete ranges keyed by client ID.
+ */
+function gutenberg_yjs_encode_text_replacement_update_v2( int $client_id, string $inserted_text, ?array $origin, ?array $right_origin, ?array $parent, array $delete_ranges, int $start_clock = 0 ): string {
+	$encoder = new Gutenberg_Yjs_Update_V2_Encoder();
+
+	$encoder->write_rest_var_uint( 1 ); // one client state.
+	$encoder->write_rest_var_uint( 1 ); // one inserted string item.
+	$encoder->write_client( $client_id );
+	$encoder->write_rest_var_uint( $start_clock );
+
+	gutenberg_yjs_write_item(
+		$encoder,
+		4,
+		$origin,
+		$right_origin,
+		$parent
+			? array(
+				'type'   => 'id',
+				'client' => (int) $parent['client'],
+				'clock'  => (int) $parent['clock'],
+			)
+			: null,
+		null,
+		function ( Gutenberg_Yjs_Update_V2_Encoder $encoder ) use ( $inserted_text ): void {
+			$encoder->write_string( $inserted_text );
+		}
+	);
+
+	$encoder->write_delete_set( $delete_ranges );
 
 	return $encoder->to_string();
 }
@@ -622,7 +805,11 @@ function gutenberg_yjs_write_paragraph_block_fields( Gutenberg_Yjs_Update_V2_Enc
  * Gets the Yjs clock length for a JS string, measured in UTF-16 code units.
  */
 function gutenberg_yjs_utf16_clock_len( string $value ): int {
-	return ( new ContentString( $value ) )->getLength();
+	if ( '' === $value ) {
+		return 0;
+	}
+
+	return intdiv( strlen( mb_convert_encoding( $value, 'UTF-16LE', 'UTF-8' ) ), 2 );
 }
 
 /**

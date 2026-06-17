@@ -14,10 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 const SHOUTER_OPTION_BOT_USER_ID = 'shouter_bot_user_id';
+const SHOUTER_OPTION_BEHAVIOR = 'shouter_behavior';
+const SHOUTER_BEHAVIOR_REPLACE_LAST_WORD = 'replace_last_word';
+const SHOUTER_BEHAVIOR_INSERT_SHOUTED_PARAGRAPH = 'insert_shouted_paragraph';
 const SHOUTER_BOT_CLOCK_META_KEY = '_shouter_bot_clock';
 const SHOUTER_ROOM_STATE_META_KEY = '_shouter_room_state';
 const SHOUTER_AWARENESS_NUDGE_TTL = 20;
-const SHOUTER_ROOM_STATE_SCHEMA_VERSION = 3;
+const SHOUTER_ROOM_STATE_SCHEMA_VERSION = 4;
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/includes/gutenberg-yjs-update-v2.php';
@@ -43,6 +46,16 @@ function shouter_register_settings(): void {
 		)
 	);
 
+	register_setting(
+		'shouter',
+		SHOUTER_OPTION_BEHAVIOR,
+		array(
+			'type'              => 'string',
+			'sanitize_callback' => 'shouter_sanitize_behavior',
+			'default'           => SHOUTER_BEHAVIOR_REPLACE_LAST_WORD,
+		)
+	);
+
 	add_settings_section(
 		'shouter_bot_section',
 		__( 'Bot identity', 'shouter' ),
@@ -54,6 +67,14 @@ function shouter_register_settings(): void {
 		SHOUTER_OPTION_BOT_USER_ID,
 		__( 'Bot user', 'shouter' ),
 		'shouter_render_bot_user_field',
+		'shouter',
+		'shouter_bot_section'
+	);
+
+	add_settings_field(
+		SHOUTER_OPTION_BEHAVIOR,
+		__( 'Behavior', 'shouter' ),
+		'shouter_render_behavior_field',
 		'shouter',
 		'shouter_bot_section'
 	);
@@ -89,6 +110,26 @@ function shouter_render_bot_user_field(): void {
 }
 
 /**
+ * Renders the behavior setting.
+ */
+function shouter_render_behavior_field(): void {
+	$behavior = shouter_get_behavior();
+	$options  = array(
+		SHOUTER_BEHAVIOR_REPLACE_LAST_WORD        => __( 'Uppercase the previous paragraph’s last word', 'shouter' ),
+		SHOUTER_BEHAVIOR_INSERT_SHOUTED_PARAGRAPH => __( 'Insert a shouted follow-up paragraph', 'shouter' ),
+	);
+	?>
+	<select name="<?php echo esc_attr( SHOUTER_OPTION_BEHAVIOR ); ?>" id="<?php echo esc_attr( SHOUTER_OPTION_BEHAVIOR ); ?>">
+		<?php foreach ( $options as $value => $label ) : ?>
+			<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $behavior, $value ); ?>>
+				<?php echo esc_html( $label ); ?>
+			</option>
+		<?php endforeach; ?>
+	</select>
+	<?php
+}
+
+/**
  * Renders the settings page.
  */
 function shouter_render_settings_page(): void {
@@ -115,6 +156,26 @@ function shouter_get_bot_user_id(): int {
 }
 
 /**
+ * Gets the configured bot behavior.
+ */
+function shouter_get_behavior(): string {
+	return shouter_sanitize_behavior( get_option( SHOUTER_OPTION_BEHAVIOR, SHOUTER_BEHAVIOR_REPLACE_LAST_WORD ) );
+}
+
+/**
+ * Sanitizes the configured bot behavior.
+ */
+function shouter_sanitize_behavior( $behavior ): string {
+	$behavior = is_string( $behavior ) ? $behavior : '';
+	$allowed  = array(
+		SHOUTER_BEHAVIOR_REPLACE_LAST_WORD,
+		SHOUTER_BEHAVIOR_INSERT_SHOUTED_PARAGRAPH,
+	);
+
+	return in_array( $behavior, $allowed, true ) ? $behavior : SHOUTER_BEHAVIOR_REPLACE_LAST_WORD;
+}
+
+/**
  * Gets the stable RTC client ID used by Shouter for a bot user.
  */
 function shouter_get_bot_client_id( int $bot_user_id ): int {
@@ -128,10 +189,10 @@ function shouter_get_bot_client_id( int $bot_user_id ): int {
  *
  * @param int    $post_id      Post ID.
  * @param string $room         Sync room.
- * @param string $shouted_text Inserted shouted text.
+ * @param string $changed_text Last bot-authored text, if any.
  * @return true|WP_Error
  */
-function shouter_emit_bot_awareness( int $post_id, string $room, string $shouted_text ) {
+function shouter_emit_bot_awareness( int $post_id, string $room, string $changed_text ) {
 	if ( ! $post_id || '' === $room ) {
 		return new WP_Error( 'shouter_missing_room', __( 'Missing Shouter room.', 'shouter' ) );
 	}
@@ -171,7 +232,7 @@ function shouter_emit_bot_awareness( int $post_id, string $room, string $shouted
 						),
 						'shouterState'     => array(
 							'postId'      => $post_id,
-							'shoutedText' => $shouted_text,
+							'changedText' => $changed_text,
 						),
 					),
 					'client_id' => shouter_get_bot_client_id( $bot_user_id ),
@@ -242,12 +303,120 @@ function shouter_maybe_emit_bot_awareness_nudge( int $post_id, string $room, int
 }
 
 /**
+ * Emits a bot-authored last-word replacement into a Gutenberg sync room.
+ *
+ * @param int                              $post_id     Post ID.
+ * @param string                           $room        Sync room.
+ * @param string                           $replacement Replacement word.
+ * @param Gutenberg_RTC_Completed_Paragraph $paragraph  Completed paragraph event.
+ * @return array<string, mixed>|WP_Error
+ */
+function shouter_emit_bot_last_word_replacement( int $post_id, string $room, string $replacement, Gutenberg_RTC_Completed_Paragraph $paragraph ) {
+	if ( ! $post_id || '' === $room ) {
+		return new WP_Error( 'shouter_missing_room', __( 'Missing Shouter room.', 'shouter' ) );
+	}
+
+	if ( '' === $replacement ) {
+		return new WP_Error( 'shouter_missing_text', __( 'Missing replacement text.', 'shouter' ) );
+	}
+
+	$bot_user_id = shouter_get_bot_user_id();
+	if ( ! $bot_user_id ) {
+		return new WP_Error( 'shouter_missing_bot_user', __( 'No Shouter bot user is configured.', 'shouter' ) );
+	}
+
+	$bot_user = get_user_by( 'id', $bot_user_id );
+	if ( ! $bot_user || ! user_can( $bot_user, 'edit_post', $post_id ) ) {
+		return new WP_Error( 'shouter_bot_cannot_edit', __( 'The configured Shouter bot user cannot edit this post.', 'shouter' ) );
+	}
+
+	$bot_client_id = shouter_get_bot_client_id( $bot_user_id );
+	$start_clock   = shouter_get_bot_clock( $post_id, $bot_client_id );
+	$state         = shouter_get_room_state( $post_id );
+	$replacement_update = gutenberg_rtc_build_last_word_replacement(
+		$state,
+		$paragraph,
+		$replacement,
+		$bot_client_id,
+		$start_clock
+	);
+	if ( ! $replacement_update ) {
+		return new WP_Error( 'shouter_no_replacement', __( 'Could not build a last-word replacement for this paragraph.', 'shouter' ) );
+	}
+	$update = $replacement_update['update'];
+
+	$previous_user_id = get_current_user_id();
+	wp_set_current_user( $bot_user_id );
+
+	$request = new WP_REST_Request( 'POST', '/wp-sync/v1/updates' );
+	$request->set_body_params(
+		array(
+			'rooms' => array(
+				array(
+					'after'     => 0,
+					'awareness' => shouter_build_bot_selection_awareness(
+						$bot_user,
+						$post_id,
+						$replacement,
+						$replacement_update['selection']
+					),
+					'client_id' => $bot_client_id,
+					'room'      => $room,
+					'updates'   => array(
+						array(
+							'type' => 'update',
+							'data' => base64_encode( $update ),
+						),
+					),
+				),
+			),
+		)
+	);
+
+	$response = rest_do_request( $request );
+	wp_set_current_user( $previous_user_id );
+
+	if ( $response->is_error() ) {
+		return $response->as_error();
+	}
+
+	try {
+		$decoded = gutenberg_yjs_decode_update_v2( $update );
+		gutenberg_rtc_apply_decoded_update_to_paragraph_state( $state, $decoded );
+		$state['blocks'][ $paragraph->source_block_id() ]['content'] = shouter_replace_last_word( $paragraph->text(), $replacement );
+		shouter_set_room_state( $post_id, $state );
+	} catch ( RuntimeException $exception ) {
+		shouter_log(
+			'bot-rtc-state-apply-error',
+			array(
+				'room'    => $room,
+				'message' => $exception->getMessage(),
+			)
+		);
+	}
+
+	shouter_set_bot_clock( $post_id, $bot_client_id, (int) $replacement_update['next_clock'] );
+
+	return array(
+		'ok'               => true,
+		'bot_client_id'    => $bot_client_id,
+		'start_clock'      => $start_clock,
+		'next_clock'       => (int) $replacement_update['next_clock'],
+		'update_bytes'     => strlen( $update ),
+		'original_word'    => $replacement_update['original_word'],
+		'replacement'      => $replacement,
+		'selection'        => $replacement_update['selection'],
+		'origin'           => $replacement_update['origin'],
+		'right_origin'     => $replacement_update['right_origin'],
+		'delete_ranges'    => $replacement_update['delete_ranges'],
+		'response_status'  => $response->get_status(),
+		'response_payload' => $response->get_data(),
+	);
+}
+
+/**
  * Emits a bot-authored paragraph insertion into a Gutenberg sync room.
  *
- * @param int                              $post_id      Post ID.
- * @param string                           $room         Sync room.
- * @param string                           $shouted_text Text to insert.
- * @param Gutenberg_RTC_Completed_Paragraph $paragraph  Completed paragraph event.
  * @return array<string, mixed>|WP_Error
  */
 function shouter_emit_bot_paragraph_after( int $post_id, string $room, string $shouted_text, Gutenberg_RTC_Completed_Paragraph $paragraph ) {
@@ -292,7 +461,16 @@ function shouter_emit_bot_paragraph_after( int $post_id, string $room, string $s
 			'rooms' => array(
 				array(
 					'after'     => 0,
-					'awareness' => shouter_build_bot_awareness( $bot_user, $post_id, $shouted_text, $bot_client_id, (int) $insert['cursor_clock'] ),
+					'awareness' => shouter_build_bot_cursor_awareness(
+						$bot_user,
+						$post_id,
+						$shouted_text,
+						array(
+							'client' => $bot_client_id,
+							'clock'  => (int) $insert['cursor_clock'],
+						),
+						gutenberg_yjs_utf16_clock_len( $shouted_text )
+					),
 					'client_id' => $bot_client_id,
 					'room'      => $room,
 					'updates'   => array(
@@ -344,9 +522,49 @@ function shouter_emit_bot_paragraph_after( int $post_id, string $room, string $s
 }
 
 /**
- * Builds bot awareness for an inserted paragraph cursor.
+ * Builds bot awareness for a cursor position.
  */
-function shouter_build_bot_awareness( WP_User $bot_user, int $post_id, string $shouted_text, int $bot_client_id, int $ytext_type_clock ): array {
+function shouter_build_bot_cursor_awareness( WP_User $bot_user, int $post_id, string $changed_text, array $cursor_type, int $absolute_offset ): array {
+	return shouter_build_bot_awareness_with_selection(
+		$bot_user,
+		$post_id,
+		$changed_text,
+		array(
+			'type'           => 'cursor',
+			'cursorPosition' => shouter_build_bot_cursor_position( $cursor_type, null, $absolute_offset ),
+		)
+	);
+}
+
+/**
+ * Builds bot awareness for a text selection.
+ *
+ * @param array<string, mixed> $selection Selection metadata from the RTC builder.
+ */
+function shouter_build_bot_selection_awareness( WP_User $bot_user, int $post_id, string $changed_text, array $selection ): array {
+	$type         = isset( $selection['type'] ) && is_array( $selection['type'] ) ? $selection['type'] : array();
+	$start_item   = isset( $selection['start_item'] ) && is_array( $selection['start_item'] ) ? $selection['start_item'] : null;
+	$end_item     = isset( $selection['end_item'] ) && is_array( $selection['end_item'] ) ? $selection['end_item'] : null;
+	$start_offset = isset( $selection['start_offset'] ) ? (int) $selection['start_offset'] : 0;
+	$end_offset   = isset( $selection['end_offset'] ) ? (int) $selection['end_offset'] : $start_offset;
+
+	return shouter_build_bot_awareness_with_selection(
+		$bot_user,
+		$post_id,
+		$changed_text,
+		array(
+			'type'                => 'selection-in-one-block',
+			'cursorStartPosition' => shouter_build_bot_cursor_position( $type, $start_item, $start_offset ),
+			'cursorEndPosition'   => shouter_build_bot_cursor_position( $type, $end_item, $end_offset ),
+			'selectionDirection'  => 'f',
+		)
+	);
+}
+
+/**
+ * Builds bot awareness with an editor selection payload.
+ */
+function shouter_build_bot_awareness_with_selection( WP_User $bot_user, int $post_id, string $changed_text, array $selection ): array {
 	return array(
 		'collaboratorInfo' => array(
 			'avatar_urls' => rest_get_avatar_urls( $bot_user->user_email ),
@@ -357,27 +575,36 @@ function shouter_build_bot_awareness( WP_User $bot_user, int $post_id, string $s
 			'slug'        => $bot_user->user_nicename,
 		),
 		'editorState'      => array(
-			'selection' => array(
-				'type'           => 'cursor',
-				'cursorPosition' => array(
-					'relativePosition' => array(
-						'type'  => array(
-							'client' => $bot_client_id,
-							'clock'  => $ytext_type_clock,
-						),
-						'tname' => null,
-						'item'  => null,
-						'assoc' => 0,
-					),
-					'absoluteOffset'   => gutenberg_yjs_utf16_clock_len( $shouted_text ),
-					'attributeKey'     => 'content',
-				),
-			),
+			'selection' => $selection,
 		),
 		'shouterState'     => array(
 			'postId'      => $post_id,
-			'shoutedText' => $shouted_text,
+			'changedText' => $changed_text,
 		),
+	);
+}
+
+/**
+ * Builds a Gutenberg cursor position payload from Yjs IDs.
+ */
+function shouter_build_bot_cursor_position( array $type, ?array $item, int $absolute_offset ): array {
+	return array(
+		'relativePosition' => array(
+			'type'  => array(
+				'client' => (int) ( $type['client'] ?? 0 ),
+				'clock'  => (int) ( $type['clock'] ?? 0 ),
+			),
+			'tname' => null,
+			'item'  => $item
+				? array(
+					'client' => (int) ( $item['client'] ?? 0 ),
+					'clock'  => (int) ( $item['clock'] ?? 0 ),
+				)
+				: null,
+			'assoc' => 0,
+		),
+		'absoluteOffset'   => $absolute_offset,
+		'attributeKey'     => 'content',
 	);
 }
 
@@ -407,10 +634,35 @@ function shouter_set_bot_clock( int $post_id, int $bot_client_id, int $clock ): 
 }
 
 /**
- * Converts text to Shouter's shouted form.
+ * Gets the final word in paragraph text.
+ */
+function shouter_get_last_word( string $text ): string {
+	if ( ! preg_match( '/([\p{L}\p{N}_]+)([^\p{L}\p{N}_]*\s*)$/u', $text, $matches ) ) {
+		return '';
+	}
+
+	return (string) $matches[1];
+}
+
+/**
+ * Uppercases text with Unicode support when available.
+ */
+function shouter_uppercase_text( string $text ): string {
+	return function_exists( 'mb_strtoupper' ) ? mb_strtoupper( $text, 'UTF-8' ) : strtoupper( $text );
+}
+
+/**
+ * Converts text to the old shouted paragraph form.
  */
 function shouter_shout_text( string $text ): string {
-	return strtoupper( preg_replace( '/[!"#$%&\'()*+,\.\/:;<=>?@\[\\\\\]\^_`{|}~-]/', '!', $text ) ?? $text );
+	return shouter_uppercase_text( preg_replace( '/[!"#$%&\'()*+,\.\/:;<=>?@\[\\\\\]\^_`{|}~-]/', '!', $text ) ?? $text );
+}
+
+/**
+ * Replaces the final word in paragraph text.
+ */
+function shouter_replace_last_word( string $text, string $replacement ): string {
+	return preg_replace( '/([\p{L}\p{N}_]+)([^\p{L}\p{N}_]*\s*)$/u', $replacement . '$2', $text, 1 ) ?? $text;
 }
 
 /**
@@ -548,7 +800,7 @@ function shouter_respond_to_wp_sync_requests( $response, WP_REST_Server $server,
 
 		shouter_set_room_state( $post_id, $state );
 
-		shouter_insert_after_completed_paragraphs( $post_id, $room, $state, $paragraphs );
+		shouter_replace_last_word_in_completed_paragraphs( $post_id, $room, $state, $paragraphs );
 	}
 
 	return $response;
@@ -560,37 +812,52 @@ function shouter_respond_to_wp_sync_requests( $response, WP_REST_Server $server,
  * @param array<string, mixed>                      $state      Current paragraph document state.
  * @param array<int, Gutenberg_RTC_Completed_Paragraph> $paragraphs Completed paragraph events.
  */
-function shouter_insert_after_completed_paragraphs( int $post_id, string $room, array &$state, array $paragraphs ): void {
+function shouter_replace_last_word_in_completed_paragraphs( int $post_id, string $room, array &$state, array $paragraphs ): void {
+	$behavior = shouter_get_behavior();
+
 	foreach ( $paragraphs as $paragraph ) {
 		if ( ! $paragraph instanceof Gutenberg_RTC_Completed_Paragraph ) {
 			continue;
 		}
 
 		$dedupe_key = $paragraph->dedupe_key();
-		if ( isset( $state['shouted'][ $dedupe_key ] ) ) {
+		if ( isset( $state['processed'][ $dedupe_key ] ) ) {
 			continue;
 		}
 
-		$state['shouted'][ $dedupe_key ] = time();
+		$state['processed'][ $dedupe_key ] = time();
 		shouter_set_room_state( $post_id, $state );
 
-		$result = shouter_emit_bot_paragraph_after(
-			$post_id,
-			$room,
-			shouter_shout_text( $paragraph->text() ),
-			$paragraph
-		);
+		if ( SHOUTER_BEHAVIOR_INSERT_SHOUTED_PARAGRAPH === $behavior ) {
+			$event  = 'bot-rtc-auto-insert';
+			$result = shouter_emit_bot_paragraph_after(
+				$post_id,
+				$room,
+				shouter_shout_text( $paragraph->text() ),
+				$paragraph
+			);
+		} else {
+			$last_word = shouter_get_last_word( $paragraph->text() );
+			$event     = 'bot-rtc-auto-replace-last-word';
+			$result    = shouter_emit_bot_last_word_replacement(
+				$post_id,
+				$room,
+				$last_word ? shouter_uppercase_text( $last_word ) : '',
+				$paragraph
+			);
+		}
 
 		shouter_log(
-			'bot-rtc-auto-insert',
+			$event,
 			is_wp_error( $result )
 				? array(
 					'ok'      => false,
 					'room'    => $room,
+					'behavior' => $behavior,
 					'code'    => $result->get_error_code(),
 					'message' => $result->get_error_message(),
 				)
-				: array_merge( array( 'room' => $room ), $result )
+				: array_merge( array( 'room' => $room, 'behavior' => $behavior ), $result )
 		);
 	}
 }

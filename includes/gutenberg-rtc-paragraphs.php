@@ -12,8 +12,8 @@ class Gutenberg_RTC_Completed_Paragraph {
 	/**
 	 * @param string                    $source_block_id Source paragraph block item key.
 	 * @param string                    $source_text     Source paragraph text.
-	 * @param array{client:int,clock:int} $left_origin   Block item the insertion should follow.
-	 * @param array{client:int,clock:int}|null $right_origin Following block item, if known.
+	 * @param array{client:int,clock:int} $left_origin   Source block item.
+	 * @param array{client:int,clock:int}|null $right_origin Following empty block item, if known.
 	 */
 	public function __construct(
 		private string $source_block_id,
@@ -64,7 +64,7 @@ function gutenberg_rtc_empty_paragraph_document_state( int $schema_version ): ar
 		'root_content_text'   => null,
 		'text_to_block'       => array(),
 		'text_items_to_block' => array(),
-		'shouted'             => array(),
+		'processed'           => array(),
 	);
 }
 
@@ -133,6 +133,114 @@ function gutenberg_rtc_build_paragraph_insert( array $state, Gutenberg_RTC_Compl
 		'next_clock'     => $start_clock + $clock_len,
 		'left_origin'    => $left_origin,
 		'right_origin'   => $paragraph->right_origin(),
+	);
+}
+
+/**
+ * Builds update bytes for replacing the completed paragraph's last word.
+ *
+ * @param array<string, mixed> $state State used to locate the source text item.
+ * @return array<string, mixed>|null
+ */
+function gutenberg_rtc_build_last_word_replacement( array $state, Gutenberg_RTC_Completed_Paragraph $paragraph, string $replacement, int $client_id, int $start_clock ): ?array {
+	$word = gutenberg_rtc_find_last_word( $paragraph->text() );
+	if ( ! $word || '' === $replacement || $replacement === $word['text'] ) {
+		return null;
+	}
+
+	$cursor_type = gutenberg_rtc_find_block_text_type_id( $state, $paragraph->source_block_id() );
+	if ( ! $cursor_type ) {
+		return null;
+	}
+
+	$nodes = gutenberg_rtc_text_nodes_for_block( $state, $paragraph->source_block_id() );
+	if ( count( $nodes ) < $word['start'] + $word['length'] ) {
+		return null;
+	}
+
+	$origin       = $word['start'] > 0 ? $nodes[ $word['start'] - 1 ]['id'] : null;
+	$right_origin = $nodes[ $word['start'] ]['id'];
+	$end_item     = $nodes[ $word['start'] + $word['length'] ]['id'] ?? null;
+	$delete_ranges = gutenberg_rtc_delete_ranges_from_text_nodes(
+		array_slice( $nodes, $word['start'], $word['length'] )
+	);
+	if ( empty( $delete_ranges ) ) {
+		return null;
+	}
+
+	$update    = gutenberg_yjs_encode_text_replacement_update_v2(
+		$client_id,
+		$replacement,
+		$origin,
+		$right_origin,
+		null,
+		$delete_ranges,
+		$start_clock
+	);
+	$clock_len = gutenberg_yjs_utf16_clock_len( $replacement );
+
+	return array(
+		'update'         => $update,
+		'clock_len'      => $clock_len,
+		'selection'      => array(
+			'type'         => $cursor_type,
+			'start_item'   => array(
+				'client' => $client_id,
+				'clock'  => $start_clock,
+			),
+			'end_item'     => $end_item,
+			'start_offset' => $word['start'],
+			'end_offset'   => $word['start'] + $clock_len,
+		),
+		'cursor_clock'   => $start_clock + max( 0, $clock_len - 1 ),
+		'absoluteOffset' => $word['start'] + $clock_len,
+		'next_clock'     => $start_clock + $clock_len,
+		'original_word'  => $word['text'],
+		'replacement'    => $replacement,
+		'origin'         => $origin,
+		'right_origin'   => $right_origin,
+		'delete_ranges'  => $delete_ranges,
+	);
+}
+
+/**
+ * Finds the Y.Text type item ID for a block's content attribute.
+ *
+ * @return array{client:int,clock:int}|null
+ */
+function gutenberg_rtc_find_block_text_type_id( array $state, string $block_id ): ?array {
+	foreach ( $state['text_to_block'] as $text_id => $mapped_block_id ) {
+		if ( (string) $mapped_block_id !== $block_id ) {
+			continue;
+		}
+
+		return gutenberg_rtc_yjs_id_from_key( (string) $text_id );
+	}
+
+	return null;
+}
+
+/**
+ * Finds the final word in plain paragraph text.
+ *
+ * @return array{text:string,start:int,length:int}|null
+ */
+function gutenberg_rtc_find_last_word( string $text ): ?array {
+	if ( ! preg_match( '/([\p{L}\p{N}_]+)([^\p{L}\p{N}_]*\s*)$/u', $text, $matches, PREG_OFFSET_CAPTURE ) ) {
+		return null;
+	}
+
+	$word = (string) $matches[1][0];
+	if ( '' === $word ) {
+		return null;
+	}
+
+	$start = gutenberg_yjs_utf16_clock_len( substr( $text, 0, (int) $matches[1][1] ) );
+
+	return array(
+		'text'   => $word,
+		'start'  => $start,
+		'length' => gutenberg_yjs_utf16_clock_len( $word ),
 	);
 }
 
@@ -303,6 +411,20 @@ function gutenberg_rtc_note_text_item( array &$state, array $struct, string $id 
  * Reconstructs a block's text by following Yjs item origins.
  */
 function gutenberg_rtc_reconstruct_block_text_from_items( array $state, string $block_id ): string {
+	$text = '';
+	foreach ( gutenberg_rtc_text_nodes_for_block( $state, $block_id ) as $node ) {
+		$text .= $node['text'];
+	}
+
+	return $text;
+}
+
+/**
+ * Gets ordered Yjs character nodes for a block's Y.Text content.
+ *
+ * @return array<int,array{id:array{client:int,clock:int},text:string}>
+ */
+function gutenberg_rtc_text_nodes_for_block( array $state, string $block_id ): array {
 	$children = array();
 	$nodes    = array();
 
@@ -355,17 +477,53 @@ function gutenberg_rtc_reconstruct_block_text_from_items( array $state, string $
 	}
 	unset( $child_keys );
 
-	$text = '';
-	$walk = static function ( string $origin_key ) use ( &$walk, &$text, $children, $nodes ): void {
+	$ordered = array();
+	$walk    = static function ( string $origin_key ) use ( &$walk, &$ordered, $children, $nodes ): void {
 		foreach ( $children[ $origin_key ] ?? array() as $child_key ) {
-			$text .= $nodes[ $child_key ]['text'];
+			$ordered[] = $nodes[ $child_key ];
 			$walk( $child_key );
 		}
 	};
 
 	$walk( '' );
 
-	return $text;
+	return $ordered;
+}
+
+/**
+ * Converts ordered character nodes into compact delete ranges.
+ *
+ * @param array<int,array{id:array{client:int,clock:int},text:string}> $nodes Character nodes.
+ * @return array<int,array<int,array{clock:int,length:int}>>
+ */
+function gutenberg_rtc_delete_ranges_from_text_nodes( array $nodes ): array {
+	$ranges = array();
+
+	foreach ( $nodes as $node ) {
+		$id = isset( $node['id'] ) && is_array( $node['id'] ) ? $node['id'] : null;
+		if ( ! $id ) {
+			continue;
+		}
+
+		$client = (int) $id['client'];
+		$clock  = (int) $id['clock'];
+		$last_index = isset( $ranges[ $client ] ) ? count( $ranges[ $client ] ) - 1 : -1;
+
+		if ( $last_index >= 0 ) {
+			$last = $ranges[ $client ][ $last_index ];
+			if ( (int) $last['clock'] + (int) $last['length'] === $clock ) {
+				$ranges[ $client ][ $last_index ]['length']++;
+				continue;
+			}
+		}
+
+		$ranges[ $client ][] = array(
+			'clock'  => $clock,
+			'length' => 1,
+		);
+	}
+
+	return $ranges;
 }
 
 /**
@@ -466,9 +624,9 @@ function gutenberg_rtc_root_content_position_to_yjs_ids( array $state, int $offs
 		}
 	);
 
-	$origin       = null;
-	$right_origin = null;
-	$utf16_offset = gutenberg_yjs_utf16_clock_len( substr( (string) ( $state['root_content'] ?? '' ), 0, $offset ) );
+	$origin        = null;
+	$right_origin  = null;
+	$utf16_offset  = gutenberg_yjs_utf16_clock_len( substr( (string) ( $state['root_content'] ?? '' ), 0, $offset ) );
 
 	foreach ( $items as $item_key => $item ) {
 		$item_id = gutenberg_rtc_yjs_id_from_key( (string) $item_key );
