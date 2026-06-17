@@ -308,10 +308,10 @@ function shouter_maybe_emit_bot_awareness_nudge( int $post_id, string $room, int
  * @param int                              $post_id     Post ID.
  * @param string                           $room        Sync room.
  * @param string                           $replacement Replacement word.
- * @param Gutenberg_RTC_Completed_Paragraph $paragraph  Completed paragraph event.
+ * @param Shouter_Gutenberg_RTC_Completed_Paragraph $paragraph  Completed paragraph event.
  * @return array<string, mixed>|WP_Error
  */
-function shouter_emit_bot_last_word_replacement( int $post_id, string $room, string $replacement, Gutenberg_RTC_Completed_Paragraph $paragraph ) {
+function shouter_emit_bot_last_word_replacement( int $post_id, string $room, string $replacement, Shouter_Gutenberg_RTC_Completed_Paragraph $paragraph ) {
 	if ( ! $post_id || '' === $room ) {
 		return new WP_Error( 'shouter_missing_room', __( 'Missing Shouter room.', 'shouter' ) );
 	}
@@ -333,7 +333,7 @@ function shouter_emit_bot_last_word_replacement( int $post_id, string $room, str
 	$bot_client_id = shouter_get_bot_client_id( $bot_user_id );
 	$start_clock   = shouter_get_bot_clock( $post_id, $bot_client_id );
 	$state         = shouter_get_room_state( $post_id );
-	$replacement_update = gutenberg_rtc_build_last_word_replacement(
+	$replacement_update = shouter_gutenberg_rtc_build_last_word_replacement(
 		$state,
 		$paragraph,
 		$replacement,
@@ -381,8 +381,8 @@ function shouter_emit_bot_last_word_replacement( int $post_id, string $room, str
 	}
 
 	try {
-		$decoded = gutenberg_yjs_decode_update_v2( $update );
-		gutenberg_rtc_apply_decoded_update_to_paragraph_state( $state, $decoded );
+		$decoded = shouter_gutenberg_yjs_decode_update_v2( $update );
+		shouter_gutenberg_rtc_apply_decoded_update_to_paragraph_state( $state, $decoded );
 		$state['blocks'][ $paragraph->source_block_id() ]['content'] = shouter_replace_last_word( $paragraph->text(), $replacement );
 		shouter_set_room_state( $post_id, $state );
 	} catch ( RuntimeException $exception ) {
@@ -419,7 +419,7 @@ function shouter_emit_bot_last_word_replacement( int $post_id, string $room, str
  *
  * @return array<string, mixed>|WP_Error
  */
-function shouter_emit_bot_paragraph_after( int $post_id, string $room, string $shouted_text, Gutenberg_RTC_Completed_Paragraph $paragraph ) {
+function shouter_emit_bot_paragraph_after( int $post_id, string $room, string $shouted_text, Shouter_Gutenberg_RTC_Completed_Paragraph $paragraph ) {
 	if ( ! $post_id || '' === $room ) {
 		return new WP_Error( 'shouter_missing_room', __( 'Missing Shouter room.', 'shouter' ) );
 	}
@@ -442,7 +442,7 @@ function shouter_emit_bot_paragraph_after( int $post_id, string $room, string $s
 	$start_clock   = shouter_get_bot_clock( $post_id, $bot_client_id );
 	$block_id      = wp_generate_uuid4();
 	$state         = shouter_get_room_state( $post_id );
-	$insert        = gutenberg_rtc_build_paragraph_insert(
+	$insert        = shouter_gutenberg_rtc_build_paragraph_insert(
 		$state,
 		$paragraph,
 		$shouted_text,
@@ -469,7 +469,7 @@ function shouter_emit_bot_paragraph_after( int $post_id, string $room, string $s
 							'client' => $bot_client_id,
 							'clock'  => (int) $insert['cursor_clock'],
 						),
-						gutenberg_yjs_utf16_clock_len( $shouted_text )
+						shouter_gutenberg_yjs_utf16_clock_len( $shouted_text )
 					),
 					'client_id' => $bot_client_id,
 					'room'      => $room,
@@ -492,8 +492,8 @@ function shouter_emit_bot_paragraph_after( int $post_id, string $room, string $s
 	}
 
 	try {
-		$decoded = gutenberg_yjs_decode_update_v2( $update );
-		gutenberg_rtc_apply_decoded_update_to_paragraph_state( $state, $decoded );
+		$decoded = shouter_gutenberg_yjs_decode_update_v2( $update );
+		shouter_gutenberg_rtc_apply_decoded_update_to_paragraph_state( $state, $decoded );
 		shouter_set_room_state( $post_id, $state );
 	} catch ( RuntimeException $exception ) {
 		shouter_log(
@@ -680,7 +680,7 @@ function shouter_log_wp_sync_requests( $result, WP_REST_Server $server, WP_REST_
 		return $result;
 	}
 
-	$rooms = gutenberg_rtc_get_request_rooms( $request );
+	$rooms = shouter_gutenberg_rtc_get_request_rooms( $request );
 	if ( ! is_array( $rooms ) ) {
 		shouter_log(
 			'wp-sync-request',
@@ -703,12 +703,12 @@ function shouter_log_wp_sync_requests( $result, WP_REST_Server $server, WP_REST_
 			'content_type' => $request->get_header( 'content-type' ),
 			'body_length'  => strlen( (string) $request->get_body() ),
 			'room_count'   => count( $rooms ),
-			'rooms'        => gutenberg_rtc_summarize_rooms( $rooms ),
+			'rooms'        => shouter_gutenberg_rtc_summarize_rooms( $rooms ),
 		)
 	);
 
 	shouter_maybe_emit_bot_awareness_nudges_for_rooms( $rooms );
-	gutenberg_rtc_decode_rooms_for_logging( $rooms, 'shouter_log' );
+	shouter_gutenberg_rtc_decode_rooms_for_logging( $rooms, 'shouter_log' );
 
 	return $result;
 }
@@ -757,7 +757,7 @@ function shouter_respond_to_wp_sync_requests( $response, WP_REST_Server $server,
 		return $response;
 	}
 
-	$rooms = gutenberg_rtc_get_request_rooms( $request );
+	$rooms = shouter_gutenberg_rtc_get_request_rooms( $request );
 	if ( ! is_array( $rooms ) ) {
 		return $response;
 	}
@@ -784,7 +784,7 @@ function shouter_respond_to_wp_sync_requests( $response, WP_REST_Server $server,
 		}
 
 		$state    = shouter_get_room_state( $post_id );
-		$paragraphs = gutenberg_rtc_apply_paragraph_updates(
+		$paragraphs = shouter_gutenberg_rtc_apply_paragraph_updates(
 			$state,
 			$updates,
 			static function ( RuntimeException $exception ) use ( $room ): void {
@@ -810,13 +810,13 @@ function shouter_respond_to_wp_sync_requests( $response, WP_REST_Server $server,
  * Applies Shouter's behavior to completed paragraph events.
  *
  * @param array<string, mixed>                      $state      Current paragraph document state.
- * @param array<int, Gutenberg_RTC_Completed_Paragraph> $paragraphs Completed paragraph events.
+ * @param array<int, Shouter_Gutenberg_RTC_Completed_Paragraph> $paragraphs Completed paragraph events.
  */
 function shouter_replace_last_word_in_completed_paragraphs( int $post_id, string $room, array &$state, array $paragraphs ): void {
 	$behavior = shouter_get_behavior();
 
 	foreach ( $paragraphs as $paragraph ) {
-		if ( ! $paragraph instanceof Gutenberg_RTC_Completed_Paragraph ) {
+		if ( ! $paragraph instanceof Shouter_Gutenberg_RTC_Completed_Paragraph ) {
 			continue;
 		}
 
@@ -889,7 +889,7 @@ function shouter_get_room_state( int $post_id ): array {
 	}
 
 	return array_merge(
-		gutenberg_rtc_empty_paragraph_document_state( SHOUTER_ROOM_STATE_SCHEMA_VERSION ),
+		shouter_gutenberg_rtc_empty_paragraph_document_state( SHOUTER_ROOM_STATE_SCHEMA_VERSION ),
 		$state
 	);
 }

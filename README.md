@@ -30,18 +30,18 @@ The configured bot user is selected in `Settings -> Shouter`. Shouter derives a 
 
 When an editor polls `/wp-sync/v1/updates`, `shouter_log_wp_sync_requests()` runs on `rest_pre_dispatch`. It logs a compact summary of the sync request and decodes update payloads for debugging. It also sends a throttled bot awareness packet for post rooms. That awareness packet is an ordinary `/wp-sync/v1/updates` request with no document updates; it exists so Gutenberg sees the bot as another collaborator early in the session and keeps the RTC update queue active.
 
-After Gutenberg accepts a sync request, `shouter_respond_to_wp_sync_requests()` runs on `rest_post_dispatch`. It ignores requests from the bot client itself and passes the user-authored update list to `gutenberg_rtc_apply_paragraph_updates()`. That library function decodes the updateV2 payloads, updates the lightweight room-state index stored in `_shouter_room_state`, and returns `Gutenberg_RTC_Completed_Paragraph` events.
+After Gutenberg accepts a sync request, `shouter_respond_to_wp_sync_requests()` runs on `rest_post_dispatch`. It ignores requests from the bot client itself and passes the user-authored update list to `shouter_gutenberg_rtc_apply_paragraph_updates()`. That library function decodes the updateV2 payloads, updates the lightweight room-state index stored in `_shouter_room_state`, and returns `Shouter_Gutenberg_RTC_Completed_Paragraph` events.
 
 The state and detection details live in `includes/gutenberg-rtc-paragraphs.php`. It tracks block Y.Map items, paragraph attributes, `attributes.content` Y.Text items, root `document.content`, text-item origins, and which source paragraphs have already been processed. Paragraph completion is detected structurally: a new empty top-level `core/paragraph` block whose Yjs origin points at a known non-empty paragraph block. That is the pattern Gutenberg creates when the user finishes a paragraph and creates the following empty paragraph.
 
 Shouter's behavior is deliberately small and selected by the `shouter_behavior` option. In `replace_last_word` mode, `shouter_replace_last_word_in_completed_paragraphs()` receives completed paragraph events, finds the final word in the completed paragraph, uppercases only that word, and asks `shouter_emit_bot_last_word_replacement()` to submit the edit as the configured bot user. For example, `Hello, world?` becomes `Hello, WORLD?`. In `insert_shouted_paragraph` mode, the same completed paragraph event causes the bot to insert a new paragraph containing the shouted version of the completed paragraph.
 
-The actual mutation is assembled in two layers. `includes/gutenberg-rtc-paragraphs.php` exposes `gutenberg_rtc_build_last_word_replacement()`, which accepts the current paragraph document state, a completed paragraph event, the bot client ID, and the replacement word. It maps the paragraph's final word to concrete Yjs character IDs. Underneath, `includes/gutenberg-yjs-update-v2.php` writes one inserted string item plus a delete set for the old lowercase word.
+The actual mutation is assembled in two layers. `includes/gutenberg-rtc-paragraphs.php` exposes `shouter_gutenberg_rtc_build_last_word_replacement()`, which accepts the current paragraph document state, a completed paragraph event, the bot client ID, and the replacement word. It maps the paragraph's final word to concrete Yjs character IDs. Underneath, `includes/gutenberg-yjs-update-v2.php` writes one inserted string item plus a delete set for the old lowercase word.
 
 In code, the intended shape is:
 
 ```php
-$paragraphs = gutenberg_rtc_apply_paragraph_updates( $state, $updates );
+$paragraphs = shouter_gutenberg_rtc_apply_paragraph_updates( $state, $updates );
 
 foreach ( $paragraphs as $paragraph ) {
 	$word = shouter_get_last_word( $paragraph->text() );
@@ -269,9 +269,9 @@ For the bot itself to edit the paragraph as another collaborator, PHP must gener
 Shouter now consumes two narrow PHP libraries for this path:
 
 - `includes/gutenberg-yjs-update-v2.php` uses `maxschmeling/y-php` for lib0/Yjs primitives and implements the Gutenberg-specific updateV2 stream layout needed for `Y.Map`, `Y.Array`, `Y.Text`, `ContentType`, `ContentAny`, and `ContentString`.
-- `gutenberg_yjs_decode_update_v2()` decodes incoming updateV2 structs into PHP arrays with item IDs, origins, parent keys, map keys, and content values.
-- `gutenberg_yjs_encode_text_replacement_update_v2()` emits one inserted string item plus a delete set for the original text range.
-- `includes/gutenberg-rtc-paragraphs.php` turns update entries into `Gutenberg_RTC_Completed_Paragraph` events and builds last-word replacement updates from those events.
+- `shouter_gutenberg_yjs_decode_update_v2()` decodes incoming updateV2 structs into PHP arrays with item IDs, origins, parent keys, map keys, and content values.
+- `shouter_gutenberg_yjs_encode_text_replacement_update_v2()` emits one inserted string item plus a delete set for the original text range.
+- `includes/gutenberg-rtc-paragraphs.php` turns update entries into `Shouter_Gutenberg_RTC_Completed_Paragraph` events and builds last-word replacement updates from those events.
 - `shouter_respond_to_wp_sync_requests()` runs after Gutenberg accepts `/wp-sync/v1/updates`, asks the paragraph library for completed paragraph events, and emits the last-word replacement as the configured bot user.
 - Shouter submits a throttled bot awareness packet through `/wp-sync/v1/updates` before Gutenberg handles a post-room sync request, so the bot can appear as a collaborator as soon as the editor joins.
 - `shouter_emit_bot_last_word_replacement()` submits that update to `/wp-sync/v1/updates` as the configured bot user and reports a bot text selection over the replacement word via awareness.

@@ -2,7 +2,7 @@
 /**
  * Debug logging helpers for Gutenberg RTC payloads.
  *
- * @package Gutenberg_RTC_Debug_Log
+ * @package Shouter_Gutenberg_RTC_Debug_Log
  */
 
 /**
@@ -11,7 +11,7 @@
  * @param WP_REST_Request $request Request object.
  * @return array<int, mixed>|null
  */
-function gutenberg_rtc_get_request_rooms( WP_REST_Request $request ): ?array {
+function shouter_gutenberg_rtc_get_request_rooms( WP_REST_Request $request ): ?array {
 	$rooms = $request->get_param( 'rooms' );
 	if ( is_array( $rooms ) ) {
 		return $rooms;
@@ -41,7 +41,7 @@ function gutenberg_rtc_get_request_rooms( WP_REST_Request $request ): ?array {
  * @param array<int, mixed> $rooms Sync rooms.
  * @return array<int, array<string, mixed>>
  */
-function gutenberg_rtc_summarize_rooms( array $rooms ): array {
+function shouter_gutenberg_rtc_summarize_rooms( array $rooms ): array {
 	$summary = array();
 
 	foreach ( $rooms as $room_index => $room_request ) {
@@ -76,7 +76,7 @@ function gutenberg_rtc_summarize_rooms( array $rooms ): array {
  * @param callable          $log Callback receiving event name and payload.
  * @return array<int, mixed>
  */
-function gutenberg_rtc_decode_rooms_for_logging( array $rooms, callable $log ): array {
+function shouter_gutenberg_rtc_decode_rooms_for_logging( array $rooms, callable $log ): array {
 	$results = array();
 
 	foreach ( $rooms as $room_index => $room_request ) {
@@ -100,7 +100,7 @@ function gutenberg_rtc_decode_rooms_for_logging( array $rooms, callable $log ): 
 		);
 
 		foreach ( $updates as $update_index => $update ) {
-			$decoded = gutenberg_rtc_decode_update_entry( $update, $room, $client_id, $update_index );
+			$decoded = shouter_gutenberg_rtc_decode_update_entry( $update, $room, $client_id, $update_index );
 			$room_result['updates'][] = $decoded;
 			$log( 'update', $decoded );
 		}
@@ -131,7 +131,7 @@ function gutenberg_rtc_decode_rooms_for_logging( array $rooms, callable $log ): 
  * @param int    $update_index Update index.
  * @return array<string, mixed>
  */
-function gutenberg_rtc_decode_update_entry( $update, string $room, int $client_id, int $update_index ): array {
+function shouter_gutenberg_rtc_decode_update_entry( $update, string $room, int $client_id, int $update_index ): array {
 	$result = array(
 		'room'         => $room,
 		'client_id'    => $client_id,
@@ -160,21 +160,21 @@ function gutenberg_rtc_decode_update_entry( $update, string $room, int $client_i
 		return $result;
 	}
 
-	$reader = new Gutenberg_RTC_Debug_Update_Reader( $binary );
+	$reader = new Shouter_Gutenberg_RTC_Debug_Update_Reader( $binary );
 
 	$result['byte_length'] = strlen( $binary );
 	$result['hex_prefix']  = bin2hex( substr( $binary, 0, 24 ) );
 
 	if ( 'sync_step1' === $type || 'sync_step2' === $type ) {
-		$result['sync_message'] = gutenberg_rtc_decode_sync_message_summary( $reader );
+		$result['sync_message'] = shouter_gutenberg_rtc_decode_sync_message_summary( $reader );
 		$result['remaining']    = $reader->remaining();
 		return $result;
 	}
 
 	if ( 'update' === $type || 'compaction' === $type ) {
-		$result['y_update_v2'] = gutenberg_rtc_decode_update_v2_summary( $reader );
+		$result['y_update_v2'] = shouter_gutenberg_rtc_decode_update_v2_summary( $reader );
 		try {
-			$result['y_update_v2_structs'] = gutenberg_rtc_summarize_decoded_yjs_update( gutenberg_yjs_decode_update_v2( $binary ) );
+			$result['y_update_v2_structs'] = shouter_gutenberg_rtc_summarize_decoded_yjs_update( shouter_gutenberg_yjs_decode_update_v2( $binary ) );
 		} catch ( RuntimeException $exception ) {
 			$result['y_update_v2_decode_error'] = $exception->getMessage();
 		}
@@ -190,10 +190,10 @@ function gutenberg_rtc_decode_update_entry( $update, string $room, int $client_i
 /**
  * Decodes the outer y-protocols/sync message wrapper.
  *
- * @param Gutenberg_RTC_Debug_Update_Reader $reader Reader.
+ * @param Shouter_Gutenberg_RTC_Debug_Update_Reader $reader Reader.
  * @return array<string, mixed>
  */
-function gutenberg_rtc_decode_sync_message_summary( Gutenberg_RTC_Debug_Update_Reader $reader ): array {
+function shouter_gutenberg_rtc_decode_sync_message_summary( Shouter_Gutenberg_RTC_Debug_Update_Reader $reader ): array {
 	$summary = array();
 
 	try {
@@ -222,10 +222,10 @@ function gutenberg_rtc_decode_sync_message_summary( Gutenberg_RTC_Debug_Update_R
 /**
  * Best-effort structural decoder for Yjs updateV2 payloads.
  *
- * @param Gutenberg_RTC_Debug_Update_Reader $reader Reader.
+ * @param Shouter_Gutenberg_RTC_Debug_Update_Reader $reader Reader.
  * @return array<string, mixed>
  */
-function gutenberg_rtc_decode_update_v2_summary( Gutenberg_RTC_Debug_Update_Reader $reader ): array {
+function shouter_gutenberg_rtc_decode_update_v2_summary( Shouter_Gutenberg_RTC_Debug_Update_Reader $reader ): array {
 	$summary = array();
 
 	try {
@@ -260,7 +260,7 @@ function gutenberg_rtc_decode_update_v2_summary( Gutenberg_RTC_Debug_Update_Read
  * @param array<string, mixed> $decoded Decoded update.
  * @return array<string, mixed>
  */
-function gutenberg_rtc_summarize_decoded_yjs_update( array $decoded ): array {
+function shouter_gutenberg_rtc_summarize_decoded_yjs_update( array $decoded ): array {
 	$items = array();
 
 	foreach ( $decoded['structs'] ?? array() as $struct ) {
@@ -270,10 +270,10 @@ function gutenberg_rtc_summarize_decoded_yjs_update( array $decoded ): array {
 
 		$content = isset( $struct['content'] ) && is_array( $struct['content'] ) ? $struct['content'] : array();
 		$item    = array(
-			'id'           => gutenberg_rtc_yjs_id_key( $struct['id'] ?? null ),
-			'origin'       => gutenberg_rtc_yjs_id_key( $struct['origin'] ?? null ),
-			'right_origin' => gutenberg_rtc_yjs_id_key( $struct['right_origin'] ?? null ),
-			'parent'       => gutenberg_rtc_yjs_parent_key( $struct['parent'] ?? null ),
+			'id'           => shouter_gutenberg_rtc_yjs_id_key( $struct['id'] ?? null ),
+			'origin'       => shouter_gutenberg_rtc_yjs_id_key( $struct['origin'] ?? null ),
+			'right_origin' => shouter_gutenberg_rtc_yjs_id_key( $struct['right_origin'] ?? null ),
+			'parent'       => shouter_gutenberg_rtc_yjs_parent_key( $struct['parent'] ?? null ),
 			'parent_sub'   => $struct['parent_sub'] ?? null,
 			'content_type' => $content['type'] ?? null,
 			'length'       => $struct['length'] ?? null,
@@ -313,7 +313,7 @@ function gutenberg_rtc_summarize_decoded_yjs_update( array $decoded ): array {
 /**
  * Tiny lib0-style binary reader for probe logging.
  */
-class Gutenberg_RTC_Debug_Update_Reader {
+class Shouter_Gutenberg_RTC_Debug_Update_Reader {
 	private string $data;
 	private int $offset = 0;
 

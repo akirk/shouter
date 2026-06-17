@@ -2,13 +2,13 @@
 /**
  * Paragraph-focused helpers for Gutenberg RTC/Yjs documents.
  *
- * @package Gutenberg_RTC_Paragraphs
+ * @package Shouter_Gutenberg_RTC_Paragraphs
  */
 
 /**
  * Paragraph completion event discovered from incoming RTC updates.
  */
-class Gutenberg_RTC_Completed_Paragraph {
+class Shouter_Gutenberg_RTC_Completed_Paragraph {
 	/**
 	 * @param string                    $source_block_id Source paragraph block item key.
 	 * @param string                    $source_text     Source paragraph text.
@@ -54,7 +54,7 @@ class Gutenberg_RTC_Completed_Paragraph {
  *
  * @return array<string, mixed>
  */
-function gutenberg_rtc_empty_paragraph_document_state( int $schema_version ): array {
+function shouter_gutenberg_rtc_empty_paragraph_document_state( int $schema_version ): array {
 	return array(
 		'schema_version'      => $schema_version,
 		'blocks'              => array(),
@@ -74,9 +74,9 @@ function gutenberg_rtc_empty_paragraph_document_state( int $schema_version ): ar
  * @param array<string, mixed> $state State, mutated in place.
  * @param array<int, mixed>    $updates Update entries from `/wp-sync/v1/updates`.
  * @param callable|null        $on_decode_error Optional callback receiving RuntimeException.
- * @return array<int, Gutenberg_RTC_Completed_Paragraph>
+ * @return array<int, Shouter_Gutenberg_RTC_Completed_Paragraph>
  */
-function gutenberg_rtc_apply_paragraph_updates( array &$state, array $updates, ?callable $on_decode_error = null ): array {
+function shouter_gutenberg_rtc_apply_paragraph_updates( array &$state, array $updates, ?callable $on_decode_error = null ): array {
 	$events = array();
 
 	foreach ( $updates as $update ) {
@@ -90,7 +90,7 @@ function gutenberg_rtc_apply_paragraph_updates( array &$state, array $updates, ?
 		}
 
 		try {
-			$decoded = gutenberg_yjs_decode_update_v2( $binary );
+			$decoded = shouter_gutenberg_yjs_decode_update_v2( $binary );
 		} catch ( RuntimeException $exception ) {
 			if ( null !== $on_decode_error ) {
 				$on_decode_error( $exception );
@@ -98,7 +98,7 @@ function gutenberg_rtc_apply_paragraph_updates( array &$state, array $updates, ?
 			continue;
 		}
 
-		$events = array_merge( $events, gutenberg_rtc_apply_decoded_update_to_paragraph_state( $state, $decoded ) );
+		$events = array_merge( $events, shouter_gutenberg_rtc_apply_decoded_update_to_paragraph_state( $state, $decoded ) );
 	}
 
 	return $events;
@@ -110,10 +110,10 @@ function gutenberg_rtc_apply_paragraph_updates( array &$state, array $updates, ?
  * @param array<string, mixed> $state State used for optional document.content insertion.
  * @return array<string, mixed>
  */
-function gutenberg_rtc_build_paragraph_insert( array $state, Gutenberg_RTC_Completed_Paragraph $paragraph, string $text, int $client_id, int $start_clock, string $block_client_id ): array {
+function shouter_gutenberg_rtc_build_paragraph_insert( array $state, Shouter_Gutenberg_RTC_Completed_Paragraph $paragraph, string $text, int $client_id, int $start_clock, string $block_client_id ): array {
 	$left_origin    = $paragraph->left_origin();
-	$content_insert = gutenberg_rtc_build_content_insert_for_paragraph( $state, $text, $paragraph->text() );
-	$update         = gutenberg_yjs_encode_paragraph_insert_after_update_v2(
+	$content_insert = shouter_gutenberg_rtc_build_content_insert_for_paragraph( $state, $text, $paragraph->text() );
+	$update         = shouter_gutenberg_yjs_encode_paragraph_insert_after_update_v2(
 		$client_id,
 		$text,
 		$block_client_id,
@@ -123,7 +123,7 @@ function gutenberg_rtc_build_paragraph_insert( array $state, Gutenberg_RTC_Compl
 		$paragraph->right_origin(),
 		$content_insert
 	);
-	$clock_len      = gutenberg_yjs_paragraph_insert_clock_len( $text, $content_insert );
+	$clock_len      = shouter_gutenberg_yjs_paragraph_insert_clock_len( $text, $content_insert );
 
 	return array(
 		'update'         => $update,
@@ -142,18 +142,18 @@ function gutenberg_rtc_build_paragraph_insert( array $state, Gutenberg_RTC_Compl
  * @param array<string, mixed> $state State used to locate the source text item.
  * @return array<string, mixed>|null
  */
-function gutenberg_rtc_build_last_word_replacement( array $state, Gutenberg_RTC_Completed_Paragraph $paragraph, string $replacement, int $client_id, int $start_clock ): ?array {
-	$word = gutenberg_rtc_find_last_word( $paragraph->text() );
+function shouter_gutenberg_rtc_build_last_word_replacement( array $state, Shouter_Gutenberg_RTC_Completed_Paragraph $paragraph, string $replacement, int $client_id, int $start_clock ): ?array {
+	$word = shouter_gutenberg_rtc_find_last_word( $paragraph->text() );
 	if ( ! $word || '' === $replacement || $replacement === $word['text'] ) {
 		return null;
 	}
 
-	$cursor_type = gutenberg_rtc_find_block_text_type_id( $state, $paragraph->source_block_id() );
+	$cursor_type = shouter_gutenberg_rtc_find_block_text_type_id( $state, $paragraph->source_block_id() );
 	if ( ! $cursor_type ) {
 		return null;
 	}
 
-	$nodes = gutenberg_rtc_text_nodes_for_block( $state, $paragraph->source_block_id() );
+	$nodes = shouter_gutenberg_rtc_text_nodes_for_block( $state, $paragraph->source_block_id() );
 	if ( count( $nodes ) < $word['start'] + $word['length'] ) {
 		return null;
 	}
@@ -161,14 +161,14 @@ function gutenberg_rtc_build_last_word_replacement( array $state, Gutenberg_RTC_
 	$origin       = $word['start'] > 0 ? $nodes[ $word['start'] - 1 ]['id'] : null;
 	$right_origin = $nodes[ $word['start'] ]['id'];
 	$end_item     = $nodes[ $word['start'] + $word['length'] ]['id'] ?? null;
-	$delete_ranges = gutenberg_rtc_delete_ranges_from_text_nodes(
+	$delete_ranges = shouter_gutenberg_rtc_delete_ranges_from_text_nodes(
 		array_slice( $nodes, $word['start'], $word['length'] )
 	);
 	if ( empty( $delete_ranges ) ) {
 		return null;
 	}
 
-	$update    = gutenberg_yjs_encode_text_replacement_update_v2(
+	$update    = shouter_gutenberg_yjs_encode_text_replacement_update_v2(
 		$client_id,
 		$replacement,
 		$origin,
@@ -177,7 +177,7 @@ function gutenberg_rtc_build_last_word_replacement( array $state, Gutenberg_RTC_
 		$delete_ranges,
 		$start_clock
 	);
-	$clock_len = gutenberg_yjs_utf16_clock_len( $replacement );
+	$clock_len = shouter_gutenberg_yjs_utf16_clock_len( $replacement );
 
 	return array(
 		'update'         => $update,
@@ -208,13 +208,13 @@ function gutenberg_rtc_build_last_word_replacement( array $state, Gutenberg_RTC_
  *
  * @return array{client:int,clock:int}|null
  */
-function gutenberg_rtc_find_block_text_type_id( array $state, string $block_id ): ?array {
+function shouter_gutenberg_rtc_find_block_text_type_id( array $state, string $block_id ): ?array {
 	foreach ( $state['text_to_block'] as $text_id => $mapped_block_id ) {
 		if ( (string) $mapped_block_id !== $block_id ) {
 			continue;
 		}
 
-		return gutenberg_rtc_yjs_id_from_key( (string) $text_id );
+		return shouter_gutenberg_rtc_yjs_id_from_key( (string) $text_id );
 	}
 
 	return null;
@@ -225,7 +225,7 @@ function gutenberg_rtc_find_block_text_type_id( array $state, string $block_id )
  *
  * @return array{text:string,start:int,length:int}|null
  */
-function gutenberg_rtc_find_last_word( string $text ): ?array {
+function shouter_gutenberg_rtc_find_last_word( string $text ): ?array {
 	if ( ! preg_match( '/([\p{L}\p{N}_]+)([^\p{L}\p{N}_]*\s*)$/u', $text, $matches, PREG_OFFSET_CAPTURE ) ) {
 		return null;
 	}
@@ -235,12 +235,12 @@ function gutenberg_rtc_find_last_word( string $text ): ?array {
 		return null;
 	}
 
-	$start = gutenberg_yjs_utf16_clock_len( substr( $text, 0, (int) $matches[1][1] ) );
+	$start = shouter_gutenberg_yjs_utf16_clock_len( substr( $text, 0, (int) $matches[1][1] ) );
 
 	return array(
 		'text'   => $word,
 		'start'  => $start,
-		'length' => gutenberg_yjs_utf16_clock_len( $word ),
+		'length' => shouter_gutenberg_yjs_utf16_clock_len( $word ),
 	);
 }
 
@@ -249,9 +249,9 @@ function gutenberg_rtc_find_last_word( string $text ): ?array {
  *
  * @param array<string, mixed> $state   State, mutated in place.
  * @param array<string, mixed> $decoded Decoded update.
- * @return array<int, Gutenberg_RTC_Completed_Paragraph>
+ * @return array<int, Shouter_Gutenberg_RTC_Completed_Paragraph>
  */
-function gutenberg_rtc_apply_decoded_update_to_paragraph_state( array &$state, array $decoded ): array {
+function shouter_gutenberg_rtc_apply_decoded_update_to_paragraph_state( array &$state, array $decoded ): array {
 	$events  = array();
 	$structs = isset( $decoded['structs'] ) && is_array( $decoded['structs'] ) ? $decoded['structs'] : array();
 
@@ -260,27 +260,27 @@ function gutenberg_rtc_apply_decoded_update_to_paragraph_state( array &$state, a
 			continue;
 		}
 
-		$id      = gutenberg_rtc_yjs_id_key( $struct['id'] ?? null );
+		$id      = shouter_gutenberg_rtc_yjs_id_key( $struct['id'] ?? null );
 		$content = isset( $struct['content'] ) && is_array( $struct['content'] ) ? $struct['content'] : array();
 
 		if ( 'type' === ( $content['type'] ?? '' ) && 'Y.Map' === ( $content['name'] ?? '' ) ) {
-			gutenberg_rtc_note_map_item( $state, $struct, $id );
+			shouter_gutenberg_rtc_note_map_item( $state, $struct, $id );
 		}
 
 		$parent_sub = isset( $struct['parent_sub'] ) && is_string( $struct['parent_sub'] ) ? $struct['parent_sub'] : null;
-		$parent_key = gutenberg_rtc_yjs_parent_key( $struct['parent'] ?? null );
+		$parent_key = shouter_gutenberg_rtc_yjs_parent_key( $struct['parent'] ?? null );
 
 		if ( $parent_sub ) {
-			gutenberg_rtc_note_root_field( $state, $struct, $id, $parent_sub );
+			shouter_gutenberg_rtc_note_root_field( $state, $struct, $id, $parent_sub );
 		}
 
 		if ( $parent_sub && $parent_key ) {
-			gutenberg_rtc_note_map_field( $state, $struct, $id, $parent_key, $parent_sub );
+			shouter_gutenberg_rtc_note_map_field( $state, $struct, $id, $parent_key, $parent_sub );
 		}
 
 		if ( 'string' === ( $content['type'] ?? '' ) ) {
-			gutenberg_rtc_note_text_item( $state, $struct, $id );
-			gutenberg_rtc_note_root_content_item( $state, $struct, $id );
+			shouter_gutenberg_rtc_note_text_item( $state, $struct, $id );
+			shouter_gutenberg_rtc_note_root_content_item( $state, $struct, $id );
 		}
 	}
 
@@ -292,16 +292,16 @@ function gutenberg_rtc_apply_decoded_update_to_paragraph_state( array &$state, a
 			empty( $block['trigger_checked'] )
 		) {
 			$state['blocks'][ $block_id ]['trigger_checked'] = true;
-			$origin_key  = gutenberg_rtc_yjs_id_key( $block['origin'] );
+			$origin_key  = shouter_gutenberg_rtc_yjs_id_key( $block['origin'] );
 			$source      = $origin_key && isset( $state['blocks'][ $origin_key ] ) ? $state['blocks'][ $origin_key ] : null;
 			$source_text = is_array( $source ) ? trim( (string) ( $source['content'] ?? '' ) ) : '';
 
 			if ( $source_text && isset( $source['name'] ) && 'core/paragraph' === $source['name'] ) {
-				$events[] = new Gutenberg_RTC_Completed_Paragraph(
+				$events[] = new Shouter_Gutenberg_RTC_Completed_Paragraph(
 					$origin_key,
 					$source_text,
 					$block['origin'],
-					gutenberg_rtc_yjs_id_from_key( $block_id )
+					shouter_gutenberg_rtc_yjs_id_from_key( $block_id )
 				);
 			}
 		}
@@ -313,7 +313,7 @@ function gutenberg_rtc_apply_decoded_update_to_paragraph_state( array &$state, a
 /**
  * Notes a root document field item.
  */
-function gutenberg_rtc_note_root_field( array &$state, array $struct, string $id, string $parent_sub ): void {
+function shouter_gutenberg_rtc_note_root_field( array &$state, array $struct, string $id, string $parent_sub ): void {
 	$content = isset( $struct['content'] ) && is_array( $struct['content'] ) ? $struct['content'] : array();
 	$parent  = isset( $struct['parent'] ) && is_array( $struct['parent'] ) ? $struct['parent'] : null;
 
@@ -324,21 +324,21 @@ function gutenberg_rtc_note_root_field( array &$state, array $struct, string $id
 		'type' === ( $content['type'] ?? '' ) &&
 		'Y.Text' === ( $content['name'] ?? '' )
 	) {
-		$state['root_content_text'] = gutenberg_rtc_yjs_id_from_key( $id );
+		$state['root_content_text'] = shouter_gutenberg_rtc_yjs_id_from_key( $id );
 	}
 }
 
 /**
  * Notes a Y.Map item that might be a block or nested block structure.
  */
-function gutenberg_rtc_note_map_item( array &$state, array $struct, string $id ): void {
+function shouter_gutenberg_rtc_note_map_item( array &$state, array $struct, string $id ): void {
 	if ( '' === $id ) {
 		return;
 	}
 
 	if ( ! isset( $state['blocks'][ $id ] ) ) {
 		$state['blocks'][ $id ] = array(
-			'id'      => gutenberg_rtc_yjs_id_from_key( $id ),
+			'id'      => shouter_gutenberg_rtc_yjs_id_from_key( $id ),
 			'content' => '',
 		);
 	}
@@ -355,7 +355,7 @@ function gutenberg_rtc_note_map_item( array &$state, array $struct, string $id )
 /**
  * Notes a Y.Map field item.
  */
-function gutenberg_rtc_note_map_field( array &$state, array $struct, string $id, string $parent_key, string $parent_sub ): void {
+function shouter_gutenberg_rtc_note_map_field( array &$state, array $struct, string $id, string $parent_key, string $parent_sub ): void {
 	$content = isset( $struct['content'] ) && is_array( $struct['content'] ) ? $struct['content'] : array();
 
 	if ( 'name' === $parent_sub && 'any' === ( $content['type'] ?? '' ) && isset( $content['values'][0] ) ) {
@@ -381,16 +381,16 @@ function gutenberg_rtc_note_map_field( array &$state, array $struct, string $id,
 /**
  * Notes a Y.Text string item.
  */
-function gutenberg_rtc_note_text_item( array &$state, array $struct, string $id ): void {
+function shouter_gutenberg_rtc_note_text_item( array &$state, array $struct, string $id ): void {
 	$content = isset( $struct['content'] ) && is_array( $struct['content'] ) ? $struct['content'] : array();
 	$text    = isset( $content['value'] ) ? (string) $content['value'] : '';
 	$block   = null;
-	$parent  = gutenberg_rtc_yjs_parent_key( $struct['parent'] ?? null );
+	$parent  = shouter_gutenberg_rtc_yjs_parent_key( $struct['parent'] ?? null );
 
 	if ( $parent && isset( $state['text_to_block'][ $parent ] ) ) {
 		$block = $state['text_to_block'][ $parent ];
 	} elseif ( isset( $struct['origin'] ) && is_array( $struct['origin'] ) ) {
-		$block = gutenberg_rtc_find_text_item_block_by_origin( $state, $struct['origin'] );
+		$block = shouter_gutenberg_rtc_find_text_item_block_by_origin( $state, $struct['origin'] );
 	}
 
 	if ( ! $block ) {
@@ -400,19 +400,19 @@ function gutenberg_rtc_note_text_item( array &$state, array $struct, string $id 
 	$state['blocks'][ $block ]['content'] = (string) ( $state['blocks'][ $block ]['content'] ?? '' ) . $text;
 	$state['text_items_to_block'][ $id ]  = array(
 		'block'  => $block,
-		'length' => (int) ( $struct['length'] ?? gutenberg_yjs_utf16_clock_len( $text ) ),
+		'length' => (int) ( $struct['length'] ?? shouter_gutenberg_yjs_utf16_clock_len( $text ) ),
 		'origin' => isset( $struct['origin'] ) && is_array( $struct['origin'] ) ? $struct['origin'] : null,
 		'text'   => $text,
 	);
-	$state['blocks'][ $block ]['content'] = gutenberg_rtc_reconstruct_block_text_from_items( $state, $block );
+	$state['blocks'][ $block ]['content'] = shouter_gutenberg_rtc_reconstruct_block_text_from_items( $state, $block );
 }
 
 /**
  * Reconstructs a block's text by following Yjs item origins.
  */
-function gutenberg_rtc_reconstruct_block_text_from_items( array $state, string $block_id ): string {
+function shouter_gutenberg_rtc_reconstruct_block_text_from_items( array $state, string $block_id ): string {
 	$text = '';
-	foreach ( gutenberg_rtc_text_nodes_for_block( $state, $block_id ) as $node ) {
+	foreach ( shouter_gutenberg_rtc_text_nodes_for_block( $state, $block_id ) as $node ) {
 		$text .= $node['text'];
 	}
 
@@ -424,7 +424,7 @@ function gutenberg_rtc_reconstruct_block_text_from_items( array $state, string $
  *
  * @return array<int,array{id:array{client:int,clock:int},text:string}>
  */
-function gutenberg_rtc_text_nodes_for_block( array $state, string $block_id ): array {
+function shouter_gutenberg_rtc_text_nodes_for_block( array $state, string $block_id ): array {
 	$children = array();
 	$nodes    = array();
 
@@ -433,7 +433,7 @@ function gutenberg_rtc_text_nodes_for_block( array $state, string $block_id ): a
 			continue;
 		}
 
-		$item_id = gutenberg_rtc_yjs_id_from_key( (string) $item_key );
+		$item_id = shouter_gutenberg_rtc_yjs_id_from_key( (string) $item_key );
 		if ( ! $item_id ) {
 			continue;
 		}
@@ -448,14 +448,14 @@ function gutenberg_rtc_text_nodes_for_block( array $state, string $block_id ): a
 				'client' => (int) $item_id['client'],
 				'clock'  => (int) $item_id['clock'] + $index,
 			);
-			$id_key = gutenberg_rtc_yjs_id_key( $id );
+			$id_key = shouter_gutenberg_rtc_yjs_id_key( $id );
 			$origin = 0 === $index
 				? ( isset( $item['origin'] ) && is_array( $item['origin'] ) ? $item['origin'] : null )
 				: array(
 					'client' => (int) $item_id['client'],
 					'clock'  => (int) $item_id['clock'] + $index - 1,
 				);
-			$origin_key = $origin ? gutenberg_rtc_yjs_id_key( $origin ) : '';
+			$origin_key = $origin ? shouter_gutenberg_rtc_yjs_id_key( $origin ) : '';
 
 			$nodes[ $id_key ]      = array(
 				'id'   => $id,
@@ -496,7 +496,7 @@ function gutenberg_rtc_text_nodes_for_block( array $state, string $block_id ): a
  * @param array<int,array{id:array{client:int,clock:int},text:string}> $nodes Character nodes.
  * @return array<int,array<int,array{clock:int,length:int}>>
  */
-function gutenberg_rtc_delete_ranges_from_text_nodes( array $nodes ): array {
+function shouter_gutenberg_rtc_delete_ranges_from_text_nodes( array $nodes ): array {
 	$ranges = array();
 
 	foreach ( $nodes as $node ) {
@@ -529,10 +529,10 @@ function gutenberg_rtc_delete_ranges_from_text_nodes( array $nodes ): array {
 /**
  * Notes a string item in the root document.content Y.Text.
  */
-function gutenberg_rtc_note_root_content_item( array &$state, array $struct, string $id ): void {
+function shouter_gutenberg_rtc_note_root_content_item( array &$state, array $struct, string $id ): void {
 	$root_content_text = isset( $state['root_content_text'] ) && is_array( $state['root_content_text'] ) ? $state['root_content_text'] : null;
-	$parent            = gutenberg_rtc_yjs_parent_key( $struct['parent'] ?? null );
-	$root_content_key  = $root_content_text ? gutenberg_rtc_yjs_id_key( $root_content_text ) : '';
+	$parent            = shouter_gutenberg_rtc_yjs_parent_key( $struct['parent'] ?? null );
+	$root_content_key  = $root_content_text ? shouter_gutenberg_rtc_yjs_id_key( $root_content_text ) : '';
 
 	if ( ! $root_content_key || $parent !== $root_content_key ) {
 		return;
@@ -540,11 +540,11 @@ function gutenberg_rtc_note_root_content_item( array &$state, array $struct, str
 
 	$content = isset( $struct['content'] ) && is_array( $struct['content'] ) ? $struct['content'] : array();
 	$text    = isset( $content['value'] ) ? (string) $content['value'] : '';
-	$length  = (int) ( $struct['length'] ?? gutenberg_yjs_utf16_clock_len( $text ) );
+	$length  = (int) ( $struct['length'] ?? shouter_gutenberg_yjs_utf16_clock_len( $text ) );
 
 	$state['root_content'] .= $text;
 	$state['root_content_items'][ $id ] = array(
-		'offset' => gutenberg_yjs_utf16_clock_len( (string) $state['root_content'] ) - $length,
+		'offset' => shouter_gutenberg_yjs_utf16_clock_len( (string) $state['root_content'] ) - $length,
 		'length' => $length,
 		'text'   => $text,
 	);
@@ -555,7 +555,7 @@ function gutenberg_rtc_note_root_content_item( array &$state, array $struct, str
  *
  * @return array<string, mixed>|null
  */
-function gutenberg_rtc_build_content_insert_for_paragraph( array $state, string $inserted_text, string $source_text = '' ): ?array {
+function shouter_gutenberg_rtc_build_content_insert_for_paragraph( array $state, string $inserted_text, string $source_text = '' ): ?array {
 	$root_content_text = isset( $state['root_content_text'] ) && is_array( $state['root_content_text'] ) ? $state['root_content_text'] : null;
 	$root_content      = isset( $state['root_content'] ) ? (string) $state['root_content'] : '';
 
@@ -568,7 +568,7 @@ function gutenberg_rtc_build_content_insert_for_paragraph( array $state, string 
 			'parent'       => $root_content_text,
 			'origin'       => null,
 			'right_origin' => null,
-			'text'         => gutenberg_rtc_serialize_paragraph_block( $source_text ) . "\n\n" . gutenberg_rtc_serialize_paragraph_block( $inserted_text ) . "\n\n<!-- wp:paragraph -->\n<p></p>\n<!-- /wp:paragraph -->",
+			'text'         => shouter_gutenberg_rtc_serialize_paragraph_block( $source_text ) . "\n\n" . shouter_gutenberg_rtc_serialize_paragraph_block( $inserted_text ) . "\n\n<!-- wp:paragraph -->\n<p></p>\n<!-- /wp:paragraph -->",
 		);
 	}
 
@@ -576,14 +576,14 @@ function gutenberg_rtc_build_content_insert_for_paragraph( array $state, string 
 		return null;
 	}
 
-	$serialized = "\n\n" . gutenberg_rtc_serialize_paragraph_block( $inserted_text );
+	$serialized = "\n\n" . shouter_gutenberg_rtc_serialize_paragraph_block( $inserted_text );
 	$offset     = strlen( $root_content );
 
 	if ( preg_match( '/\n\n<!-- wp:paragraph(?:\\s+\\/| -->\n<p><\\/p>\n<!-- \\/wp:paragraph -->)\\s*$/', $root_content, $matches, PREG_OFFSET_CAPTURE ) ) {
 		$offset = (int) $matches[0][1];
 	}
 
-	$position = gutenberg_rtc_root_content_position_to_yjs_ids( $state, $offset );
+	$position = shouter_gutenberg_rtc_root_content_position_to_yjs_ids( $state, $offset );
 	if ( ! $position ) {
 		return null;
 	}
@@ -599,7 +599,7 @@ function gutenberg_rtc_build_content_insert_for_paragraph( array $state, string 
 /**
  * Serializes plain paragraph text as Gutenberg paragraph block markup.
  */
-function gutenberg_rtc_serialize_paragraph_block( string $text ): string {
+function shouter_gutenberg_rtc_serialize_paragraph_block( string $text ): string {
 	return "<!-- wp:paragraph -->\n<p>" . esc_html( $text ) . "</p>\n<!-- /wp:paragraph -->";
 }
 
@@ -608,7 +608,7 @@ function gutenberg_rtc_serialize_paragraph_block( string $text ): string {
  *
  * @return array{origin:?array<string,int>,right_origin:?array<string,int>}|null
  */
-function gutenberg_rtc_root_content_position_to_yjs_ids( array $state, int $offset ): ?array {
+function shouter_gutenberg_rtc_root_content_position_to_yjs_ids( array $state, int $offset ): ?array {
 	$items = isset( $state['root_content_items'] ) && is_array( $state['root_content_items'] ) ? $state['root_content_items'] : array();
 	if ( empty( $items ) ) {
 		return array(
@@ -626,10 +626,10 @@ function gutenberg_rtc_root_content_position_to_yjs_ids( array $state, int $offs
 
 	$origin        = null;
 	$right_origin  = null;
-	$utf16_offset  = gutenberg_yjs_utf16_clock_len( substr( (string) ( $state['root_content'] ?? '' ), 0, $offset ) );
+	$utf16_offset  = shouter_gutenberg_yjs_utf16_clock_len( substr( (string) ( $state['root_content'] ?? '' ), 0, $offset ) );
 
 	foreach ( $items as $item_key => $item ) {
-		$item_id = gutenberg_rtc_yjs_id_from_key( (string) $item_key );
+		$item_id = shouter_gutenberg_rtc_yjs_id_from_key( (string) $item_key );
 		if ( ! $item_id ) {
 			continue;
 		}
@@ -673,12 +673,12 @@ function gutenberg_rtc_root_content_position_to_yjs_ids( array $state, int $offs
 /**
  * Finds the block owning a text item origin.
  */
-function gutenberg_rtc_find_text_item_block_by_origin( array $state, array $origin ): ?string {
+function shouter_gutenberg_rtc_find_text_item_block_by_origin( array $state, array $origin ): ?string {
 	$client = isset( $origin['client'] ) ? (int) $origin['client'] : 0;
 	$clock  = isset( $origin['clock'] ) ? (int) $origin['clock'] : 0;
 
 	foreach ( $state['text_items_to_block'] as $item_key => $item ) {
-		$item_id = gutenberg_rtc_yjs_id_from_key( (string) $item_key );
+		$item_id = shouter_gutenberg_rtc_yjs_id_from_key( (string) $item_key );
 		if ( ! $item_id || (int) $item_id['client'] !== $client ) {
 			continue;
 		}
@@ -696,7 +696,7 @@ function gutenberg_rtc_find_text_item_block_by_origin( array $state, array $orig
 /**
  * Builds a stable key for a Yjs ID.
  */
-function gutenberg_rtc_yjs_id_key( $id ): string {
+function shouter_gutenberg_rtc_yjs_id_key( $id ): string {
 	if ( ! is_array( $id ) || ! isset( $id['client'], $id['clock'] ) ) {
 		return '';
 	}
@@ -707,12 +707,12 @@ function gutenberg_rtc_yjs_id_key( $id ): string {
 /**
  * Builds a stable key for a Yjs parent ID descriptor.
  */
-function gutenberg_rtc_yjs_parent_key( $parent ): string {
+function shouter_gutenberg_rtc_yjs_parent_key( $parent ): string {
 	if ( ! is_array( $parent ) || ( $parent['type'] ?? '' ) !== 'id' ) {
 		return '';
 	}
 
-	return gutenberg_rtc_yjs_id_key( $parent );
+	return shouter_gutenberg_rtc_yjs_id_key( $parent );
 }
 
 /**
@@ -720,7 +720,7 @@ function gutenberg_rtc_yjs_parent_key( $parent ): string {
  *
  * @return array{client:int,clock:int}|null
  */
-function gutenberg_rtc_yjs_id_from_key( string $key ): ?array {
+function shouter_gutenberg_rtc_yjs_id_from_key( string $key ): ?array {
 	if ( ! preg_match( '/^(\d+):(\d+)$/', $key, $matches ) ) {
 		return null;
 	}
