@@ -1,0 +1,509 @@
+{
+  "snapshotV1": "AZgCAQECAZgCBg==",
+  "snapshotV2": "AZgCAQEBAZgCBg==",
+  "decodedV1": {
+    "deleteSet": {
+      "280": [
+        {
+          "clock": 1,
+          "length": 2
+        }
+      ]
+    },
+    "stateVector": {
+      "280": 6
+    }
+  },
+  "decodedV2": {
+    "deleteSet": {
+      "280": [
+        {
+          "clock": 1,
+          "length": 2
+        }
+      ]
+    },
+    "stateVector": {
+      "280": 6
+    }
+  },
+  "emptyV1": "AAA=",
+  "emptyV2": "AAA=",
+  "emptyDecodedV1": {
+    "deleteSet": {},
+    "stateVector": {}
+  },
+  "emptyDecodedV2": {
+    "deleteSet": {},
+    "stateVector": {}
+  },
+  "equalDecoded": true,
+  "equalAltered": false,
+  "contains": {
+    "containedUpdateV1": "AQSYAgAEAQdjb250ZW50AUGEmAIAAkJDhJgCAgJERSgBA21hcAV0aXRsZQF3CFNuYXBzaG90AZgCAQEC",
+    "containedUpdateV2": "AAAD2AQBAgAEAAUEAIQBKBsUY29udGVudEFCQ0RFbWFwdGl0bGUHAUIAAwUBAQABAQEEAHcIU25hcHNob3QBmAIBAQE=",
+    "contained": true,
+    "futureUpdateV1": "AgGZAgCEmAIEAVoEmAIABAEHY29udGVudAFBhJgCAAJCQ4SYAgICREUoAQNtYXAFdGl0bGUBdwhTbmFwc2hvdAGYAgEBAg==",
+    "futureUpdateV2": "AAAFmQTYBAIDCEgEAAeEAAQAhAEoHRVaY29udGVudEFCQ0RFbWFwdGl0bGUBBwFCAAMFAQEAAQECAQAEAHcIU25hcHNob3QBmAIBAQE=",
+    "future": false,
+    "extraDeleteUpdateV1": "AQSYAgAEAQdjb250ZW50A0FCQ4SYAgIBRISYAgMBRSgBA21hcAV0aXRsZQF3CFNuYXBzaG90AZgCAQMB",
+    "extraDeleteUpdateV2": "AAAD2AQBAgQCAAUEAIQBKBsUY29udGVudEFCQ0RFbWFwdGl0bGUHA0EAAwUBAQABAQEEAHcIU25hcHNob3QBmAIBAwA=",
+    "extraDelete": false
+  },
+  "restore": {
+    "sourceUpdateV1": "AQSaAgAEAQdjb250ZW50AUGEmgIAAkJDhJoCAgJERSgBA21hcAV0aXRsZQF3CFJlc3RvcmVkAZoCAQEC",
+    "sourceUpdateV2": "AAAD2gQBAgAEAAUEAIQBKBsUY29udGVudEFCQ0RFbWFwdGl0bGUHAUIAAwUBAQABAQEEAHcIUmVzdG9yZWQBmgIBAQE=",
+    "beforeDeleteSnapshotV1": "AAGaAgU=",
+    "afterDeleteSnapshotV1": "AZoCAQECAZoCBg==",
+    "partialSnapshotV1": "AAGaAgI=",
+    "beforeDeleteJson": {
+      "content": "ABCDE"
+    },
+    "afterDeleteJson": {
+      "content": "ADE",
+      "map": {
+        "title": "Restored"
+      }
+    },
+    "partialJson": {
+      "content": "AB"
+    },
+    "beforeDeleteStateVectorV1": "AZoCBQ==",
+    "afterDeleteStateVectorV1": "AZoCBg==",
+    "partialStateVectorV1": "AZoCAg=="
+  },
+  "reads": {
+    "sourceUpdateV1": "AVGbAgAIAQVpdGVtcwF3AUGImwIAAXcBQoibAgEBdwFDKAEEbWV0YQV0aXRsZQF3BkJlZm9yZSgBBG1ldGEFY291bnQBfQEEAQdjb250ZW50AUiEmwIFAmVshJsCBwFshJsCCAFvxpsCBZsCBgRib2xkBHRydWXGmwIImwIJBGJvbGQEbnVsbAcBA3htbAMBcAcAmwIMBgQAmwINA1htbCgAmwIMBWNsYXNzAXcGYmVmb3JlJwCbAgwEYm9keQIEAJsCEgRCb2R5hJsCFgZCZWZvcmUnAJsCDAZpbmxpbmUDBHNwYW4oAJsCHQVjbGFzcwF3BmJlZm9yZQcAmwIdBgQAmwIfBklubGluZYSbAiUGQmVmb3JlJwEEbWV0YQRib2R5AgQAmwIsA01hcISbAi8EVGV4dEabAi0EYm9sZAR0cnVlxpsCL5sCMARib2xkBG51bGwoAJsCLARsYW5nAXcCZW4nAQRtZXRhB3htbEJvZHkEBwCbAjcGBACbAjgGTWFwWG1sh5sCOAMCZW0HAJsCPwYEAJsCQAZCZWZvcmUoAJsCPwVjbGFzcwF3BmJlZm9yZYebAgIACACbAkgBdwJuQYibAkkBdwJuQoebAkgBKACbAksEbmFtZQF3DE5lc3RlZEJlZm9yZYebAksCBACbAk0GTmVzdGVkhJsCUwRUZXh0RpsCTgZpdGFsaWMEdHJ1ZcabAlObAlQGaXRhbGljBG51bGyHmwJNBAcAmwJaBgQAmwJbCU5lc3RlZFhtbIebAlsDBHNwYW4HAJsCZQYEAJsCZgZCZWZvcmUoAJsCZQVjbGFzcwF3BmJlZm9yZcibAgKbAkgBdwFEqJsCAwF3BUFmdGVyKAEEbWV0YQVleHRyYQF4hpsCMwZpdGFsaWMEdHJ1ZYSbAnEFIGJvZHmGmwJ2Bml0YWxpYwRudWxsqJsCNgF3AmZyKACbAiwEbWFyawF2AQVjb2xvcncFZ3JlZW6EmwI+ASGomwJHAXcFYWZ0ZXKEmwJGBUFmdGVyh5sCPwMCaHLEmwIFmwIKAWmImwJKAXcCbkOomwJMAXcLTmVzdGVkQWZ0ZXIoAJsCSwVleHRyYQF3A3llc8SbAlObAlkBIYSbAmQBIaibAm0BdwVhZnRlcoSbAmwFQWZ0ZXKHmwJlAwJicqibAhEBdwVhZnRlcoSbAhwFQWZ0ZXKomwIeAXcFYWZ0ZXKEmwIrBUFmdGVyhJsCEAEhRpsCDgRib2xkBHRydWXGmwIQmwKbAQRib2xkBG51bGwBmwIOAQEDAgYCEQEXBh4BJgYwBDYBQQdJAUwBVARnBw==",
+    "sourceUpdateV2": "AAMAAw0D2wRQTwACCAQCRgYIAkIADAhUIgAEDA4GAEYWAgAOAkL6AYwCAkIGAAQMAEwaAgAUAkLGAwKgAbwBCsACVCQSQk70AYoCBEIQIhJCTugCFgQadgAQDAaIAQY8DFj8AZ4C1gKaBJMBCACIASgBBACEAsYBBwEEACgAJwAEAIQAJwAoAAcABACEACcABACEAEYAxgAoACcABwAEAIcABwAEACgAhwAIAIgAhwAoAIcABACEAEYAxgCHAAcABACHAAcABAAoAMgAqAAoAIYAhACGAKgAKACEAKgAhACHAMQAiACoACgAxACEAKgAhACHAKgAhACoAIQBRgDG1AKTAml0ZW1zbWV0YXRpdGxlbWV0YWNvdW50Y29udGVudEhlbGxvYm9sZGJvbGR4bWxwWG1sY2xhc3Nib2R5Qm9keUJlZm9yZWlubGluZXNwYW5jbGFzc0lubGluZUJlZm9yZW1ldGFib2R5TWFwVGV4dGJvbGRib2xkbGFuZ21ldGF4bWxCb2R5TWFwWG1sZW1CZWZvcmVjbGFzc25hbWVOZXN0ZWRUZXh0aXRhbGljaXRhbGljTmVzdGVkWG1sc3BhbkJlZm9yZWNsYXNzbWV0YWV4dHJhaXRhbGljIGJvZHlpdGFsaWNtYXJrIUFmdGVyaHJpZXh0cmEhIUFmdGVyYnJBZnRlckFmdGVyIWJvbGRib2xkBQQFBAUHAQJBAEQAAwEDBUQARgAEBUYARAADRAMHBgIGBQQGBEYACQQGBQQFBgUGBAEFAgEFQQAFAkUAAUQADwEEAAgBAAABAQAADAEAABMDBgIDBgIEBgMGAAECBAYDBkMAAkEXAVEAdwFBdwFCdwFDdwZCZWZvcmV9AXh+dwZiZWZvcmV3BmJlZm9yZXh+dwJlbncGYmVmb3JldwJuQXcCbkJ3DE5lc3RlZEJlZm9yZXh+dwZiZWZvcmV3AUR3BUFmdGVyeHh+dwJmcnYBBWNvbG9ydwVncmVlbncFYWZ0ZXJ3Am5DdwtOZXN0ZWRBZnRlcncDeWVzdwVhZnRlcncFYWZ0ZXJ3BWFmdGVyeH4BmwIOAQABAQEBCQAFBQEABwUEAwIACgYBAAIABwMPBg==",
+    "beforeSnapshotV1": "AAGbAm4=",
+    "afterSnapshotV1": "AZsCDgEBAwIGAhEBFwYeASYGMAQ2AUEHSQFMAVQEZwcBmwKeAQ==",
+    "before": {
+      "array": [
+        "A",
+        "B",
+        "C",
+        [
+          "nA",
+          "nB"
+        ],
+        {
+          "name": "NestedBefore"
+        },
+        "NestedText",
+        "NestedXml<span class=\"before\">Before</span>"
+      ],
+      "arrayLength": 7,
+      "arrayFirst": "A",
+      "arraySlice": [
+        "B",
+        "C",
+        [
+          "nA",
+          "nB"
+        ],
+        {
+          "name": "NestedBefore"
+        },
+        "NestedText"
+      ],
+      "nestedArray": [
+        "nA",
+        "nB"
+      ],
+      "nestedArrayLength": 2,
+      "nestedArrayFirst": "nA",
+      "nestedArraySlice": [
+        "nB"
+      ],
+      "nestedMapAll": {
+        "name": "NestedBefore"
+      },
+      "nestedMapSize": 1,
+      "nestedMapHasName": true,
+      "nestedMapHasExtra": false,
+      "nestedMapName": "NestedBefore",
+      "nestedMapExtra": null,
+      "nestedText": "NestedText",
+      "nestedTextDelta": [
+        {
+          "insert": "Nested",
+          "attributes": {
+            "italic": true
+          }
+        },
+        {
+          "insert": "Text"
+        }
+      ],
+      "nestedXmlFragment": "NestedXml<span class=\"before\">Before</span>",
+      "nestedXmlFragmentLength": 2,
+      "nestedXmlFragmentFirstChild": "NestedXml",
+      "nestedXmlFragmentArray": [
+        "NestedXml",
+        "<span class=\"before\">Before</span>"
+      ],
+      "nestedXmlFragmentSlice": [
+        "NestedXml",
+        "<span class=\"before\">Before</span>"
+      ],
+      "nestedXmlElement": "<span class=\"before\">Before</span>",
+      "nestedXmlElementLength": 1,
+      "nestedXmlElementFirstChild": "Before",
+      "nestedXmlElementSlice": [
+        "Before"
+      ],
+      "nestedXmlAttributes": {
+        "class": "before"
+      },
+      "nestedXmlClass": "before",
+      "nestedXmlText": "NestedXml",
+      "nestedXmlTextLength": 9,
+      "nestedXmlDelta": [
+        {
+          "insert": "NestedXml"
+        }
+      ],
+      "nestedXmlElementText": "Before",
+      "nestedXmlElementTextLength": 6,
+      "nestedXmlElementDelta": [
+        {
+          "insert": "Before"
+        }
+      ],
+      "mapAll": {
+        "title": "Before",
+        "count": 1,
+        "body": "MapText",
+        "xmlBody": "MapXml<em class=\"before\">Before</em>"
+      },
+      "mapSize": 4,
+      "mapHasCount": true,
+      "mapHasExtra": false,
+      "mapTitle": "Before",
+      "mapCount": 1,
+      "mapExtra": null,
+      "mapText": "MapText",
+      "mapTextLength": 7,
+      "mapTextSlice": "Text",
+      "mapTextDelta": [
+        {
+          "insert": "Map",
+          "attributes": {
+            "bold": true
+          }
+        },
+        {
+          "insert": "Text"
+        }
+      ],
+      "mapTextAttributes": {
+        "lang": "en"
+      },
+      "mapTextLang": "en",
+      "mapTextMark": null,
+      "mapTextHasLang": true,
+      "mapTextHasMissing": false,
+      "mapXmlFragment": "MapXml<em class=\"before\">Before</em>",
+      "mapXmlFragmentLength": 2,
+      "mapXmlFragmentFirstChild": "MapXml",
+      "mapXmlFragmentArray": [
+        "MapXml",
+        "<em class=\"before\">Before</em>"
+      ],
+      "mapXmlFragmentSlice": [
+        "MapXml",
+        "<em class=\"before\">Before</em>"
+      ],
+      "mapXmlElement": "<em class=\"before\">Before</em>",
+      "mapXmlElementLength": 1,
+      "mapXmlElementFirstChild": "Before",
+      "mapXmlElementSlice": [
+        "Before"
+      ],
+      "mapXmlAttributes": {
+        "class": "before"
+      },
+      "mapXmlClass": "before",
+      "mapXmlText": "MapXml",
+      "mapXmlTextLength": 6,
+      "mapXmlDelta": [
+        {
+          "insert": "MapXml"
+        }
+      ],
+      "mapXmlElementText": "Before",
+      "mapXmlElementTextLength": 6,
+      "mapXmlElementDelta": [
+        {
+          "insert": "Before"
+        }
+      ],
+      "text": "Hello",
+      "textLength": 5,
+      "textSlice": "ell",
+      "textDelta": [
+        {
+          "insert": "H"
+        },
+        {
+          "insert": "ell",
+          "attributes": {
+            "bold": true
+          }
+        },
+        {
+          "insert": "o"
+        }
+      ],
+      "nestedTextLength": 10,
+      "nestedTextSlice": "Text",
+      "xml": "<p body=\"BodyBefore\" class=\"before\" inline=\"<span class=\"before\">InlineBefore</span>\">Xml</p>",
+      "xmlLength": 1,
+      "xmlFirstChild": "<p body=\"BodyBefore\" class=\"before\" inline=\"<span class=\"before\">InlineBefore</span>\">Xml</p>",
+      "xmlSlice": [
+        "<p body=\"BodyBefore\" class=\"before\" inline=\"<span class=\"before\">InlineBefore</span>\">Xml</p>"
+      ],
+      "xmlElement": "<p body=\"BodyBefore\" class=\"before\" inline=\"<span class=\"before\">InlineBefore</span>\">Xml</p>",
+      "xmlElementLength": 1,
+      "xmlElementFirstChild": "Xml",
+      "xmlElementSlice": [
+        "Xml"
+      ],
+      "xmlAttributes": {
+        "class": "before",
+        "body": "BodyBefore",
+        "inline": "<span class=\"before\">InlineBefore</span>"
+      },
+      "xmlClass": "before",
+      "xmlText": "Xml",
+      "xmlTextLength": 3,
+      "xmlDelta": [
+        {
+          "insert": "Xml"
+        }
+      ]
+    },
+    "after": {
+      "array": [
+        "A",
+        "C",
+        "D",
+        [
+          "nB",
+          "nC"
+        ],
+        {
+          "name": "NestedAfter",
+          "extra": "yes"
+        },
+        "Nested!",
+        "NestedXml!<span class=\"after\">After</span><br></br>"
+      ],
+      "arrayLength": 7,
+      "arrayFirst": "A",
+      "arraySlice": [
+        "C",
+        "D",
+        [
+          "nB",
+          "nC"
+        ],
+        {
+          "name": "NestedAfter",
+          "extra": "yes"
+        },
+        "Nested!"
+      ],
+      "nestedArray": [
+        "nB",
+        "nC"
+      ],
+      "nestedArrayLength": 2,
+      "nestedArrayFirst": "nB",
+      "nestedArraySlice": [
+        "nC"
+      ],
+      "nestedMapAll": {
+        "name": "NestedAfter",
+        "extra": "yes"
+      },
+      "nestedMapSize": 2,
+      "nestedMapHasName": true,
+      "nestedMapHasExtra": true,
+      "nestedMapName": "NestedAfter",
+      "nestedMapExtra": "yes",
+      "nestedText": "Nested!",
+      "nestedTextDelta": [
+        {
+          "insert": "Nested!",
+          "attributes": {
+            "italic": true
+          }
+        }
+      ],
+      "nestedXmlFragment": "NestedXml!<span class=\"after\">After</span><br></br>",
+      "nestedXmlFragmentLength": 3,
+      "nestedXmlFragmentFirstChild": "NestedXml!",
+      "nestedXmlFragmentArray": [
+        "NestedXml!",
+        "<span class=\"after\">After</span>",
+        "<br></br>"
+      ],
+      "nestedXmlFragmentSlice": [
+        "NestedXml!",
+        "<span class=\"after\">After</span>"
+      ],
+      "nestedXmlElement": "<span class=\"after\">After</span>",
+      "nestedXmlElementLength": 1,
+      "nestedXmlElementFirstChild": "After",
+      "nestedXmlElementSlice": [
+        "After"
+      ],
+      "nestedXmlAttributes": {
+        "class": "after"
+      },
+      "nestedXmlClass": "after",
+      "nestedXmlText": "NestedXml!",
+      "nestedXmlTextLength": 10,
+      "nestedXmlDelta": [
+        {
+          "insert": "NestedXml!"
+        }
+      ],
+      "nestedXmlElementText": "After",
+      "nestedXmlElementTextLength": 5,
+      "nestedXmlElementDelta": [
+        {
+          "insert": "After"
+        }
+      ],
+      "mapAll": {
+        "title": "After",
+        "body": "Map body",
+        "xmlBody": "MapXml!<em class=\"after\">After</em><hr></hr>",
+        "extra": true
+      },
+      "mapSize": 4,
+      "mapHasCount": false,
+      "mapHasExtra": true,
+      "mapTitle": "After",
+      "mapCount": null,
+      "mapExtra": true,
+      "mapText": "Map body",
+      "mapTextLength": 8,
+      "mapTextSlice": " body",
+      "mapTextDelta": [
+        {
+          "insert": "Map",
+          "attributes": {
+            "bold": true
+          }
+        },
+        {
+          "insert": " body",
+          "attributes": {
+            "italic": true
+          }
+        }
+      ],
+      "mapTextAttributes": {
+        "lang": "fr",
+        "mark": {
+          "color": "green"
+        }
+      },
+      "mapTextLang": "fr",
+      "mapTextMark": {
+        "color": "green"
+      },
+      "mapTextHasLang": true,
+      "mapTextHasMissing": false,
+      "mapXmlFragment": "MapXml!<em class=\"after\">After</em><hr></hr>",
+      "mapXmlFragmentLength": 3,
+      "mapXmlFragmentFirstChild": "MapXml!",
+      "mapXmlFragmentArray": [
+        "MapXml!",
+        "<em class=\"after\">After</em>",
+        "<hr></hr>"
+      ],
+      "mapXmlFragmentSlice": [
+        "MapXml!",
+        "<em class=\"after\">After</em>"
+      ],
+      "mapXmlElement": "<em class=\"after\">After</em>",
+      "mapXmlElementLength": 1,
+      "mapXmlElementFirstChild": "After",
+      "mapXmlElementSlice": [
+        "After"
+      ],
+      "mapXmlAttributes": {
+        "class": "after"
+      },
+      "mapXmlClass": "after",
+      "mapXmlText": "MapXml!",
+      "mapXmlTextLength": 7,
+      "mapXmlDelta": [
+        {
+          "insert": "MapXml!"
+        }
+      ],
+      "mapXmlElementText": "After",
+      "mapXmlElementTextLength": 5,
+      "mapXmlElementDelta": [
+        {
+          "insert": "After"
+        }
+      ],
+      "text": "Hilo",
+      "textLength": 4,
+      "textSlice": "il",
+      "textDelta": [
+        {
+          "insert": "Hi"
+        },
+        {
+          "insert": "l",
+          "attributes": {
+            "bold": true
+          }
+        },
+        {
+          "insert": "o"
+        }
+      ],
+      "nestedTextLength": 7,
+      "nestedTextSlice": "!",
+      "xml": "<p body=\"BodyAfter\" class=\"after\" inline=\"<span class=\"after\">InlineAfter</span>\"><bold>Xml</bold>!</p>",
+      "xmlLength": 1,
+      "xmlFirstChild": "<p body=\"BodyAfter\" class=\"after\" inline=\"<span class=\"after\">InlineAfter</span>\"><bold>Xml</bold>!</p>",
+      "xmlSlice": [
+        "<p body=\"BodyAfter\" class=\"after\" inline=\"<span class=\"after\">InlineAfter</span>\"><bold>Xml</bold>!</p>"
+      ],
+      "xmlElement": "<p body=\"BodyAfter\" class=\"after\" inline=\"<span class=\"after\">InlineAfter</span>\"><bold>Xml</bold>!</p>",
+      "xmlElementLength": 1,
+      "xmlElementFirstChild": "<bold>Xml</bold>!",
+      "xmlElementSlice": [
+        "<bold>Xml</bold>!"
+      ],
+      "xmlAttributes": {
+        "class": "after",
+        "body": "BodyAfter",
+        "inline": "<span class=\"after\">InlineAfter</span>"
+      },
+      "xmlClass": "after",
+      "xmlText": "<bold>Xml</bold>!",
+      "xmlTextLength": 4,
+      "xmlDelta": [
+        {
+          "insert": "Xml",
+          "attributes": {
+            "bold": true
+          }
+        },
+        {
+          "insert": "!"
+        }
+      ]
+    }
+  }
+}

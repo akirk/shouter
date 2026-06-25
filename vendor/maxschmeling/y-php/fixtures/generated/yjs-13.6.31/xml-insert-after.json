@@ -1,0 +1,148 @@
+{
+  "updateV1": "AQ6yAQAHAQN4bWwGBACyAQAEbGVhZIeyAQADB2FydGljbGWHsgEFBgQAsgEGBHRhaWyHsgEGBQdtZW50aW9uBwCyAQUDBnN0cm9uZwcAsgEMBgQAsgENAUKHsgEMBgQAsgEPBm1pZGRsZYeyAQ8FBG5vdGWHsgEWBgQAsgEXA2VuZAA=",
+  "updateV2": "AAMAAwED8gIMDQEACgIAQg4CQgYADgIAFQcABACHAQQAhwAHAQQAhwAEAIcBBDgteG1sbGVhZGFydGljbGV0YWlsbWVudGlvbnN0cm9uZ0JtaWRkbGVub3RlZW5kAwQHBAcGAQYEAwMBAAAJBgMGBQNGAAUGAAEOAAA=",
+  "json": {
+    "xml": "lead<article><strong>B</strong>middle[object Object]end</article>tail[object Object]"
+  },
+  "fragmentJson": "lead<article><strong>B</strong>middle[object Object]end</article>tail[object Object]",
+  "fragmentChildren": [
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "lead",
+      "json": "lead"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "article",
+      "string": "<article><strong>B</strong>middle[object Object]end</article>",
+      "json": "<article><strong>B</strong>middle[object Object]end</article>"
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "tail",
+      "json": "tail"
+    },
+    {
+      "type": "YXmlHook",
+      "nodeName": null,
+      "string": "[object Object]",
+      "json": {}
+    }
+  ],
+  "articleChildren": [
+    {
+      "type": "YXmlElement",
+      "nodeName": "strong",
+      "string": "<strong>B</strong>",
+      "json": "<strong>B</strong>"
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "middle",
+      "json": "middle"
+    },
+    {
+      "type": "YXmlHook",
+      "nodeName": null,
+      "string": "[object Object]",
+      "json": {}
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "end",
+      "json": "end"
+    }
+  ],
+  "treeWalker": [
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "lead",
+      "json": "lead"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "article",
+      "string": "<article><strong>B</strong>middle[object Object]end</article>",
+      "json": "<article><strong>B</strong>middle[object Object]end</article>"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "strong",
+      "string": "<strong>B</strong>",
+      "json": "<strong>B</strong>"
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "B",
+      "json": "B"
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "middle",
+      "json": "middle"
+    },
+    {
+      "type": "YXmlHook",
+      "nodeName": null,
+      "string": "[object Object]",
+      "json": {}
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "end",
+      "json": "end"
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "tail",
+      "json": "tail"
+    },
+    {
+      "type": "YXmlHook",
+      "nodeName": null,
+      "string": "[object Object]",
+      "json": {}
+    }
+  ],
+  "articleTreeWalker": [
+    {
+      "type": "YXmlElement",
+      "nodeName": "strong",
+      "string": "<strong>B</strong>",
+      "json": "<strong>B</strong>"
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "B",
+      "json": "B"
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "middle",
+      "json": "middle"
+    },
+    {
+      "type": "YXmlHook",
+      "nodeName": null,
+      "string": "[object Object]",
+      "json": {}
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "end",
+      "json": "end"
+    }
+  ]
+}

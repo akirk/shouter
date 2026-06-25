@@ -1,0 +1,239 @@
+{
+  "varUint": [
+    {
+      "value": 0,
+      "base64": "AA=="
+    },
+    {
+      "value": 1,
+      "base64": "AQ=="
+    },
+    {
+      "value": 2,
+      "base64": "Ag=="
+    },
+    {
+      "value": 42,
+      "base64": "Kg=="
+    },
+    {
+      "value": 127,
+      "base64": "fw=="
+    },
+    {
+      "value": 128,
+      "base64": "gAE="
+    },
+    {
+      "value": 129,
+      "base64": "gQE="
+    },
+    {
+      "value": 255,
+      "base64": "/wE="
+    },
+    {
+      "value": 256,
+      "base64": "gAI="
+    },
+    {
+      "value": 16383,
+      "base64": "/38="
+    },
+    {
+      "value": 16384,
+      "base64": "gIAB"
+    },
+    {
+      "value": 65535,
+      "base64": "//8D"
+    },
+    {
+      "value": 65536,
+      "base64": "gIAE"
+    },
+    {
+      "value": 1048576,
+      "base64": "gIBA"
+    },
+    {
+      "value": 2147483647,
+      "base64": "/////wc="
+    }
+  ],
+  "varString": [
+    {
+      "value": "",
+      "base64": "AA=="
+    },
+    {
+      "value": "a",
+      "base64": "AWE="
+    },
+    {
+      "value": "hello",
+      "base64": "BWhlbGxv"
+    },
+    {
+      "value": "collaboration",
+      "base64": "DWNvbGxhYm9yYXRpb24="
+    },
+    {
+      "value": "emoji: 😀",
+      "base64": "C2Vtb2ppOiDwn5iA"
+    },
+    {
+      "value": "multi\nline",
+      "base64": "Cm11bHRpCmxpbmU="
+    }
+  ],
+  "varUint8Array": [
+    {
+      "value": "",
+      "base64": "AA=="
+    },
+    {
+      "value": "aGVsbG8=",
+      "base64": "BWhlbGxv"
+    },
+    {
+      "value": "AAH/",
+      "base64": "AwAB/w=="
+    }
+  ],
+  "any": [
+    {
+      "value": {
+        "type": "Undefined"
+      },
+      "base64": "fw=="
+    },
+    {
+      "value": null,
+      "base64": "fg=="
+    },
+    {
+      "value": true,
+      "base64": "eA=="
+    },
+    {
+      "value": false,
+      "base64": "eQ=="
+    },
+    {
+      "value": "emoji: 😀 / slash",
+      "base64": "dxNlbW9qaTog8J+YgCAvIHNsYXNo"
+    },
+    {
+      "value": 42,
+      "base64": "fSo="
+    },
+    {
+      "value": -42,
+      "base64": "fWo="
+    },
+    {
+      "value": 1,
+      "base64": "fQE="
+    },
+    {
+      "value": 1.5,
+      "base64": "fD/AAAA="
+    },
+    {
+      "value": 3.141592653589793,
+      "base64": "e0AJIftURC0Y"
+    },
+    {
+      "value": {
+        "type": "Number",
+        "value": "NaN"
+      },
+      "base64": "e3/4AAAAAAAA"
+    },
+    {
+      "value": {
+        "type": "Number",
+        "value": "Infinity"
+      },
+      "base64": "fH+AAAA="
+    },
+    {
+      "value": {
+        "type": "Number",
+        "value": "-Infinity"
+      },
+      "base64": "fP+AAAA="
+    },
+    {
+      "value": 2147483647,
+      "base64": "fb////8P"
+    },
+    {
+      "value": 2147483648,
+      "base64": "fE8AAAA="
+    },
+    {
+      "value": 2147483649,
+      "base64": "e0HgAAAAIAAA"
+    },
+    {
+      "value": {
+        "type": "BigInt",
+        "value": "0"
+      },
+      "base64": "egAAAAAAAAAA"
+    },
+    {
+      "value": {
+        "type": "BigInt",
+        "value": "9223372036854775807"
+      },
+      "base64": "en//////////"
+    },
+    {
+      "value": {
+        "type": "BigInt",
+        "value": "-9223372036854775808"
+      },
+      "base64": "eoAAAAAAAAAA"
+    },
+    {
+      "value": [
+        "nested",
+        1.5,
+        {
+          "ok": true,
+          "text": "snowman: ☃",
+          "big": {
+            "type": "BigInt",
+            "value": "7"
+          }
+        }
+      ],
+      "base64": "dQN3Bm5lc3RlZHw/wAAAdgMCb2t4BHRleHR3DHNub3dtYW46IOKYgwNiaWd6AAAAAAAAAAc="
+    },
+    {
+      "value": {
+        "alpha": 1,
+        "beta": [
+          false,
+          null
+        ],
+        "slash": "a/b",
+        "big": {
+          "type": "BigInt",
+          "value": "-8"
+        }
+      },
+      "base64": "dgQFYWxwaGF9AQRiZXRhdQJ5fgVzbGFzaHcDYS9iA2JpZ3r/////////+A=="
+    },
+    {
+      "value": {
+        "type": "Uint8Array",
+        "base64": "AAH/"
+      },
+      "base64": "dAMAAf8="
+    }
+  ]
+}

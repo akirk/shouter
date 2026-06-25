@@ -1,0 +1,2907 @@
+{
+  "cases": [
+    {
+      "name": "text-format-delete",
+      "updateV1": "AQUBAAQBB2NvbnRlbnQFSGVsbG+GAQQEYm9sZAR0cnVlhAEFASCEAQYDWWpzhgEJBGJvbGQEbnVsbAEBAQYB",
+      "updateV2": "AAIAAgJBAwQIAwAGAAcEAIYAhAGGHxhjb250ZW50SGVsbG9ib2xkIFlqc2JvbGQHBQQBAwQBAQAAAQUAeH4BAQEGAA==",
+      "stateVectorV1": "AQEL",
+      "meta": {
+        "from": {
+          "1": 0
+        },
+        "to": {
+          "1": 11
+        }
+      },
+      "metaV2": {
+        "from": {
+          "1": 0
+        },
+        "to": {
+          "1": 11
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 1,
+              "clock": 0
+            },
+            "length": 5,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "content",
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "Hello"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 1,
+              "clock": 5
+            },
+            "length": 1,
+            "origin": {
+              "client": 1,
+              "clock": 4
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentFormat",
+              "key": "bold",
+              "value": true
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 1,
+              "clock": 6
+            },
+            "length": 1,
+            "origin": {
+              "client": 1,
+              "clock": 5
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": " "
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 1,
+              "clock": 7
+            },
+            "length": 3,
+            "origin": {
+              "client": 1,
+              "clock": 6
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "Yjs"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 1,
+              "clock": 10
+            },
+            "length": 1,
+            "origin": {
+              "client": 1,
+              "clock": 9
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentFormat",
+              "key": "bold",
+              "value": null
+            }
+          }
+        ],
+        "deleteSet": {
+          "1": [
+            {
+              "clock": 6,
+              "length": 1
+            }
+          ]
+        }
+      },
+      "json": {
+        "content": "HelloYjs"
+      }
+    },
+    {
+      "name": "array-primitives",
+      "updateV1": "AQECAAgBBWFycmF5BX0BdwN0d294fnYBBm5lc3RlZHUBdwF4AA==",
+      "updateV2": "AAABAgAAAQgHBWFycmF5BQEBAAEFAQEAfQF3A3R3b3h+dgEGbmVzdGVkdQF3AXgA",
+      "stateVectorV1": "AQIF",
+      "meta": {
+        "from": {
+          "2": 0
+        },
+        "to": {
+          "2": 5
+        }
+      },
+      "metaV2": {
+        "from": {
+          "2": 0
+        },
+        "to": {
+          "2": 5
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 2,
+              "clock": 0
+            },
+            "length": 5,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "array",
+            "parentSub": null,
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                1,
+                "two",
+                true,
+                null,
+                {
+                  "nested": [
+                    "x"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "array": [
+          1,
+          "two",
+          true,
+          null,
+          {
+            "nested": [
+              "x"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "array-binary",
+      "updateV1": "AQETAAMBBWFycmF5AwEC/wA=",
+      "updateV2": "AAABEwAAAQMHBWFycmF5BQEBAAABAQADAQL/AA==",
+      "stateVectorV1": "ARMB",
+      "meta": {
+        "from": {
+          "19": 0
+        },
+        "to": {
+          "19": 1
+        }
+      },
+      "metaV2": {
+        "from": {
+          "19": 0
+        },
+        "to": {
+          "19": 1
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 19,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "array",
+            "parentSub": null,
+            "content": {
+              "type": "ContentBinary",
+              "base64": "AQL/"
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "array": [
+          {
+            "0": 1,
+            "1": 2,
+            "2": 255
+          }
+        ]
+      }
+    },
+    {
+      "name": "array-subdoc",
+      "updateV1": "AQEaAAkBBWFycmF5DGFycmF5LXN1YmRvY3YBBG1ldGF2AQRraW5kdwRub3RlAA==",
+      "updateV2": "AAABGgAAAQkUEWFycmF5YXJyYXktc3ViZG9jBQwBAQAAAQEAdgEEbWV0YXYBBGtpbmR3BG5vdGUA",
+      "stateVectorV1": "ARoB",
+      "meta": {
+        "from": {
+          "26": 0
+        },
+        "to": {
+          "26": 1
+        }
+      },
+      "metaV2": {
+        "from": {
+          "26": 0
+        },
+        "to": {
+          "26": 1
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 26,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "array",
+            "parentSub": null,
+            "content": {
+              "type": "ContentDoc",
+              "guid": "array-subdoc",
+              "opts": {
+                "meta": {
+                  "kind": "note"
+                }
+              }
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "array": [
+          {}
+        ]
+      }
+    },
+    {
+      "name": "array-delete-all-empty",
+      "updateV1": "AQEXAAgBBWFycmF5A30BfQJ9AwEXAQAD",
+      "updateV2": "AAABFwAAAQgHBWFycmF5BQEBAAEDAQEAfQF9An0DARcBAAI=",
+      "stateVectorV1": "ARcD",
+      "meta": {
+        "from": {
+          "23": 0
+        },
+        "to": {
+          "23": 3
+        }
+      },
+      "metaV2": {
+        "from": {
+          "23": 0
+        },
+        "to": {
+          "23": 3
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 23,
+              "clock": 0
+            },
+            "length": 3,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "array",
+            "parentSub": null,
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                1,
+                2,
+                3
+              ]
+            }
+          }
+        ],
+        "deleteSet": {
+          "23": [
+            {
+              "clock": 0,
+              "length": 3
+            }
+          ]
+        }
+      },
+      "json": {
+        "array": []
+      }
+    },
+    {
+      "name": "gc-text-delete-content-deleted",
+      "updateV1": "AQMVAAQBB2NvbnRlbnQBQYEVAAKEFQIBRAEVAQEC",
+      "updateV2": "AAACVQECAAQABQQAgQCEDQljb250ZW50QUQHQQABAQABAgEDAAEVAQEB",
+      "stateVectorV1": "ARUE",
+      "meta": {
+        "from": {
+          "21": 0
+        },
+        "to": {
+          "21": 4
+        }
+      },
+      "metaV2": {
+        "from": {
+          "21": 0
+        },
+        "to": {
+          "21": 4
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 21,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "content",
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "A"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 21,
+              "clock": 1
+            },
+            "length": 2,
+            "origin": {
+              "client": 21,
+              "clock": 0
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentDeleted",
+              "length": 2
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 21,
+              "clock": 3
+            },
+            "length": 1,
+            "origin": {
+              "client": 21,
+              "clock": 2
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "D"
+            }
+          }
+        ],
+        "deleteSet": {
+          "21": [
+            {
+              "clock": 1,
+              "length": 2
+            }
+          ]
+        }
+      },
+      "json": {
+        "content": "AD"
+      }
+    },
+    {
+      "name": "gc-array-delete-content-deleted",
+      "updateV1": "AQMWAAgBBWFycmF5AXcBQYEWAAKIFgIBdwFEARYBAQI=",
+      "updateV2": "AAACVgECAAQABQgAgQCIBwVhcnJheQUBAQADAQIBAQMAdwFBdwFEARYBAQE=",
+      "stateVectorV1": "ARYE",
+      "meta": {
+        "from": {
+          "22": 0
+        },
+        "to": {
+          "22": 4
+        }
+      },
+      "metaV2": {
+        "from": {
+          "22": 0
+        },
+        "to": {
+          "22": 4
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 22,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "array",
+            "parentSub": null,
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                "A"
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 22,
+              "clock": 1
+            },
+            "length": 2,
+            "origin": {
+              "client": 22,
+              "clock": 0
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentDeleted",
+              "length": 2
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 22,
+              "clock": 3
+            },
+            "length": 1,
+            "origin": {
+              "client": 22,
+              "clock": 2
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                "D"
+              ]
+            }
+          }
+        ],
+        "deleteSet": {
+          "22": [
+            {
+              "clock": 1,
+              "length": 2
+            }
+          ]
+        }
+      },
+      "json": {
+        "array": [
+          "A",
+          "D"
+        ]
+      }
+    },
+    {
+      "name": "map-primitives-delete",
+      "updateV1": "AQIDACgBA21hcAV0aXRsZQF3BUhlbGxvKAEDbWFwBWNvdW50AX0DAQMBAQE=",
+      "updateV2": "AAABAwAAASgVEG1hcHRpdGxlbWFwY291bnQDBQMFAQEAAkEAAQIAdwVIZWxsb30DAQMBAQA=",
+      "stateVectorV1": "AQMC",
+      "meta": {
+        "from": {
+          "3": 0
+        },
+        "to": {
+          "3": 2
+        }
+      },
+      "metaV2": {
+        "from": {
+          "3": 0
+        },
+        "to": {
+          "3": 2
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 3,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "map",
+            "parentSub": "title",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                "Hello"
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 3,
+              "clock": 1
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "map",
+            "parentSub": "count",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                3
+              ]
+            }
+          }
+        ],
+        "deleteSet": {
+          "3": [
+            {
+              "clock": 1,
+              "length": 1
+            }
+          ]
+        }
+      },
+      "json": {
+        "map": {
+          "title": "Hello"
+        }
+      }
+    },
+    {
+      "name": "map-replace-null-value",
+      "updateV1": "AQIRACgBA21hcAV0aXRsZQF+qBEAAXcFSGVsbG8BEQEAAQ==",
+      "updateV2": "AAACUQABAAADKACoCwhtYXB0aXRsZQMFAQEAAkEAAQIAfncFSGVsbG8BEQEAAA==",
+      "stateVectorV1": "AREC",
+      "meta": {
+        "from": {
+          "17": 0
+        },
+        "to": {
+          "17": 2
+        }
+      },
+      "metaV2": {
+        "from": {
+          "17": 0
+        },
+        "to": {
+          "17": 2
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 17,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "map",
+            "parentSub": "title",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                null
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 17,
+              "clock": 1
+            },
+            "length": 1,
+            "origin": {
+              "client": 17,
+              "clock": 0
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                "Hello"
+              ]
+            }
+          }
+        ],
+        "deleteSet": {
+          "17": [
+            {
+              "clock": 0,
+              "length": 1
+            }
+          ]
+        }
+      },
+      "json": {
+        "map": {
+          "title": "Hello"
+        }
+      }
+    },
+    {
+      "name": "map-subdoc",
+      "updateV1": "AQEbACkBA21hcAZzdWJkb2MKbWFwLXN1YmRvY3YBCGF1dG9Mb2FkeAA=",
+      "updateV2": "AAABGwAAASkXE21hcHN1YmRvY21hcC1zdWJkb2MDBgoBAQAAAQEAdgEIYXV0b0xvYWR4AA==",
+      "stateVectorV1": "ARsB",
+      "meta": {
+        "from": {
+          "27": 0
+        },
+        "to": {
+          "27": 1
+        }
+      },
+      "metaV2": {
+        "from": {
+          "27": 0
+        },
+        "to": {
+          "27": 1
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 27,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "map",
+            "parentSub": "subdoc",
+            "content": {
+              "type": "ContentDoc",
+              "guid": "map-subdoc",
+              "opts": {
+                "autoLoad": true
+              }
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "map": {
+          "subdoc": {}
+        }
+      }
+    },
+    {
+      "name": "unicode-text",
+      "updateV1": "AQEEAAQBB2NvbnRlbnQGQfCfmIBCAA==",
+      "updateV2": "AAABBAAAAQQQDWNvbnRlbnRB8J+YgEIHBAEBAAABAQAA",
+      "stateVectorV1": "AQQE",
+      "meta": {
+        "from": {
+          "4": 0
+        },
+        "to": {
+          "4": 4
+        }
+      },
+      "metaV2": {
+        "from": {
+          "4": 0
+        },
+        "to": {
+          "4": 4
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 4,
+              "clock": 0
+            },
+            "length": 4,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "content",
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "A😀B"
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "content": "A😀B"
+      }
+    },
+    {
+      "name": "array-embedded-shared-types",
+      "updateV1": "AQMFAAcBBWFycmF5AIcFAAGHBQECAA==",
+      "updateV2": "AAACRQECAAIAAwcAhwcFYXJyYXkFAQEDAAECAAEDAAA=",
+      "stateVectorV1": "AQUD",
+      "meta": {
+        "from": {
+          "5": 0
+        },
+        "to": {
+          "5": 3
+        }
+      },
+      "metaV2": {
+        "from": {
+          "5": 0
+        },
+        "to": {
+          "5": 3
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 5,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "array",
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 0,
+              "typeName": "YArray"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 5,
+              "clock": 1
+            },
+            "length": 1,
+            "origin": {
+              "client": 5,
+              "clock": 0
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 1,
+              "typeName": "YMap"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 5,
+              "clock": 2
+            },
+            "length": 1,
+            "origin": {
+              "client": 5,
+              "clock": 1
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 2,
+              "typeName": "YText"
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "array": [
+          [],
+          {},
+          ""
+        ]
+      }
+    },
+    {
+      "name": "array-nested-shared-types-content",
+      "updateV1": "AQYNAAcBBWFycmF5AAgADQACfQF9AocNAAEoAA0DBXRpdGxlAXcGTmVzdGVkhw0DAgQADQUCSGkA",
+      "updateV2": "AAACTQQFAQAGAAQACwcACACHACgAhwAEEAxhcnJheXRpdGxlSGlFAAIDAQAAAwABAgICAQEGAH0BfQJ3Bk5lc3RlZAA=",
+      "stateVectorV1": "AQ0I",
+      "meta": {
+        "from": {
+          "13": 0
+        },
+        "to": {
+          "13": 8
+        }
+      },
+      "metaV2": {
+        "from": {
+          "13": 0
+        },
+        "to": {
+          "13": 8
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 13,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "array",
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 0,
+              "typeName": "YArray"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 13,
+              "clock": 1
+            },
+            "length": 2,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 13,
+              "clock": 0
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 13,
+              "clock": 3
+            },
+            "length": 1,
+            "origin": {
+              "client": 13,
+              "clock": 0
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 1,
+              "typeName": "YMap"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 13,
+              "clock": 4
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 13,
+              "clock": 3
+            },
+            "parentSub": "title",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                "Nested"
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 13,
+              "clock": 5
+            },
+            "length": 1,
+            "origin": {
+              "client": 13,
+              "clock": 3
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 2,
+              "typeName": "YText"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 13,
+              "clock": 6
+            },
+            "length": 2,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 13,
+              "clock": 5
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "Hi"
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "array": [
+          [
+            1,
+            2
+          ],
+          {
+            "title": "Nested"
+          },
+          "Hi"
+        ]
+      }
+    },
+    {
+      "name": "array-nested-array-delete-all-empty",
+      "updateV1": "AQIYAAcBBWFycmF5AAgAGAADfQF9An0DARgBAQM=",
+      "updateV2": "AAACWAABAAADBwAIBwVhcnJheQUDAQAAAQABAwECAH0BfQJ9AwEYAQEC",
+      "stateVectorV1": "ARgE",
+      "meta": {
+        "from": {
+          "24": 0
+        },
+        "to": {
+          "24": 4
+        }
+      },
+      "metaV2": {
+        "from": {
+          "24": 0
+        },
+        "to": {
+          "24": 4
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 24,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "array",
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 0,
+              "typeName": "YArray"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 24,
+              "clock": 1
+            },
+            "length": 3,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 24,
+              "clock": 0
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                1,
+                2,
+                3
+              ]
+            }
+          }
+        ],
+        "deleteSet": {
+          "24": [
+            {
+              "clock": 1,
+              "length": 3
+            }
+          ]
+        }
+      },
+      "json": {
+        "array": [
+          []
+        ]
+      }
+    },
+    {
+      "name": "map-nested-shared-types-content",
+      "updateV1": "AQQOACcBA21hcAVpdGVtcwAIAA4AAncBQXcBQicBA21hcARib2R5AgQADgMLTmVzdGVkIHRleHQA",
+      "updateV2": "AAACTgECAAYABycACAAnAAQgGm1hcGl0ZW1zbWFwYm9keU5lc3RlZCB0ZXh0AwUDBAsHAQAAAAEAAAIAAgECAQQAdwFBdwFCAA==",
+      "stateVectorV1": "AQ4P",
+      "meta": {
+        "from": {
+          "14": 0
+        },
+        "to": {
+          "14": 15
+        }
+      },
+      "metaV2": {
+        "from": {
+          "14": 0
+        },
+        "to": {
+          "14": 15
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 14,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "map",
+            "parentSub": "items",
+            "content": {
+              "type": "ContentType",
+              "typeRef": 0,
+              "typeName": "YArray"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 14,
+              "clock": 1
+            },
+            "length": 2,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 14,
+              "clock": 0
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                "A",
+                "B"
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 14,
+              "clock": 3
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "map",
+            "parentSub": "body",
+            "content": {
+              "type": "ContentType",
+              "typeRef": 2,
+              "typeName": "YText"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 14,
+              "clock": 4
+            },
+            "length": 11,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 14,
+              "clock": 3
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "Nested text"
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "map": {
+          "items": [
+            "A",
+            "B"
+          ],
+          "body": "Nested text"
+        }
+      }
+    },
+    {
+      "name": "nested-map-replace-value",
+      "updateV1": "AQMSAAcBBWFycmF5ASgAEgAFdGl0bGUBfqgSAQF3Bk5lc3RlZAESAQEB",
+      "updateV2": "AAACUgECAAIABQcAKACoDQphcnJheXRpdGxlRQADAQAAAQECQQABAwB+dwZOZXN0ZWQBEgEBAA==",
+      "stateVectorV1": "ARID",
+      "meta": {
+        "from": {
+          "18": 0
+        },
+        "to": {
+          "18": 3
+        }
+      },
+      "metaV2": {
+        "from": {
+          "18": 0
+        },
+        "to": {
+          "18": 3
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 18,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "array",
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 1,
+              "typeName": "YMap"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 18,
+              "clock": 1
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 18,
+              "clock": 0
+            },
+            "parentSub": "title",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                null
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 18,
+              "clock": 2
+            },
+            "length": 1,
+            "origin": {
+              "client": 18,
+              "clock": 1
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                "Nested"
+              ]
+            }
+          }
+        ],
+        "deleteSet": {
+          "18": [
+            {
+              "clock": 1,
+              "length": 1
+            }
+          ]
+        }
+      },
+      "json": {
+        "array": [
+          {
+            "title": "Nested"
+          }
+        ]
+      }
+    },
+    {
+      "name": "xml-element-type",
+      "updateV1": "AQEGAAcBA3htbAMJUGFyYWdyYXBoAA==",
+      "updateV2": "AAEAAQYAAAEHDwx4bWxQYXJhZ3JhcGgDCQEBAQMAAQEAAA==",
+      "stateVectorV1": "AQYB",
+      "meta": {
+        "from": {
+          "6": 0
+        },
+        "to": {
+          "6": 1
+        }
+      },
+      "metaV2": {
+        "from": {
+          "6": 0
+        },
+        "to": {
+          "6": 1
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 6,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "xml",
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 3,
+              "typeName": "YXmlElement",
+              "nodeName": "Paragraph"
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "xml": "<paragraph></paragraph>"
+      }
+    },
+    {
+      "name": "xml-text-type",
+      "updateV1": "AQEHAAcBA3htbAYA",
+      "updateV2": "AAABBwAAAQcFA3htbAMBAQEGAAEBAAA=",
+      "stateVectorV1": "AQcB",
+      "meta": {
+        "from": {
+          "7": 0
+        },
+        "to": {
+          "7": 1
+        }
+      },
+      "metaV2": {
+        "from": {
+          "7": 0
+        },
+        "to": {
+          "7": 1
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 7,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "xml",
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 6,
+              "typeName": "YXmlText"
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "xml": ""
+      }
+    },
+    {
+      "name": "xml-hook-type",
+      "updateV1": "AQEIAAcBA3htbAUHbWVudGlvbgA=",
+      "updateV2": "AAEAAQgAAAEHDQp4bWxtZW50aW9uAwcBAQEFAAEBAAA=",
+      "stateVectorV1": "AQgB",
+      "meta": {
+        "from": {
+          "8": 0
+        },
+        "to": {
+          "8": 1
+        }
+      },
+      "metaV2": {
+        "from": {
+          "8": 0
+        },
+        "to": {
+          "8": 1
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 8,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "xml",
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 5,
+              "typeName": "YXmlHook",
+              "hookName": "mention"
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "xml": "[object Object]"
+      }
+    },
+    {
+      "name": "xml-hook-shared-type-values",
+      "updateV1": "AQcfAAcBA3htbAUHbWVudGlvbicAHwAEYm9keQIEAB8BCUhvb2sgdGV4dCcAHwAEbWV0YQEoAB8LBHJvbGUBdwZhdXRob3InAB8ABWl0ZW1zAAgAHw0CdwFBdwFCAA==",
+      "updateV2": "AAEAAl8FBgACQhZWGgANBwAnAAQAJwAoACcACCwkeG1sbWVudGlvbmJvZHlIb29rIHRleHRtZXRhcm9sZWl0ZW1zAwcECUQABQMBAAAEBQIBAAIBAgEHAHcGYXV0aG9ydwFBdwFCAA==",
+      "stateVectorV1": "AR8Q",
+      "meta": {
+        "from": {
+          "31": 0
+        },
+        "to": {
+          "31": 16
+        }
+      },
+      "metaV2": {
+        "from": {
+          "31": 0
+        },
+        "to": {
+          "31": 16
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 31,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "xml",
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 5,
+              "typeName": "YXmlHook",
+              "hookName": "mention"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 31,
+              "clock": 1
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 31,
+              "clock": 0
+            },
+            "parentSub": "body",
+            "content": {
+              "type": "ContentType",
+              "typeRef": 2,
+              "typeName": "YText"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 31,
+              "clock": 2
+            },
+            "length": 9,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 31,
+              "clock": 1
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "Hook text"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 31,
+              "clock": 11
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 31,
+              "clock": 0
+            },
+            "parentSub": "meta",
+            "content": {
+              "type": "ContentType",
+              "typeRef": 1,
+              "typeName": "YMap"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 31,
+              "clock": 12
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 31,
+              "clock": 11
+            },
+            "parentSub": "role",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                "author"
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 31,
+              "clock": 13
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 31,
+              "clock": 0
+            },
+            "parentSub": "items",
+            "content": {
+              "type": "ContentType",
+              "typeRef": 0,
+              "typeName": "YArray"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 31,
+              "clock": 14
+            },
+            "length": 2,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 31,
+              "clock": 13
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                "A",
+                "B"
+              ]
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "xml": "[object Object]"
+      },
+      "hookJson": {
+        "body": "Hook text",
+        "meta": {
+          "role": "author"
+        },
+        "items": [
+          "A",
+          "B"
+        ]
+      },
+      "hookTextDelta": [
+        {
+          "insert": "Hook text"
+        }
+      ],
+      "hookMapJson": {
+        "role": "author"
+      },
+      "hookArrayJson": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "name": "xml-hook-xml-shared-type-values",
+      "updateV1": "AQsgAAcBA3htbAUHbWVudGlvbicAIAAHZWxlbWVudAMBcCcAIAAEdGV4dAYnACAABGhvb2sFBG5vdGUnACAACGZyYWdtZW50BAcAIAEGBAAgBQdFbGVtZW50BAAgAghYbWwgdGV4dCgAIAMCb2sBeAcAIAQGBAAgFgRGcmFnAA==",
+      "updateV2": "AAMAAwACYAkIAQICCEYDACQADQcAJwMHAAQBKAAHAARHO3htbG1lbnRpb25lbGVtZW50cHRleHRob29rbm90ZWZyYWdtZW50RWxlbWVudFhtbCB0ZXh0b2tGcmFnA0cAAUQBCAcIAgQDAQAABwUDBgUERgABAQELAHgA",
+      "stateVectorV1": "ASAb",
+      "meta": {
+        "from": {
+          "32": 0
+        },
+        "to": {
+          "32": 27
+        }
+      },
+      "metaV2": {
+        "from": {
+          "32": 0
+        },
+        "to": {
+          "32": 27
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 32,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "xml",
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 5,
+              "typeName": "YXmlHook",
+              "hookName": "mention"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 32,
+              "clock": 1
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 32,
+              "clock": 0
+            },
+            "parentSub": "element",
+            "content": {
+              "type": "ContentType",
+              "typeRef": 3,
+              "typeName": "YXmlElement",
+              "nodeName": "p"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 32,
+              "clock": 2
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 32,
+              "clock": 0
+            },
+            "parentSub": "text",
+            "content": {
+              "type": "ContentType",
+              "typeRef": 6,
+              "typeName": "YXmlText"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 32,
+              "clock": 3
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 32,
+              "clock": 0
+            },
+            "parentSub": "hook",
+            "content": {
+              "type": "ContentType",
+              "typeRef": 5,
+              "typeName": "YXmlHook",
+              "hookName": "note"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 32,
+              "clock": 4
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 32,
+              "clock": 0
+            },
+            "parentSub": "fragment",
+            "content": {
+              "type": "ContentType",
+              "typeRef": 4,
+              "typeName": "YXmlFragment"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 32,
+              "clock": 5
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 32,
+              "clock": 1
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 6,
+              "typeName": "YXmlText"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 32,
+              "clock": 6
+            },
+            "length": 7,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 32,
+              "clock": 5
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "Element"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 32,
+              "clock": 13
+            },
+            "length": 8,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 32,
+              "clock": 2
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "Xml text"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 32,
+              "clock": 21
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 32,
+              "clock": 3
+            },
+            "parentSub": "ok",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                true
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 32,
+              "clock": 22
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 32,
+              "clock": 4
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 6,
+              "typeName": "YXmlText"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 32,
+              "clock": 23
+            },
+            "length": 4,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 32,
+              "clock": 22
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "Frag"
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "xml": "[object Object]"
+      },
+      "hookJson": {
+        "element": "<p>Element</p>",
+        "text": "Xml text",
+        "hook": {
+          "ok": true
+        },
+        "fragment": "Frag"
+      },
+      "hookElementXml": "<p>Element</p>",
+      "hookTextXml": "Xml text",
+      "hookNestedHookJson": {
+        "ok": true
+      },
+      "hookFragmentXml": "Frag"
+    },
+    {
+      "name": "xml-element-attribute-text",
+      "updateV1": "AQQJAAcBA3htbAMBcAcACQAGKAAJAAVjbGFzcwF3BGxlYWQEAAkBCUhlbGxvIFhNTAA=",
+      "updateV2": "AAEAAkkCAwEAAgAFBwEoAAQXEnhtbHBjbGFzc0hlbGxvIFhNTAMBBQkDAQAAAgMGAQEBBAB3BGxlYWQA",
+      "stateVectorV1": "AQkM",
+      "meta": {
+        "from": {
+          "9": 0
+        },
+        "to": {
+          "9": 12
+        }
+      },
+      "metaV2": {
+        "from": {
+          "9": 0
+        },
+        "to": {
+          "9": 12
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 9,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "xml",
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 3,
+              "typeName": "YXmlElement",
+              "nodeName": "p"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 9,
+              "clock": 1
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 9,
+              "clock": 0
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 6,
+              "typeName": "YXmlText"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 9,
+              "clock": 2
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 9,
+              "clock": 0
+            },
+            "parentSub": "class",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                "lead"
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 9,
+              "clock": 3
+            },
+            "length": 9,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 9,
+              "clock": 1
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "Hello XML"
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "xml": "<p class=\"lead\">Hello XML</p>"
+      }
+    },
+    {
+      "name": "xml-text-formatting",
+      "updateV1": "AQwZAAcBA3htbAMBcAcAGQAGKAAZAAVjbGFzcwF3BGxlYWQEABkBAUiEGQMDZWxshBkGAW/GGQMZBARib2xkBHRydWXGGQYZBwRib2xkBG51bGyGGQcGaXRhbGljBHRydWWEGQoBIYYZCwZpdGFsaWMEbnVsbIQZDAE/ARkBCgM=",
+      "updateV2": "AAMAAwICWQwLAQACBAZGBgIGAwACCAYRBwEoAAQAhAHGAYYAhACGAIQxJHhtbHBjbGFzc0hlbGxvYm9sZGJvbGRpdGFsaWMhaXRhbGljPwMBBQEDAUQABgEGAQMBAAACAwYBAQEMAHcEbGVhZHh+eH4BGQEKAg==",
+      "stateVectorV1": "ARkO",
+      "meta": {
+        "from": {
+          "25": 0
+        },
+        "to": {
+          "25": 14
+        }
+      },
+      "metaV2": {
+        "from": {
+          "25": 0
+        },
+        "to": {
+          "25": 14
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 25,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "xml",
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 3,
+              "typeName": "YXmlElement",
+              "nodeName": "p"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 25,
+              "clock": 1
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 25,
+              "clock": 0
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 6,
+              "typeName": "YXmlText"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 25,
+              "clock": 2
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 25,
+              "clock": 0
+            },
+            "parentSub": "class",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                "lead"
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 25,
+              "clock": 3
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 25,
+              "clock": 1
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "H"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 25,
+              "clock": 4
+            },
+            "length": 3,
+            "origin": {
+              "client": 25,
+              "clock": 3
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "ell"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 25,
+              "clock": 7
+            },
+            "length": 1,
+            "origin": {
+              "client": 25,
+              "clock": 6
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "o"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 25,
+              "clock": 8
+            },
+            "length": 1,
+            "origin": {
+              "client": 25,
+              "clock": 3
+            },
+            "rightOrigin": {
+              "client": 25,
+              "clock": 4
+            },
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentFormat",
+              "key": "bold",
+              "value": true
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 25,
+              "clock": 9
+            },
+            "length": 1,
+            "origin": {
+              "client": 25,
+              "clock": 6
+            },
+            "rightOrigin": {
+              "client": 25,
+              "clock": 7
+            },
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentFormat",
+              "key": "bold",
+              "value": null
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 25,
+              "clock": 10
+            },
+            "length": 1,
+            "origin": {
+              "client": 25,
+              "clock": 7
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentFormat",
+              "key": "italic",
+              "value": true
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 25,
+              "clock": 11
+            },
+            "length": 1,
+            "origin": {
+              "client": 25,
+              "clock": 10
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "!"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 25,
+              "clock": 12
+            },
+            "length": 1,
+            "origin": {
+              "client": 25,
+              "clock": 11
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentFormat",
+              "key": "italic",
+              "value": null
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 25,
+              "clock": 13
+            },
+            "length": 1,
+            "origin": {
+              "client": 25,
+              "clock": 12
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "?"
+            }
+          }
+        ],
+        "deleteSet": {
+          "25": [
+            {
+              "clock": 10,
+              "length": 3
+            }
+          ]
+        }
+      },
+      "json": {
+        "xml": "<p class=\"lead\">H<bold>ell</bold>o?</p>"
+      }
+    },
+    {
+      "name": "xml-special-character-rendering",
+      "updateV1": "AQccAAcBA3htbAMBcAcAHAAGKAAcAAV0aXRsZQF3DUEmQiAiUSIgPHRhZz4EABwBA0EmQoQcBQQgPCBDRhwDBG1hcmsFIngmeSLGHAUcBgRtYXJrBG51bGwA",
+      "updateV2": "AAMAAwACXAYFAQACCAACBwALBwEoAAQAhABGAMYfGHhtbHB0aXRsZUEmQiA8IENtYXJrbWFyawMBBQNEAQMBAAACAwYBAQEHAHcNQSZCICJRIiA8dGFnPncDeCZ5fgA=",
+      "stateVectorV1": "ARwM",
+      "meta": {
+        "from": {
+          "28": 0
+        },
+        "to": {
+          "28": 12
+        }
+      },
+      "metaV2": {
+        "from": {
+          "28": 0
+        },
+        "to": {
+          "28": 12
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 28,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "xml",
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 3,
+              "typeName": "YXmlElement",
+              "nodeName": "p"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 28,
+              "clock": 1
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 28,
+              "clock": 0
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 6,
+              "typeName": "YXmlText"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 28,
+              "clock": 2
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 28,
+              "clock": 0
+            },
+            "parentSub": "title",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                "A&B \"Q\" <tag>"
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 28,
+              "clock": 3
+            },
+            "length": 3,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 28,
+              "clock": 1
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "A&B"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 28,
+              "clock": 6
+            },
+            "length": 4,
+            "origin": {
+              "client": 28,
+              "clock": 5
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": " < C"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 28,
+              "clock": 10
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": {
+              "client": 28,
+              "clock": 3
+            },
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentFormat",
+              "key": "mark",
+              "value": "x&y"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 28,
+              "clock": 11
+            },
+            "length": 1,
+            "origin": {
+              "client": 28,
+              "clock": 5
+            },
+            "rightOrigin": {
+              "client": 28,
+              "clock": 6
+            },
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentFormat",
+              "key": "mark",
+              "value": null
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "json": {
+        "xml": "<p title=\"A&B \"Q\" <tag>\"><mark 0=\"x\" 1=\"&\" 2=\"y\">A&B</mark> < C</p>"
+      }
+    },
+    {
+      "name": "xml-nested-order-delete",
+      "updateV1": "AQoUAAcBA3htbAYEABQABHRhaWxHFAADB2FydGljbGUHABQFBgQAFAYBQkcUBgMGc3Ryb25nBwAUCAYEABQJAUGHFAYGBAAUCwFDARQCAAUGAg==",
+      "updateV2": "AAIAAgJUCAcACgIEAkYKAgAMEwcABABHAAcABABHAAcABACHAAQfF3htbHRhaWxhcnRpY2xlQnN0cm9uZ0FDAwQHAQZBAAMBAAAGBgMGA0YAAAEKAAEUAgAEAQE=",
+      "stateVectorV1": "ARQN",
+      "meta": {
+        "from": {
+          "20": 0
+        },
+        "to": {
+          "20": 13
+        }
+      },
+      "metaV2": {
+        "from": {
+          "20": 0
+        },
+        "to": {
+          "20": 13
+        }
+      },
+      "decoded": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 20,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "xml",
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 6,
+              "typeName": "YXmlText"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 20,
+              "clock": 1
+            },
+            "length": 4,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 20,
+              "clock": 0
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "tail"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 20,
+              "clock": 5
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": {
+              "client": 20,
+              "clock": 0
+            },
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 3,
+              "typeName": "YXmlElement",
+              "nodeName": "article"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 20,
+              "clock": 6
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 20,
+              "clock": 5
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 6,
+              "typeName": "YXmlText"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 20,
+              "clock": 7
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 20,
+              "clock": 6
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "B"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 20,
+              "clock": 8
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": {
+              "client": 20,
+              "clock": 6
+            },
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 3,
+              "typeName": "YXmlElement",
+              "nodeName": "strong"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 20,
+              "clock": 9
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 20,
+              "clock": 8
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 6,
+              "typeName": "YXmlText"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 20,
+              "clock": 10
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 20,
+              "clock": 9
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "A"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 20,
+              "clock": 11
+            },
+            "length": 1,
+            "origin": {
+              "client": 20,
+              "clock": 6
+            },
+            "rightOrigin": null,
+            "parent": null,
+            "parentSub": null,
+            "content": {
+              "type": "ContentType",
+              "typeRef": 6,
+              "typeName": "YXmlText"
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 20,
+              "clock": 12
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": {
+              "client": 20,
+              "clock": 11
+            },
+            "parentSub": null,
+            "content": {
+              "type": "ContentString",
+              "value": "C"
+            }
+          }
+        ],
+        "deleteSet": {
+          "20": [
+            {
+              "clock": 0,
+              "length": 5
+            },
+            {
+              "clock": 6,
+              "length": 2
+            }
+          ]
+        }
+      },
+      "json": {
+        "xml": "<article><strong>A</strong>C</article>"
+      }
+    }
+  ],
+  "decodedOnlyCases": [
+    {
+      "name": "array-special-number-content-any",
+      "updateV1": "AQEdAAgBBWFycmF5BHt/+AAAAAAAAHx/gAAAfP+AAAB2AQZuZXN0ZWR7f/gAAAAAAAAA",
+      "updateV2": "AAABHQAAAQgHBWFycmF5BQEBAAEEAQEAe3/4AAAAAAAAfH+AAAB8/4AAAHYBBm5lc3RlZHt/+AAAAAAAAAA=",
+      "decodedV1": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 29,
+              "clock": 0
+            },
+            "length": 4,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "array",
+            "parentSub": null,
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                {
+                  "type": "Number",
+                  "value": "NaN"
+                },
+                {
+                  "type": "Number",
+                  "value": "Infinity"
+                },
+                {
+                  "type": "Number",
+                  "value": "-Infinity"
+                },
+                {
+                  "nested": {
+                    "type": "Number",
+                    "value": "NaN"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "decodedV2": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 29,
+              "clock": 0
+            },
+            "length": 4,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "array",
+            "parentSub": null,
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                {
+                  "type": "Number",
+                  "value": "NaN"
+                },
+                {
+                  "type": "Number",
+                  "value": "Infinity"
+                },
+                {
+                  "type": "Number",
+                  "value": "-Infinity"
+                },
+                {
+                  "nested": {
+                    "type": "Number",
+                    "value": "NaN"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "deleteSet": {}
+      }
+    },
+    {
+      "name": "map-undefined-null-content-any",
+      "updateV1": "AQIeACgBA21hcAF1AX8oAQNtYXABbgF+AA==",
+      "updateV2": "AAABHgAAASgNCG1hcHVtYXBuAwEDAQEBAAJBAAECAH9+AA==",
+      "decodedV1": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 30,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "map",
+            "parentSub": "u",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                {
+                  "type": "Undefined"
+                }
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 30,
+              "clock": 1
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "map",
+            "parentSub": "n",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                null
+              ]
+            }
+          }
+        ],
+        "deleteSet": {}
+      },
+      "decodedV2": {
+        "structs": [
+          {
+            "type": "Item",
+            "id": {
+              "client": 30,
+              "clock": 0
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "map",
+            "parentSub": "u",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                {
+                  "type": "Undefined"
+                }
+              ]
+            }
+          },
+          {
+            "type": "Item",
+            "id": {
+              "client": 30,
+              "clock": 1
+            },
+            "length": 1,
+            "origin": null,
+            "rightOrigin": null,
+            "parent": "map",
+            "parentSub": "n",
+            "content": {
+              "type": "ContentAny",
+              "values": [
+                null
+              ]
+            }
+          }
+        ],
+        "deleteSet": {}
+      }
+    }
+  ]
+}

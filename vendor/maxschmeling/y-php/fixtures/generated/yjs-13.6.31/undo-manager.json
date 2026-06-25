@@ -1,0 +1,818 @@
+{
+  "originCases": [
+    {
+      "name": "default-null-origin",
+      "canUndo": true,
+      "undoStackLength": 1,
+      "text": "AB"
+    },
+    {
+      "name": "default-named-origin",
+      "canUndo": false,
+      "undoStackLength": 0,
+      "text": "AB"
+    },
+    {
+      "name": "tracked-named-origin",
+      "canUndo": true,
+      "undoStackLength": 1,
+      "text": "AB"
+    },
+    {
+      "name": "tracked-empty-origin-set",
+      "canUndo": false,
+      "undoStackLength": 0,
+      "text": "AB"
+    }
+  ],
+  "constructorTrackedOrigin": {
+    "name": "constructor-tracked-origin",
+    "canUndo": true,
+    "undoStackLength": 1,
+    "text": "AB"
+  },
+  "selfTrackedOrigin": {
+    "name": "self-tracked-origin",
+    "canUndo": true,
+    "undoStackLength": 1,
+    "text": "AB"
+  },
+  "captureTransaction": {
+    "name": "capture-transaction-filter",
+    "canUndo": true,
+    "undoStackLength": 1,
+    "textBeforeUndo": "ABC",
+    "textAfterUndo": "AB"
+  },
+  "deleteFilter": {
+    "name": "delete-filter-keeps-inserted-text",
+    "canUndoBeforeUndo": true,
+    "undoStackLengthBeforeUndo": 1,
+    "undoReturnedStackItem": false,
+    "textAfterUndo": "AB",
+    "canUndoAfterUndo": false,
+    "canRedoAfterUndo": false,
+    "undoStackLengthAfterUndo": 0,
+    "redoStackLengthAfterUndo": 0
+  },
+  "remoteMapConflicts": [
+    {
+      "name": "remote-map-preserve",
+      "ignoreRemoteMapChanges": false,
+      "beforeUndo": {
+        "map": {
+          "title": "Remote"
+        }
+      },
+      "afterUndo": {
+        "map": {
+          "title": "Remote"
+        }
+      },
+      "undoReturnedStackItem": false,
+      "canUndoAfterUndo": false,
+      "canRedoAfterUndo": false,
+      "undoStackLengthAfterUndo": 0,
+      "redoStackLengthAfterUndo": 0
+    },
+    {
+      "name": "remote-map-overwrite",
+      "ignoreRemoteMapChanges": true,
+      "beforeUndo": {
+        "map": {
+          "title": "Remote"
+        }
+      },
+      "afterUndo": {
+        "map": {
+          "title": "A"
+        }
+      },
+      "undoReturnedStackItem": true,
+      "canUndoAfterUndo": false,
+      "canRedoAfterUndo": true,
+      "undoStackLengthAfterUndo": 0,
+      "redoStackLengthAfterUndo": 1
+    }
+  ],
+  "addToScope": {
+    "name": "add-to-scope-map",
+    "canUndo": true,
+    "undoStackLength": 1,
+    "undoReturnedStackItem": true,
+    "afterUndo": {
+      "content": "A",
+      "map": {
+        "title": "Draft"
+      }
+    },
+    "canRedoAfterUndo": true,
+    "redoStackLengthAfterUndo": 1
+  },
+  "textAttributes": {
+    "attributeOnly": {
+      "name": "root-text-attribute-only",
+      "beforeUndo": {
+        "json": {
+          "content": "Text"
+        },
+        "text": "Text",
+        "attributes": {
+          "lang": "fr",
+          "mark": {
+            "color": "green"
+          }
+        },
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0
+      },
+      "afterUndo": {
+        "undoReturnedStackItem": true,
+        "json": {
+          "content": "Text"
+        },
+        "text": "Text",
+        "attributes": {
+          "lang": "en"
+        },
+        "canUndo": false,
+        "canRedo": true,
+        "undoStackLength": 0,
+        "redoStackLength": 1
+      },
+      "afterRedo": {
+        "redoReturnedStackItem": true,
+        "json": {
+          "content": "Text"
+        },
+        "text": "Text",
+        "attributes": {
+          "lang": "fr",
+          "mark": {
+            "color": "green"
+          }
+        },
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0,
+        "events": [
+          {
+            "type": "stack-item-added",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-added",
+            "stack": "redo"
+          },
+          {
+            "type": "stack-item-popped",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-added",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-popped",
+            "stack": "redo"
+          }
+        ]
+      }
+    },
+    "contentAndAttributes": {
+      "name": "root-text-content-and-attributes",
+      "beforeUndo": {
+        "json": {
+          "content": "Text!"
+        },
+        "text": "Text!",
+        "attributes": {
+          "lang": "fr",
+          "mark": {
+            "color": "green"
+          }
+        },
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0
+      },
+      "afterUndo": {
+        "undoReturnedStackItem": true,
+        "json": {
+          "content": "Text"
+        },
+        "text": "Text",
+        "attributes": {
+          "lang": "en"
+        },
+        "canUndo": false,
+        "canRedo": true,
+        "undoStackLength": 0,
+        "redoStackLength": 1
+      },
+      "afterRedo": {
+        "redoReturnedStackItem": true,
+        "json": {
+          "content": "Text!"
+        },
+        "text": "Text!",
+        "attributes": {
+          "lang": "fr",
+          "mark": {
+            "color": "green"
+          }
+        },
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0,
+        "events": [
+          {
+            "type": "stack-item-added",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-added",
+            "stack": "redo"
+          },
+          {
+            "type": "stack-item-popped",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-added",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-popped",
+            "stack": "redo"
+          }
+        ]
+      }
+    },
+    "nestedAttributeOnly": {
+      "name": "nested-text-attribute-only",
+      "beforeUndo": {
+        "json": {
+          "array": [
+            "Nested"
+          ]
+        },
+        "text": "Nested",
+        "attributes": {
+          "lang": "fr",
+          "mark": {
+            "color": "green"
+          }
+        },
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0
+      },
+      "afterUndo": {
+        "undoReturnedStackItem": true,
+        "json": {
+          "array": [
+            "Nested"
+          ]
+        },
+        "text": "Nested",
+        "attributes": {
+          "lang": "en"
+        },
+        "canUndo": false,
+        "canRedo": true,
+        "undoStackLength": 0,
+        "redoStackLength": 1
+      },
+      "afterRedo": {
+        "redoReturnedStackItem": true,
+        "json": {
+          "array": [
+            "Nested"
+          ]
+        },
+        "text": "Nested",
+        "attributes": {
+          "lang": "fr",
+          "mark": {
+            "color": "green"
+          }
+        },
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0,
+        "events": [
+          {
+            "type": "stack-item-added",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-added",
+            "stack": "redo"
+          },
+          {
+            "type": "stack-item-popped",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-added",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-popped",
+            "stack": "redo"
+          }
+        ]
+      }
+    },
+    "nestedContentAndAttributes": {
+      "name": "nested-text-content-and-attributes",
+      "beforeUndo": {
+        "json": {
+          "array": [
+            "Nested!"
+          ]
+        },
+        "text": "Nested!",
+        "attributes": {
+          "lang": "fr",
+          "mark": {
+            "color": "green"
+          }
+        },
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0
+      },
+      "afterUndo": {
+        "undoReturnedStackItem": true,
+        "json": {
+          "array": [
+            "Nested"
+          ]
+        },
+        "text": "Nested",
+        "attributes": {
+          "lang": "en"
+        },
+        "canUndo": false,
+        "canRedo": true,
+        "undoStackLength": 0,
+        "redoStackLength": 1
+      },
+      "afterRedo": {
+        "redoReturnedStackItem": true,
+        "json": {
+          "array": [
+            "Nested!"
+          ]
+        },
+        "text": "Nested!",
+        "attributes": {
+          "lang": "fr",
+          "mark": {
+            "color": "green"
+          }
+        },
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0,
+        "events": [
+          {
+            "type": "stack-item-added",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-added",
+            "stack": "redo"
+          },
+          {
+            "type": "stack-item-popped",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-added",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-popped",
+            "stack": "redo"
+          }
+        ]
+      }
+    }
+  },
+  "xmlFragments": {
+    "nestedInArray": {
+      "name": "nested-xml-fragment-in-array",
+      "beforeUndo": {
+        "json": {
+          "array": [
+            "<p>Lead</p><strong>Bold</strong>[object Object]"
+          ]
+        },
+        "fragment": "<p>Lead</p><strong>Bold</strong>[object Object]",
+        "length": 3,
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0
+      },
+      "afterUndo": {
+        "undoReturnedStackItem": true,
+        "json": {
+          "array": [
+            "<p>Lead</p>"
+          ]
+        },
+        "fragment": "<p>Lead</p>",
+        "length": 1,
+        "canUndo": false,
+        "canRedo": true,
+        "undoStackLength": 0,
+        "redoStackLength": 1
+      },
+      "afterRedo": {
+        "redoReturnedStackItem": true,
+        "json": {
+          "array": [
+            "<p>Lead</p><strong>Bold</strong>[object Object]"
+          ]
+        },
+        "fragment": "<p>Lead</p><strong>Bold</strong>[object Object]",
+        "length": 3,
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0,
+        "events": [
+          {
+            "type": "stack-item-added",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-added",
+            "stack": "redo"
+          },
+          {
+            "type": "stack-item-popped",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-added",
+            "stack": "undo"
+          },
+          {
+            "type": "stack-item-popped",
+            "stack": "redo"
+          }
+        ]
+      }
+    },
+    "nestedInMap": {
+      "name": "nested-xml-fragment-in-map",
+      "beforeUndo": {
+        "json": {
+          "map": {
+            "xml": "<p>Changed</p><aside></aside>"
+          }
+        },
+        "fragment": "<p>Changed</p><aside></aside>",
+        "length": 2,
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0
+      },
+      "afterUndo": {
+        "undoReturnedStackItem": true,
+        "json": {
+          "map": {
+            "xml": "<p>Base</p>"
+          }
+        },
+        "fragment": "<p>Base</p>",
+        "length": 1,
+        "canUndo": false,
+        "canRedo": true,
+        "undoStackLength": 0,
+        "redoStackLength": 1
+      },
+      "afterRedo": {
+        "redoReturnedStackItem": true,
+        "json": {
+          "map": {
+            "xml": "<p>Changed</p><aside></aside>"
+          }
+        },
+        "fragment": "<p>Changed</p><aside></aside>",
+        "length": 2,
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0
+      }
+    },
+    "elementDeleteMixedChildren": {
+      "name": "xml-element-delete-mixed-children",
+      "beforeUndo": {
+        "json": {
+          "xml": "<p>LeadTail</p>"
+        },
+        "element": "<p>LeadTail</p>",
+        "length": 2,
+        "children": [
+          {
+            "type": "text",
+            "string": "Lead",
+            "delta": [
+              {
+                "insert": "Lead"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "string": "Tail",
+            "delta": [
+              {
+                "insert": "Tail"
+              }
+            ]
+          }
+        ],
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0
+      },
+      "afterUndo": {
+        "undoReturnedStackItem": true,
+        "json": {
+          "xml": "<p>Lead<strong data-id=\"s1\"><bold>Bold</bold></strong>[object Object]Tail</p>"
+        },
+        "element": "<p>Lead<strong data-id=\"s1\"><bold>Bold</bold></strong>[object Object]Tail</p>",
+        "length": 4,
+        "children": [
+          {
+            "type": "text",
+            "string": "Lead",
+            "delta": [
+              {
+                "insert": "Lead"
+              }
+            ]
+          },
+          {
+            "type": "element",
+            "nodeName": "strong",
+            "attributes": {
+              "data-id": "s1"
+            },
+            "string": "<strong data-id=\"s1\"><bold>Bold</bold></strong>",
+            "children": [
+              {
+                "type": "text",
+                "string": "<bold>Bold</bold>",
+                "delta": [
+                  {
+                    "insert": "Bold",
+                    "attributes": {
+                      "bold": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "hook",
+            "hookName": "mention",
+            "attributes": {
+              "label": "Ada",
+              "kind": "user"
+            },
+            "string": "[object Object]"
+          },
+          {
+            "type": "text",
+            "string": "Tail",
+            "delta": [
+              {
+                "insert": "Tail"
+              }
+            ]
+          }
+        ],
+        "canUndo": false,
+        "canRedo": true,
+        "undoStackLength": 0,
+        "redoStackLength": 1
+      },
+      "afterRedo": {
+        "redoReturnedStackItem": true,
+        "json": {
+          "xml": "<p>LeadTail</p>"
+        },
+        "element": "<p>LeadTail</p>",
+        "length": 2,
+        "children": [
+          {
+            "type": "text",
+            "string": "Lead",
+            "delta": [
+              {
+                "insert": "Lead"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "string": "Tail",
+            "delta": [
+              {
+                "insert": "Tail"
+              }
+            ]
+          }
+        ],
+        "canUndo": true,
+        "canRedo": false,
+        "undoStackLength": 1,
+        "redoStackLength": 0
+      }
+    }
+  },
+  "dynamicTrackedOrigin": {
+    "name": "dynamic-tracked-origin",
+    "canUndo": true,
+    "undoStackLength": 1,
+    "textBeforeUndo": "ABC",
+    "textAfterUndo": "AC"
+  },
+  "stopCapturing": {
+    "beforeUndo": {
+      "text": "ABC",
+      "canUndo": true,
+      "canRedo": false,
+      "undoStackLength": 2,
+      "redoStackLength": 0
+    },
+    "afterFirstUndo": {
+      "undoReturnedStackItem": true,
+      "text": "AB",
+      "canUndo": true,
+      "canRedo": true,
+      "undoStackLength": 1,
+      "redoStackLength": 1
+    },
+    "afterSecondUndo": {
+      "undoReturnedStackItem": true,
+      "text": "A",
+      "canUndo": false,
+      "canRedo": true,
+      "undoStackLength": 0,
+      "redoStackLength": 2
+    }
+  },
+  "stackEvents": [
+    {
+      "type": "stack-item-added",
+      "stack": "undo",
+      "changedParentTypeNames": [
+        "YText"
+      ]
+    },
+    {
+      "type": "stack-item-updated",
+      "stack": "undo",
+      "changedParentTypeNames": [
+        "YText"
+      ]
+    },
+    {
+      "type": "stack-item-added",
+      "stack": "redo",
+      "changedParentTypeNames": [
+        "YText"
+      ]
+    },
+    {
+      "type": "stack-item-popped",
+      "stack": "undo",
+      "changedParentTypeNames": [
+        "YText"
+      ]
+    },
+    {
+      "type": "stack-cleared",
+      "undoStackCleared": true,
+      "redoStackCleared": true
+    }
+  ],
+  "clearOptions": {
+    "events": [
+      {
+        "undoStackCleared": false,
+        "redoStackCleared": true,
+        "canUndo": true,
+        "canRedo": false
+      },
+      {
+        "undoStackCleared": true,
+        "redoStackCleared": false,
+        "canUndo": false,
+        "canRedo": false
+      }
+    ],
+    "afterRedoOnlyClear": {
+      "canUndo": true,
+      "canRedo": false,
+      "undoStackLength": 1,
+      "redoStackLength": 0
+    },
+    "afterAllClear": {
+      "canUndo": false,
+      "canRedo": false,
+      "undoStackLength": 0,
+      "redoStackLength": 0
+    }
+  },
+  "destroy": {
+    "beforeDestroy": {
+      "canUndo": true,
+      "canRedo": false,
+      "undoStackLength": 1,
+      "redoStackLength": 0,
+      "text": "AB"
+    },
+    "afterDestroy": {
+      "canUndo": true,
+      "canRedo": false,
+      "undoStackLength": 1,
+      "redoStackLength": 0,
+      "text": "AB"
+    },
+    "afterFutureEdit": {
+      "canUndo": true,
+      "canRedo": false,
+      "undoStackLength": 1,
+      "redoStackLength": 0,
+      "text": "ABC"
+    },
+    "afterUndo": {
+      "undoReturnedStackItem": true,
+      "canUndo": false,
+      "canRedo": false,
+      "undoStackLength": 0,
+      "redoStackLength": 0,
+      "text": "AC",
+      "events": []
+    }
+  },
+  "eventEmitter": [
+    {
+      "listener": "on-added",
+      "stack": "undo",
+      "origin": null,
+      "changedParentTypeNames": [
+        "YText"
+      ],
+      "changedParentTypes": [
+        "YText"
+      ]
+    },
+    {
+      "listener": "once-popped",
+      "stack": "undo",
+      "origin": "UndoManager",
+      "changedParentTypeNames": [
+        "YText"
+      ],
+      "changedParentTypes": [
+        "YText"
+      ]
+    },
+    {
+      "listener": "custom-once",
+      "left": "left",
+      "right": "right"
+    }
+  ],
+  "listenerAddedDuringDispatch": [
+    "first",
+    "second",
+    "first",
+    "second",
+    "third"
+  ]
+}

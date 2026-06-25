@@ -1,0 +1,1646 @@
+{
+  "cases": [
+    {
+      "name": "root-type-name-end",
+      "json": {
+        "tname": "content",
+        "assoc": 0
+      },
+      "encoded": "AQdjb250ZW50AA==",
+      "decodedJson": {
+        "tname": "content",
+        "assoc": 0
+      }
+    },
+    {
+      "name": "root-type-name-left-assoc",
+      "json": {
+        "tname": "content",
+        "assoc": -1
+      },
+      "encoded": "AQdjb250ZW50QQ==",
+      "decodedJson": {
+        "tname": "content",
+        "assoc": -1
+      }
+    },
+    {
+      "name": "item-id-position",
+      "json": {
+        "item": {
+          "client": 42,
+          "clock": 7
+        },
+        "assoc": 1
+      },
+      "encoded": "ACoHAQ==",
+      "decodedJson": {
+        "item": {
+          "client": 42,
+          "clock": 7
+        },
+        "assoc": 1
+      }
+    },
+    {
+      "name": "type-id-position",
+      "json": {
+        "type": {
+          "client": 99,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "encoded": "AmMDAA==",
+      "decodedJson": {
+        "type": {
+          "client": 99,
+          "clock": 3
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "text-index-inside-item",
+      "json": {
+        "tname": "content",
+        "item": {
+          "client": 281,
+          "clock": 1
+        },
+        "assoc": -1
+      },
+      "encoded": "AJkCAUE=",
+      "decodedJson": {
+        "item": {
+          "client": 281,
+          "clock": 1
+        },
+        "assoc": -1
+      }
+    },
+    {
+      "name": "text-index-end",
+      "json": {
+        "tname": "content",
+        "assoc": 1
+      },
+      "encoded": "AQdjb250ZW50AQ==",
+      "decodedJson": {
+        "tname": "content",
+        "assoc": 1
+      }
+    }
+  ],
+  "compare": {
+    "sameObject": true,
+    "sameJSON": true,
+    "differentAssoc": false,
+    "differentKind": false,
+    "nullLeft": false,
+    "nullBoth": true
+  },
+  "typeIndexCases": [
+    {
+      "name": "text-start-left-assoc",
+      "json": {
+        "tname": "content",
+        "assoc": -1
+      },
+      "encoded": "AQdjb250ZW50QQ==",
+      "decodedJson": {
+        "tname": "content",
+        "assoc": -1
+      }
+    },
+    {
+      "name": "text-middle-default-assoc",
+      "json": {
+        "tname": "content",
+        "item": {
+          "client": 281,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "encoded": "AJkCAgA=",
+      "decodedJson": {
+        "item": {
+          "client": 281,
+          "clock": 2
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "text-end-default-assoc",
+      "json": {
+        "tname": "content",
+        "assoc": 0
+      },
+      "encoded": "AQdjb250ZW50AA==",
+      "decodedJson": {
+        "tname": "content",
+        "assoc": 0
+      }
+    },
+    {
+      "name": "text-end-left-assoc",
+      "json": {
+        "tname": "content",
+        "item": {
+          "client": 281,
+          "clock": 4
+        },
+        "assoc": -1
+      },
+      "encoded": "AJkCBEE=",
+      "decodedJson": {
+        "item": {
+          "client": 281,
+          "clock": 4
+        },
+        "assoc": -1
+      }
+    },
+    {
+      "name": "array-middle-default-assoc",
+      "json": {
+        "tname": "items",
+        "item": {
+          "client": 282,
+          "clock": 1
+        },
+        "assoc": 0
+      },
+      "encoded": "AJoCAQA=",
+      "decodedJson": {
+        "item": {
+          "client": 282,
+          "clock": 1
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "array-end-left-assoc",
+      "json": {
+        "tname": "items",
+        "item": {
+          "client": 282,
+          "clock": 2
+        },
+        "assoc": -1
+      },
+      "encoded": "AJoCAkE=",
+      "decodedJson": {
+        "item": {
+          "client": 282,
+          "clock": 2
+        },
+        "assoc": -1
+      }
+    },
+    {
+      "name": "xml-middle-default-assoc",
+      "json": {
+        "tname": "xml",
+        "item": {
+          "client": 283,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "encoded": "AJsCAgA=",
+      "decodedJson": {
+        "item": {
+          "client": 283,
+          "clock": 2
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-end-left-assoc",
+      "json": {
+        "tname": "xml",
+        "item": {
+          "client": 283,
+          "clock": 2
+        },
+        "assoc": -1
+      },
+      "encoded": "AJsCAkE=",
+      "decodedJson": {
+        "item": {
+          "client": 283,
+          "clock": 2
+        },
+        "assoc": -1
+      }
+    }
+  ],
+  "nestedTypeIndexCases": [
+    {
+      "name": "nested-text-middle-default-assoc",
+      "json": {
+        "type": {
+          "client": 301,
+          "clock": 0
+        },
+        "item": {
+          "client": 301,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "encoded": "AK0CAgA=",
+      "decodedJson": {
+        "item": {
+          "client": 301,
+          "clock": 2
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "nested-array-end-left-assoc",
+      "json": {
+        "type": {
+          "client": 302,
+          "clock": 0
+        },
+        "item": {
+          "client": 302,
+          "clock": 2
+        },
+        "assoc": -1
+      },
+      "encoded": "AK4CAkE=",
+      "decodedJson": {
+        "item": {
+          "client": 302,
+          "clock": 2
+        },
+        "assoc": -1
+      }
+    },
+    {
+      "name": "map-text-middle-default-assoc",
+      "json": {
+        "type": {
+          "client": 305,
+          "clock": 0
+        },
+        "item": {
+          "client": 305,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "encoded": "ALECAgA=",
+      "decodedJson": {
+        "item": {
+          "client": 305,
+          "clock": 2
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-text-middle-default-assoc",
+      "json": {
+        "type": {
+          "client": 303,
+          "clock": 0
+        },
+        "item": {
+          "client": 303,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "encoded": "AK8CAgA=",
+      "decodedJson": {
+        "item": {
+          "client": 303,
+          "clock": 2
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-element-middle-default-assoc",
+      "json": {
+        "type": {
+          "client": 304,
+          "clock": 0
+        },
+        "item": {
+          "client": 304,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "encoded": "ALACAwA=",
+      "decodedJson": {
+        "item": {
+          "client": 304,
+          "clock": 3
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "nested-xml-fragment-middle-default-assoc",
+      "json": {
+        "type": {
+          "client": 313,
+          "clock": 0
+        },
+        "item": {
+          "client": 313,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "encoded": "ALkCAwA=",
+      "decodedJson": {
+        "item": {
+          "client": 313,
+          "clock": 3
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "map-xml-fragment-middle-default-assoc",
+      "json": {
+        "type": {
+          "client": 314,
+          "clock": 0
+        },
+        "item": {
+          "client": 314,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "encoded": "ALoCAwA=",
+      "decodedJson": {
+        "item": {
+          "client": 314,
+          "clock": 3
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-hook-text-middle-default-assoc",
+      "json": {
+        "type": {
+          "client": 317,
+          "clock": 1
+        },
+        "item": {
+          "client": 317,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "encoded": "AL0CAwA=",
+      "decodedJson": {
+        "item": {
+          "client": 317,
+          "clock": 3
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-hook-array-end-left-assoc",
+      "json": {
+        "type": {
+          "client": 318,
+          "clock": 1
+        },
+        "item": {
+          "client": 318,
+          "clock": 3
+        },
+        "assoc": -1
+      },
+      "encoded": "AL4CA0E=",
+      "decodedJson": {
+        "item": {
+          "client": 318,
+          "clock": 3
+        },
+        "assoc": -1
+      }
+    },
+    {
+      "name": "xml-hook-xml-element-middle-default-assoc",
+      "json": {
+        "type": {
+          "client": 319,
+          "clock": 1
+        },
+        "item": {
+          "client": 319,
+          "clock": 4
+        },
+        "assoc": 0
+      },
+      "encoded": "AL8CBAA=",
+      "decodedJson": {
+        "item": {
+          "client": 319,
+          "clock": 4
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-hook-xml-fragment-middle-default-assoc",
+      "json": {
+        "type": {
+          "client": 320,
+          "clock": 1
+        },
+        "item": {
+          "client": 320,
+          "clock": 4
+        },
+        "assoc": 0
+      },
+      "encoded": "AMACBAA=",
+      "decodedJson": {
+        "item": {
+          "client": 320,
+          "clock": 4
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-element-attribute-text-middle-default-assoc",
+      "json": {
+        "type": {
+          "client": 325,
+          "clock": 1
+        },
+        "item": {
+          "client": 325,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "encoded": "AMUCAwA=",
+      "decodedJson": {
+        "item": {
+          "client": 325,
+          "clock": 3
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-element-attribute-xml-element-middle-default-assoc",
+      "json": {
+        "type": {
+          "client": 326,
+          "clock": 1
+        },
+        "item": {
+          "client": 326,
+          "clock": 4
+        },
+        "assoc": 0
+      },
+      "encoded": "AMYCBAA=",
+      "decodedJson": {
+        "item": {
+          "client": 326,
+          "clock": 4
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-text-attribute-text-middle-default-assoc",
+      "json": {
+        "type": {
+          "client": 327,
+          "clock": 4
+        },
+        "item": {
+          "client": 327,
+          "clock": 6
+        },
+        "assoc": 0
+      },
+      "encoded": "AMcCBgA=",
+      "decodedJson": {
+        "item": {
+          "client": 327,
+          "clock": 6
+        },
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-text-attribute-xml-element-middle-default-assoc",
+      "json": {
+        "type": {
+          "client": 328,
+          "clock": 4
+        },
+        "item": {
+          "client": 328,
+          "clock": 7
+        },
+        "assoc": 0
+      },
+      "encoded": "AMgCBwA=",
+      "decodedJson": {
+        "item": {
+          "client": 328,
+          "clock": 7
+        },
+        "assoc": 0
+      }
+    }
+  ],
+  "absoluteCases": [
+    {
+      "name": "text-insert-before-item",
+      "relativeJson": {
+        "tname": "content",
+        "item": {
+          "client": 291,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AKMCAgA=",
+      "absolute": {
+        "typeName": "content",
+        "index": 3,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "text-end-follows-insert",
+      "relativeJson": {
+        "tname": "content",
+        "assoc": 0
+      },
+      "relativeEncoded": "AQdjb250ZW50AA==",
+      "absolute": {
+        "typeName": "content",
+        "index": 6,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "array-deleted-target",
+      "relativeJson": {
+        "tname": "items",
+        "item": {
+          "client": 293,
+          "clock": 1
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AKUCAQA=",
+      "absolute": {
+        "typeName": "items",
+        "index": 1,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-insert-before-item",
+      "relativeJson": {
+        "tname": "xml",
+        "item": {
+          "client": 294,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AKYCAgA=",
+      "absolute": {
+        "typeName": "xml",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-hook-insert-before-item",
+      "relativeJson": {
+        "tname": "xml",
+        "item": {
+          "client": 315,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "ALsCAgA=",
+      "absolute": {
+        "typeName": "xml",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "nested-text-insert-before-item",
+      "relativeJson": {
+        "item": {
+          "client": 305,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "ALECAgA=",
+      "absolute": {
+        "typeId": {
+          "client": 305,
+          "clock": 0
+        },
+        "typeName": "YText",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "nested-array-deleted-target",
+      "relativeJson": {
+        "item": {
+          "client": 306,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "ALICAgA=",
+      "absolute": {
+        "typeId": {
+          "client": 306,
+          "clock": 0
+        },
+        "typeName": "YArray",
+        "index": 1,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "map-text-insert-before-item",
+      "relativeJson": {
+        "item": {
+          "client": 311,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "ALcCAgA=",
+      "absolute": {
+        "typeId": {
+          "client": 311,
+          "clock": 0
+        },
+        "typeName": "YText",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-text-insert-before-item",
+      "relativeJson": {
+        "item": {
+          "client": 307,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "ALMCAgA=",
+      "absolute": {
+        "typeId": {
+          "client": 307,
+          "clock": 0
+        },
+        "typeName": "YXmlText",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-element-insert-before-item",
+      "relativeJson": {
+        "item": {
+          "client": 308,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "ALQCAwA=",
+      "absolute": {
+        "typeId": {
+          "client": 308,
+          "clock": 0
+        },
+        "typeName": "YXmlElement",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-element-hook-insert-before-item",
+      "relativeJson": {
+        "item": {
+          "client": 316,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "ALwCAwA=",
+      "absolute": {
+        "typeId": {
+          "client": 316,
+          "clock": 0
+        },
+        "typeName": "YXmlElement",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "nested-xml-fragment-insert-before-item",
+      "relativeJson": {
+        "item": {
+          "client": 313,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "ALkCAwA=",
+      "absolute": {
+        "typeId": {
+          "client": 313,
+          "clock": 0
+        },
+        "typeName": "YXmlFragment",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "map-xml-fragment-insert-before-item",
+      "relativeJson": {
+        "item": {
+          "client": 314,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "ALoCAwA=",
+      "absolute": {
+        "typeId": {
+          "client": 314,
+          "clock": 0
+        },
+        "typeName": "YXmlFragment",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-hook-text-insert-before-item",
+      "relativeJson": {
+        "item": {
+          "client": 321,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AMECAwA=",
+      "absolute": {
+        "typeId": {
+          "client": 321,
+          "clock": 1
+        },
+        "typeName": "YText",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-hook-array-deleted-target",
+      "relativeJson": {
+        "item": {
+          "client": 322,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AMICAwA=",
+      "absolute": {
+        "typeId": {
+          "client": 322,
+          "clock": 1
+        },
+        "typeName": "YArray",
+        "index": 1,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-hook-xml-element-insert-before-item",
+      "relativeJson": {
+        "item": {
+          "client": 323,
+          "clock": 4
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AMMCBAA=",
+      "absolute": {
+        "typeId": {
+          "client": 323,
+          "clock": 1
+        },
+        "typeName": "YXmlElement",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-hook-xml-fragment-insert-before-item",
+      "relativeJson": {
+        "item": {
+          "client": 324,
+          "clock": 4
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AMQCBAA=",
+      "absolute": {
+        "typeId": {
+          "client": 324,
+          "clock": 1
+        },
+        "typeName": "YXmlFragment",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-text-attribute-text-insert-before-item",
+      "relativeJson": {
+        "item": {
+          "client": 329,
+          "clock": 6
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AMkCBgA=",
+      "absolute": {
+        "typeId": {
+          "client": 329,
+          "clock": 4
+        },
+        "typeName": "YText",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-text-attribute-xml-element-insert-before-item",
+      "relativeJson": {
+        "item": {
+          "client": 330,
+          "clock": 7
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AMoCBwA=",
+      "absolute": {
+        "typeId": {
+          "client": 330,
+          "clock": 4
+        },
+        "typeName": "YXmlElement",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "missing-item",
+      "relativeJson": {
+        "item": {
+          "client": 309,
+          "clock": 99
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "ALUCYwA=",
+      "absolute": null
+    },
+    {
+      "name": "missing-type",
+      "relativeJson": {
+        "type": {
+          "client": 310,
+          "clock": 99
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "ArYCYwA=",
+      "absolute": null
+    },
+    {
+      "name": "text-deleted-target-reinsert-assoc--1",
+      "relativeJson": {
+        "item": {
+          "client": 430,
+          "clock": 0
+        },
+        "assoc": -1
+      },
+      "relativeEncoded": "AK4DAEE=",
+      "absolute": {
+        "typeName": "content",
+        "index": 1,
+        "assoc": -1
+      }
+    },
+    {
+      "name": "text-deleted-target-reinsert-assoc-0",
+      "relativeJson": {
+        "item": {
+          "client": 431,
+          "clock": 1
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AK8DAQA=",
+      "absolute": {
+        "typeName": "content",
+        "index": 1,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "text-deleted-target-reinsert-assoc-1",
+      "relativeJson": {
+        "item": {
+          "client": 432,
+          "clock": 1
+        },
+        "assoc": 1
+      },
+      "relativeEncoded": "ALADAQE=",
+      "absolute": {
+        "typeName": "content",
+        "index": 1,
+        "assoc": 1
+      }
+    },
+    {
+      "name": "array-deleted-target-reinsert-assoc--1",
+      "relativeJson": {
+        "item": {
+          "client": 440,
+          "clock": 0
+        },
+        "assoc": -1
+      },
+      "relativeEncoded": "ALgDAEE=",
+      "absolute": {
+        "typeName": "items",
+        "index": 1,
+        "assoc": -1
+      }
+    },
+    {
+      "name": "array-deleted-target-reinsert-assoc-0",
+      "relativeJson": {
+        "item": {
+          "client": 441,
+          "clock": 1
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "ALkDAQA=",
+      "absolute": {
+        "typeName": "items",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "array-deleted-target-reinsert-assoc-1",
+      "relativeJson": {
+        "item": {
+          "client": 442,
+          "clock": 1
+        },
+        "assoc": 1
+      },
+      "relativeEncoded": "ALoDAQE=",
+      "absolute": {
+        "typeName": "items",
+        "index": 2,
+        "assoc": 1
+      }
+    },
+    {
+      "name": "xml-deleted-target-reinsert-assoc--1",
+      "relativeJson": {
+        "item": {
+          "client": 450,
+          "clock": 0
+        },
+        "assoc": -1
+      },
+      "relativeEncoded": "AMIDAEE=",
+      "absolute": {
+        "typeName": "xml",
+        "index": 1,
+        "assoc": -1
+      }
+    },
+    {
+      "name": "xml-deleted-target-reinsert-assoc-0",
+      "relativeJson": {
+        "item": {
+          "client": 451,
+          "clock": 1
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AMMDAQA=",
+      "absolute": {
+        "typeName": "xml",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-deleted-target-reinsert-assoc-1",
+      "relativeJson": {
+        "item": {
+          "client": 452,
+          "clock": 1
+        },
+        "assoc": 1
+      },
+      "relativeEncoded": "AMQDAQE=",
+      "absolute": {
+        "typeName": "xml",
+        "index": 2,
+        "assoc": 1
+      }
+    },
+    {
+      "name": "nested-array-deleted-target-reinsert-assoc--1",
+      "relativeJson": {
+        "item": {
+          "client": 460,
+          "clock": 1
+        },
+        "assoc": -1
+      },
+      "relativeEncoded": "AMwDAUE=",
+      "absolute": {
+        "typeId": {
+          "client": 460,
+          "clock": 0
+        },
+        "typeName": "YArray",
+        "index": 1,
+        "assoc": -1
+      }
+    },
+    {
+      "name": "nested-array-deleted-target-reinsert-assoc-0",
+      "relativeJson": {
+        "item": {
+          "client": 461,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AM0DAgA=",
+      "absolute": {
+        "typeId": {
+          "client": 461,
+          "clock": 0
+        },
+        "typeName": "YArray",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "nested-array-deleted-target-reinsert-assoc-1",
+      "relativeJson": {
+        "item": {
+          "client": 462,
+          "clock": 2
+        },
+        "assoc": 1
+      },
+      "relativeEncoded": "AM4DAgE=",
+      "absolute": {
+        "typeId": {
+          "client": 462,
+          "clock": 0
+        },
+        "typeName": "YArray",
+        "index": 2,
+        "assoc": 1
+      }
+    },
+    {
+      "name": "xml-element-deleted-target-reinsert-assoc--1",
+      "relativeJson": {
+        "item": {
+          "client": 470,
+          "clock": 1
+        },
+        "assoc": -1
+      },
+      "relativeEncoded": "ANYDAUE=",
+      "absolute": {
+        "typeId": {
+          "client": 470,
+          "clock": 0
+        },
+        "typeName": "YXmlElement",
+        "index": 1,
+        "assoc": -1
+      }
+    },
+    {
+      "name": "xml-element-deleted-target-reinsert-assoc-0",
+      "relativeJson": {
+        "item": {
+          "client": 471,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "ANcDAgA=",
+      "absolute": {
+        "typeId": {
+          "client": 471,
+          "clock": 0
+        },
+        "typeName": "YXmlElement",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-element-deleted-target-reinsert-assoc-1",
+      "relativeJson": {
+        "item": {
+          "client": 472,
+          "clock": 2
+        },
+        "assoc": 1
+      },
+      "relativeEncoded": "ANgDAgE=",
+      "absolute": {
+        "typeId": {
+          "client": 472,
+          "clock": 0
+        },
+        "typeName": "YXmlElement",
+        "index": 2,
+        "assoc": 1
+      }
+    },
+    {
+      "name": "nested-xml-fragment-deleted-target-reinsert-assoc--1",
+      "relativeJson": {
+        "item": {
+          "client": 480,
+          "clock": 1
+        },
+        "assoc": -1
+      },
+      "relativeEncoded": "AOADAUE=",
+      "absolute": {
+        "typeId": {
+          "client": 480,
+          "clock": 0
+        },
+        "typeName": "YXmlFragment",
+        "index": 1,
+        "assoc": -1
+      }
+    },
+    {
+      "name": "nested-xml-fragment-deleted-target-reinsert-assoc-0",
+      "relativeJson": {
+        "item": {
+          "client": 481,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AOEDAgA=",
+      "absolute": {
+        "typeId": {
+          "client": 481,
+          "clock": 0
+        },
+        "typeName": "YXmlFragment",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "nested-xml-fragment-deleted-target-reinsert-assoc-1",
+      "relativeJson": {
+        "item": {
+          "client": 482,
+          "clock": 2
+        },
+        "assoc": 1
+      },
+      "relativeEncoded": "AOIDAgE=",
+      "absolute": {
+        "typeId": {
+          "client": 482,
+          "clock": 0
+        },
+        "typeName": "YXmlFragment",
+        "index": 2,
+        "assoc": 1
+      }
+    },
+    {
+      "name": "map-xml-fragment-deleted-target-reinsert-assoc--1",
+      "relativeJson": {
+        "item": {
+          "client": 490,
+          "clock": 1
+        },
+        "assoc": -1
+      },
+      "relativeEncoded": "AOoDAUE=",
+      "absolute": {
+        "typeId": {
+          "client": 490,
+          "clock": 0
+        },
+        "typeName": "YXmlFragment",
+        "index": 1,
+        "assoc": -1
+      }
+    },
+    {
+      "name": "map-xml-fragment-deleted-target-reinsert-assoc-0",
+      "relativeJson": {
+        "item": {
+          "client": 491,
+          "clock": 2
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AOsDAgA=",
+      "absolute": {
+        "typeId": {
+          "client": 491,
+          "clock": 0
+        },
+        "typeName": "YXmlFragment",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "map-xml-fragment-deleted-target-reinsert-assoc-1",
+      "relativeJson": {
+        "item": {
+          "client": 492,
+          "clock": 2
+        },
+        "assoc": 1
+      },
+      "relativeEncoded": "AOwDAgE=",
+      "absolute": {
+        "typeId": {
+          "client": 492,
+          "clock": 0
+        },
+        "typeName": "YXmlFragment",
+        "index": 2,
+        "assoc": 1
+      }
+    },
+    {
+      "name": "xml-hook-text-deleted-target-reinsert-assoc--1",
+      "relativeJson": {
+        "item": {
+          "client": 500,
+          "clock": 2
+        },
+        "assoc": -1
+      },
+      "relativeEncoded": "APQDAkE=",
+      "absolute": {
+        "typeId": {
+          "client": 500,
+          "clock": 1
+        },
+        "typeName": "YText",
+        "index": 1,
+        "assoc": -1
+      }
+    },
+    {
+      "name": "xml-hook-text-deleted-target-reinsert-assoc-0",
+      "relativeJson": {
+        "item": {
+          "client": 501,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "APUDAwA=",
+      "absolute": {
+        "typeId": {
+          "client": 501,
+          "clock": 1
+        },
+        "typeName": "YText",
+        "index": 1,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-hook-text-deleted-target-reinsert-assoc-1",
+      "relativeJson": {
+        "item": {
+          "client": 502,
+          "clock": 3
+        },
+        "assoc": 1
+      },
+      "relativeEncoded": "APYDAwE=",
+      "absolute": {
+        "typeId": {
+          "client": 502,
+          "clock": 1
+        },
+        "typeName": "YText",
+        "index": 1,
+        "assoc": 1
+      }
+    },
+    {
+      "name": "xml-hook-xml-element-deleted-target-reinsert-assoc--1",
+      "relativeJson": {
+        "item": {
+          "client": 510,
+          "clock": 2
+        },
+        "assoc": -1
+      },
+      "relativeEncoded": "AP4DAkE=",
+      "absolute": {
+        "typeId": {
+          "client": 510,
+          "clock": 1
+        },
+        "typeName": "YXmlElement",
+        "index": 1,
+        "assoc": -1
+      }
+    },
+    {
+      "name": "xml-hook-xml-element-deleted-target-reinsert-assoc-0",
+      "relativeJson": {
+        "item": {
+          "client": 511,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AP8DAwA=",
+      "absolute": {
+        "typeId": {
+          "client": 511,
+          "clock": 1
+        },
+        "typeName": "YXmlElement",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-hook-xml-element-deleted-target-reinsert-assoc-1",
+      "relativeJson": {
+        "item": {
+          "client": 512,
+          "clock": 3
+        },
+        "assoc": 1
+      },
+      "relativeEncoded": "AIAEAwE=",
+      "absolute": {
+        "typeId": {
+          "client": 512,
+          "clock": 1
+        },
+        "typeName": "YXmlElement",
+        "index": 2,
+        "assoc": 1
+      }
+    },
+    {
+      "name": "xml-hook-xml-fragment-deleted-target-reinsert-assoc--1",
+      "relativeJson": {
+        "item": {
+          "client": 520,
+          "clock": 2
+        },
+        "assoc": -1
+      },
+      "relativeEncoded": "AIgEAkE=",
+      "absolute": {
+        "typeId": {
+          "client": 520,
+          "clock": 1
+        },
+        "typeName": "YXmlFragment",
+        "index": 1,
+        "assoc": -1
+      }
+    },
+    {
+      "name": "xml-hook-xml-fragment-deleted-target-reinsert-assoc-0",
+      "relativeJson": {
+        "item": {
+          "client": 521,
+          "clock": 3
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AIkEAwA=",
+      "absolute": {
+        "typeId": {
+          "client": 521,
+          "clock": 1
+        },
+        "typeName": "YXmlFragment",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-hook-xml-fragment-deleted-target-reinsert-assoc-1",
+      "relativeJson": {
+        "item": {
+          "client": 522,
+          "clock": 3
+        },
+        "assoc": 1
+      },
+      "relativeEncoded": "AIoEAwE=",
+      "absolute": {
+        "typeId": {
+          "client": 522,
+          "clock": 1
+        },
+        "typeName": "YXmlFragment",
+        "index": 2,
+        "assoc": 1
+      }
+    },
+    {
+      "name": "xml-text-attribute-text-deleted-target-reinsert-assoc--1",
+      "relativeJson": {
+        "item": {
+          "client": 530,
+          "clock": 5
+        },
+        "assoc": -1
+      },
+      "relativeEncoded": "AJIEBUE=",
+      "absolute": {
+        "typeId": {
+          "client": 530,
+          "clock": 4
+        },
+        "typeName": "YText",
+        "index": 1,
+        "assoc": -1
+      }
+    },
+    {
+      "name": "xml-text-attribute-text-deleted-target-reinsert-assoc-0",
+      "relativeJson": {
+        "item": {
+          "client": 531,
+          "clock": 6
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AJMEBgA=",
+      "absolute": {
+        "typeId": {
+          "client": 531,
+          "clock": 4
+        },
+        "typeName": "YText",
+        "index": 1,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-text-attribute-text-deleted-target-reinsert-assoc-1",
+      "relativeJson": {
+        "item": {
+          "client": 532,
+          "clock": 6
+        },
+        "assoc": 1
+      },
+      "relativeEncoded": "AJQEBgE=",
+      "absolute": {
+        "typeId": {
+          "client": 532,
+          "clock": 4
+        },
+        "typeName": "YText",
+        "index": 1,
+        "assoc": 1
+      }
+    },
+    {
+      "name": "xml-text-attribute-xml-element-deleted-target-reinsert-assoc--1",
+      "relativeJson": {
+        "item": {
+          "client": 540,
+          "clock": 5
+        },
+        "assoc": -1
+      },
+      "relativeEncoded": "AJwEBUE=",
+      "absolute": {
+        "typeId": {
+          "client": 540,
+          "clock": 4
+        },
+        "typeName": "YXmlElement",
+        "index": 1,
+        "assoc": -1
+      }
+    },
+    {
+      "name": "xml-text-attribute-xml-element-deleted-target-reinsert-assoc-0",
+      "relativeJson": {
+        "item": {
+          "client": 541,
+          "clock": 6
+        },
+        "assoc": 0
+      },
+      "relativeEncoded": "AJ0EBgA=",
+      "absolute": {
+        "typeId": {
+          "client": 541,
+          "clock": 4
+        },
+        "typeName": "YXmlElement",
+        "index": 2,
+        "assoc": 0
+      }
+    },
+    {
+      "name": "xml-text-attribute-xml-element-deleted-target-reinsert-assoc-1",
+      "relativeJson": {
+        "item": {
+          "client": 542,
+          "clock": 6
+        },
+        "assoc": 1
+      },
+      "relativeEncoded": "AJ4EBgE=",
+      "absolute": {
+        "typeId": {
+          "client": 542,
+          "clock": 4
+        },
+        "typeName": "YXmlElement",
+        "index": 2,
+        "assoc": 1
+      }
+    }
+  ]
+}

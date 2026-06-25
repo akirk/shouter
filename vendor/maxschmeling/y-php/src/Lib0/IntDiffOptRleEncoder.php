@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Yjs\Lib0;
+
+final class IntDiffOptRleEncoder
+{
+    private Encoding $encoder;
+    private int $state = 0;
+    private int $count = 0;
+    private int $diff = 0;
+
+    public function __construct()
+    {
+        $this->encoder = new Encoding();
+    }
+
+    public function write(int $value): void
+    {
+        if ($this->diff === $value - $this->state) {
+            $this->state = $value;
+            $this->count++;
+            return;
+        }
+
+        $this->flush();
+        $this->count = 1;
+        $this->diff = $value - $this->state;
+        $this->state = $value;
+    }
+
+    public function toString(): string
+    {
+        $this->flush();
+
+        return $this->encoder->toString();
+    }
+
+    private function flush(): void
+    {
+        if ($this->count === 0) {
+            return;
+        }
+
+        $this->encoder->writeVarInt(($this->diff * 2) + ($this->count === 1 ? 0 : 1));
+
+        if ($this->count > 1) {
+            $this->encoder->writeVarUint($this->count - 2);
+        }
+    }
+}

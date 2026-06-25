@@ -1,0 +1,152 @@
+{
+  "cases": [
+    {
+      "name": "text-incremental-insert-delete",
+      "updatesV1": [
+        "AQEKAAQBB2NvbnRlbnQFSGVsbG8A",
+        "AQEKBYQKBAQgWWpzAA==",
+        "AAEKAQUB"
+      ],
+      "updatesV2": [
+        "AAABCgAAAQQPDGNvbnRlbnRIZWxsbwcFAQEAAAEBAAA=",
+        "AAACSgABCAABhAYEIFlqcwQAAAABAQUA",
+        "AAAAAAAAAQAAAAAAAQoBBQA="
+      ],
+      "finalStateVectorV1": "AQoJ",
+      "finalUpdateV1": "AQMKAAQBB2NvbnRlbnQFSGVsbG+ECgQBIIQKBQNZanMBCgEFAQ==",
+      "finalUpdateV2": "AAACSgECCAIAAwQAhBUQY29udGVudEhlbGxvIFlqcwcFAQMBAQAAAQMAAQoBBQA=",
+      "json": {
+        "content": "HelloYjs"
+      }
+    },
+    {
+      "name": "map-incremental-set-delete",
+      "updatesV1": [
+        "AQELACgBA21hcAV0aXRsZQF3BUhlbGxvAA==",
+        "AQELASgBA21hcAVjb3VudAF9AwA=",
+        "AAELAQEB"
+      ],
+      "updatesV2": [
+        "AAABCwAAASgLCG1hcHRpdGxlAwUBAQABAQEBAHcFSGVsbG8A",
+        "AAABCwAAASgLCG1hcGNvdW50AwUBAQABAQEBAX0DAA==",
+        "AAAAAAAAAQAAAAAAAQsBAQA="
+      ],
+      "finalStateVectorV1": "AQsC",
+      "finalUpdateV1": "AQILACgBA21hcAV0aXRsZQF3BUhlbGxvKAEDbWFwBWNvdW50AX0DAQsBAQE=",
+      "finalUpdateV2": "AAABCwAAASgVEG1hcHRpdGxlbWFwY291bnQDBQMFAQEAAkEAAQIAdwVIZWxsb30DAQsBAQA=",
+      "json": {
+        "map": {
+          "title": "Hello"
+        }
+      }
+    },
+    {
+      "name": "map-incremental-replace-null",
+      "updatesV1": [
+        "AQETACgBA21hcAV0aXRsZQF+AA==",
+        "AQETAagTAAF3BUhlbGxvARMBAAE="
+      ],
+      "updatesV2": [
+        "AAABEwAAASgLCG1hcHRpdGxlAwUBAQABAQEBAH4A",
+        "AAACUwABAAABqAEAAAABAQEBAXcFSGVsbG8BEwEAAA=="
+      ],
+      "finalStateVectorV1": "ARMC",
+      "finalUpdateV1": "AQITACgBA21hcAV0aXRsZQF+qBMAAXcFSGVsbG8BEwEAAQ==",
+      "finalUpdateV2": "AAACUwABAAADKACoCwhtYXB0aXRsZQMFAQEAAkEAAQIAfncFSGVsbG8BEwEAAA==",
+      "json": {
+        "map": {
+          "title": "Hello"
+        }
+      }
+    },
+    {
+      "name": "array-incremental-inserts",
+      "updatesV1": [
+        "AQEMAAgBBWFycmF5AX0BAA==",
+        "AQEMAYgMAAJ3A3R3b3gA",
+        "AQEMA4gMAgF2AQZuZXN0ZWR1AXcBeAA="
+      ],
+      "updatesV2": [
+        "AAABDAAAAQgHBWFycmF5BQEBAAEBAQEAfQEA",
+        "AAACTAABAAABiAEAAAABAgEBAXcDdHdveAA=",
+        "AAACTAABBAABiAEAAAABAQEBA3YBBm5lc3RlZHUBdwF4AA=="
+      ],
+      "finalStateVectorV1": "AQwE",
+      "finalUpdateV1": "AQEMAAgBBWFycmF5BH0BdwN0d294dgEGbmVzdGVkdQF3AXgA",
+      "finalUpdateV2": "AAABDAAAAQgHBWFycmF5BQEBAAEEAQEAfQF3A3R3b3h2AQZuZXN0ZWR1AXcBeAA=",
+      "json": {
+        "array": [
+          1,
+          "two",
+          true,
+          {
+            "nested": [
+              "x"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "array-nested-shared-types-incremental",
+      "updatesV1": [
+        "AQMPAAcBBWFycmF5AIcPAAGHDwECAA==",
+        "AQEPAwgADwABfQEA",
+        "AQEPBIgPAwF9AgA=",
+        "AQEPBSgADwEFdGl0bGUBdwZOZXN0ZWQA",
+        "AQEPBgQADwICSGkA"
+      ],
+      "updatesV2": [
+        "AAACTwECAAIAAwcAhwcFYXJyYXkFAQEDAAECAAEDAAA=",
+        "AAACTwABAAABCAEAAQAAAQEBAQN9AQA=",
+        "AAACTwABBgABiAEAAAABAQEBBH0CAA==",
+        "AAACTwABAgABKAcFdGl0bGUFAQAAAQEBAQV3Bk5lc3RlZAA=",
+        "AAACTwABBAABBAQCSGkCAQAAAAEBBgA="
+      ],
+      "finalStateVectorV1": "AQ8I",
+      "finalUpdateV1": "AQYPAAcBBWFycmF5AIcPAAGHDwECCAAPAAJ9AX0CKAAPAQV0aXRsZQF3Bk5lc3RlZAQADwICSGkA",
+      "finalUpdateV2": "AAACTwQFAAJCAwAACQcAhwEIACgABBAMYXJyYXl0aXRsZUhpRQACAwEAAAMAAQICAgEBBgB9AX0CdwZOZXN0ZWQA",
+      "json": {
+        "array": [
+          [
+            1,
+            2
+          ],
+          {
+            "title": "Nested"
+          },
+          "Hi"
+        ]
+      }
+    },
+    {
+      "name": "map-nested-shared-types-incremental",
+      "updatesV1": [
+        "AQEQACcBA21hcAVpdGVtcwAA",
+        "AQEQAScBA21hcARib2R5AgA=",
+        "AQEQAggAEAABdwFBAA==",
+        "AQEQA4gQAgF3AUIA",
+        "AQEQBAQAEAELTmVzdGVkIHRleHQA"
+      ],
+      "updatesV2": [
+        "AAABEAAAAScLCG1hcGl0ZW1zAwUBAQEAAAEBAAA=",
+        "AAABEAAAAScKB21hcGJvZHkDBAEBAQIAAQEBAA==",
+        "AAACUAABAAABCAEAAQAAAQEBAQJ3AUEA",
+        "AAACUAABBAABiAEAAAABAQEBA3cBQgA=",
+        "AAACUAABAgABBA0LTmVzdGVkIHRleHQLAQAAAAEBBAA="
+      ],
+      "finalStateVectorV1": "ARAP",
+      "finalUpdateV1": "AQQQACcBA21hcAVpdGVtcwAnAQNtYXAEYm9keQIIABAAAncBQXcBQgQAEAELTmVzdGVkIHRleHQA",
+      "finalUpdateV2": "AAACUAECAAIABScBCAAEIBptYXBpdGVtc21hcGJvZHlOZXN0ZWQgdGV4dAMFAwQLAwEBAAIAAgECAQQAdwFBdwFCAA==",
+      "json": {
+        "map": {
+          "items": [
+            "A",
+            "B"
+          ],
+          "body": "Nested text"
+        }
+      }
+    }
+  ]
+}

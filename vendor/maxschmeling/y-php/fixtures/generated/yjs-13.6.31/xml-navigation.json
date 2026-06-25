@@ -1,0 +1,248 @@
+{
+  "updateV1": "AQyYAQAHAQN4bWwGBACYAQAFaW50cm+HmAEAAwdhcnRpY2xlBwCYAQYDAXAHAJgBBwYEAJgBCAVIZWxsb4eYAQcDBnN0cm9uZwcAmAEOBgQAmAEPAUIoAJgBBgVjbGFzcwF3BGxlYWSHmAEGAwVhc2lkZYeYARIFB21lbnRpb24A",
+  "updateV2": "AAMAAwID2AIKCwEADAMAQg4CUgAYABMHAAQAhwAHAQQAhwAHAAQAKACHOC14bWxpbnRyb2FydGljbGVwSGVsbG9zdHJvbmdCY2xhc3Nhc2lkZW1lbnRpb24DBQcBBQYBRQAHAwEAAAgGQwAGAwYDBQEBAQwAdwRsZWFkAA==",
+  "json": {
+    "xml": "intro<article class=\"lead\"><p>Hello</p><strong>B</strong></article><aside></aside>[object Object]"
+  },
+  "firstChild": {
+    "type": "YXmlText",
+    "nodeName": null,
+    "string": "intro",
+    "json": "intro"
+  },
+  "sliceFromOne": [
+    {
+      "type": "YXmlElement",
+      "nodeName": "article",
+      "string": "<article class=\"lead\"><p>Hello</p><strong>B</strong></article>",
+      "json": "<article class=\"lead\"><p>Hello</p><strong>B</strong></article>"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "aside",
+      "string": "<aside></aside>",
+      "json": "<aside></aside>"
+    },
+    {
+      "type": "YXmlHook",
+      "nodeName": null,
+      "string": "[object Object]",
+      "json": {}
+    }
+  ],
+  "sliceNegativeOne": [
+    {
+      "type": "YXmlHook",
+      "nodeName": null,
+      "string": "[object Object]",
+      "json": {}
+    }
+  ],
+  "queryArticle": {
+    "type": "YXmlElement",
+    "nodeName": "article",
+    "string": "<article class=\"lead\"><p>Hello</p><strong>B</strong></article>",
+    "json": "<article class=\"lead\"><p>Hello</p><strong>B</strong></article>"
+  },
+  "queryUppercaseArticle": {
+    "type": "YXmlElement",
+    "nodeName": "article",
+    "string": "<article class=\"lead\"><p>Hello</p><strong>B</strong></article>",
+    "json": "<article class=\"lead\"><p>Hello</p><strong>B</strong></article>"
+  },
+  "queryStrong": {
+    "type": "YXmlElement",
+    "nodeName": "strong",
+    "string": "<strong>B</strong>",
+    "json": "<strong>B</strong>"
+  },
+  "queryMissing": null,
+  "queryAllStrong": [
+    {
+      "type": "YXmlElement",
+      "nodeName": "strong",
+      "string": "<strong>B</strong>",
+      "json": "<strong>B</strong>"
+    }
+  ],
+  "queryAllUppercaseStrong": [
+    {
+      "type": "YXmlElement",
+      "nodeName": "strong",
+      "string": "<strong>B</strong>",
+      "json": "<strong>B</strong>"
+    }
+  ],
+  "treeWalker": [
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "intro",
+      "json": "intro"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "article",
+      "string": "<article class=\"lead\"><p>Hello</p><strong>B</strong></article>",
+      "json": "<article class=\"lead\"><p>Hello</p><strong>B</strong></article>"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "p",
+      "string": "<p>Hello</p>",
+      "json": "<p>Hello</p>"
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "Hello",
+      "json": "Hello"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "strong",
+      "string": "<strong>B</strong>",
+      "json": "<strong>B</strong>"
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "B",
+      "json": "B"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "aside",
+      "string": "<aside></aside>",
+      "json": "<aside></aside>"
+    },
+    {
+      "type": "YXmlHook",
+      "nodeName": null,
+      "string": "[object Object]",
+      "json": {}
+    }
+  ],
+  "treeWalkerElements": [
+    {
+      "type": "YXmlElement",
+      "nodeName": "article",
+      "string": "<article class=\"lead\"><p>Hello</p><strong>B</strong></article>",
+      "json": "<article class=\"lead\"><p>Hello</p><strong>B</strong></article>"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "p",
+      "string": "<p>Hello</p>",
+      "json": "<p>Hello</p>"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "strong",
+      "string": "<strong>B</strong>",
+      "json": "<strong>B</strong>"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "aside",
+      "string": "<aside></aside>",
+      "json": "<aside></aside>"
+    }
+  ],
+  "fragmentJson": "intro<article class=\"lead\"><p>Hello</p><strong>B</strong></article><aside></aside>[object Object]",
+  "articleFirstChild": {
+    "type": "YXmlElement",
+    "nodeName": "p",
+    "string": "<p>Hello</p>",
+    "json": "<p>Hello</p>"
+  },
+  "articleSlice": [
+    {
+      "type": "YXmlElement",
+      "nodeName": "p",
+      "string": "<p>Hello</p>",
+      "json": "<p>Hello</p>"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "strong",
+      "string": "<strong>B</strong>",
+      "json": "<strong>B</strong>"
+    }
+  ],
+  "articleQuerySelf": null,
+  "articleQueryStrong": {
+    "type": "YXmlElement",
+    "nodeName": "strong",
+    "string": "<strong>B</strong>",
+    "json": "<strong>B</strong>"
+  },
+  "articleQueryUppercaseStrong": {
+    "type": "YXmlElement",
+    "nodeName": "strong",
+    "string": "<strong>B</strong>",
+    "json": "<strong>B</strong>"
+  },
+  "articleQueryAllStrong": [
+    {
+      "type": "YXmlElement",
+      "nodeName": "strong",
+      "string": "<strong>B</strong>",
+      "json": "<strong>B</strong>"
+    }
+  ],
+  "articleQueryAllUppercaseStrong": [
+    {
+      "type": "YXmlElement",
+      "nodeName": "strong",
+      "string": "<strong>B</strong>",
+      "json": "<strong>B</strong>"
+    }
+  ],
+  "articleTreeWalker": [
+    {
+      "type": "YXmlElement",
+      "nodeName": "p",
+      "string": "<p>Hello</p>",
+      "json": "<p>Hello</p>"
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "Hello",
+      "json": "Hello"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "strong",
+      "string": "<strong>B</strong>",
+      "json": "<strong>B</strong>"
+    },
+    {
+      "type": "YXmlText",
+      "nodeName": null,
+      "string": "B",
+      "json": "B"
+    }
+  ],
+  "articleTreeWalkerElements": [
+    {
+      "type": "YXmlElement",
+      "nodeName": "p",
+      "string": "<p>Hello</p>",
+      "json": "<p>Hello</p>"
+    },
+    {
+      "type": "YXmlElement",
+      "nodeName": "strong",
+      "string": "<strong>B</strong>",
+      "json": "<strong>B</strong>"
+    }
+  ],
+  "hook": {
+    "type": "YXmlHook",
+    "nodeName": null,
+    "string": "[object Object]",
+    "json": {}
+  }
+}

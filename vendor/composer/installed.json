@@ -1,0 +1,59 @@
+{
+    "packages": [
+        {
+            "name": "maxschmeling/y-php",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maxschmeling/y-php.git",
+                "reference": "4515ef1f427d050f070430cf8ff1a5f1355731aa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maxschmeling/y-php/zipball/4515ef1f427d050f070430cf8ff1a5f1355731aa",
+                "reference": "4515ef1f427d050f070430cf8ff1a5f1355731aa",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10.5"
+            },
+            "time": "2026-06-13T16:14:02+00:00",
+            "default-branch": true,
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Yjs\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Yjs\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "proof": [
+                    "php examples/proof-of-life.php"
+                ],
+                "test": [
+                    "phpunit"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Fresh PHP implementation of Yjs-compatible CRDT primitives targeting binary compatibility with Yjs 13.",
+            "support": {
+                "source": "https://github.com/maxschmeling/y-php/tree/main",
+                "issues": "https://github.com/maxschmeling/y-php/issues"
+            },
+            "install-path": "../maxschmeling/y-php"
+        }
+    ],
+    "dev": false,
+    "dev-package-names": []
+}

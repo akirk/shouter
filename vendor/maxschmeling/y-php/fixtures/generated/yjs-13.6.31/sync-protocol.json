@@ -1,0 +1,48 @@
+{
+  "docJson": {
+    "content": "Sync"
+  },
+  "stateVectorV1": "ARQE",
+  "updateV1": "AQEUAAQBB2NvbnRlbnQEU3luYwA=",
+  "updateV2": "AAABFAAAAQQOC2NvbnRlbnRTeW5jBwQBAQAAAQEAAA==",
+  "syncStep1": "AAMBFAQ=",
+  "syncStep2ForEmpty": "ARQBARQABAEHY29udGVudARTeW5jAA==",
+  "syncStep2V2ForEmpty": "AR8AAAEUAAABBA4LY29udGVudFN5bmMHBAEBAAABAQAA",
+  "syncStep2ForCurrent": "AQIAAA==",
+  "syncStep2V2ForCurrent": "AQ0AAAAAAAABAAAAAAAA",
+  "syncStep2ForPartial": "ARQBARQABAEHY29udGVudARTeW5jAA==",
+  "syncStep2V2ForPartial": "AR8AAAEUAAABBA4LY29udGVudFN5bmMHBAEBAAABAQAA",
+  "syncStep2DeleteSetOnly": "AQYAARgBAQI=",
+  "syncStep2V2DeleteSetOnly": "AREAAAAAAAABAAAAAAABGAEBAQ==",
+  "updateMessage": "AhQBARQABAEHY29udGVudARTeW5jAA==",
+  "updateV2Message": "Ah8AAAEUAAABBA4LY29udGVudFN5bmMHBAEBAAABAQAA",
+  "subdocPartial": {
+    "expectedJson": {
+      "array": [
+        "known",
+        {}
+      ]
+    },
+    "sourceStateVectorV1": "ASAC",
+    "prefixJson": {
+      "array": [
+        "known"
+      ]
+    },
+    "prefixStateVectorV1": "ASAB",
+    "prefixUpdateV1": "AQEgAAgBBWFycmF5AXcFa25vd24A",
+    "prefixUpdateV2": "AAABIAAAAQgHBWFycmF5BQEBAAEBAQEAdwVrbm93bgA=",
+    "syncStep2ForPrefix": "AT8BASABiSAAEXN5bmMtc3ViZG9jLWNoaWxkdgIIYXV0b0xvYWR4BG1ldGF2AQRraW5kdwtzeW5jLXN1YmRvYwA=",
+    "syncStep2V2ForPrefix": "AUoAAAJgAAEAAAGJExFzeW5jLXN1YmRvYy1jaGlsZBEAAAABAQF2AghhdXRvTG9hZHgEbWV0YXYBBGtpbmR3C3N5bmMtc3ViZG9jAA==",
+    "expectedArraySubdocs": [
+      {
+        "index": 1,
+        "guid": "sync-subdoc-child",
+        "meta": {
+          "kind": "sync-subdoc"
+        },
+        "shouldLoad": true
+      }
+    ]
+  }
+}

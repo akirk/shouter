@@ -1,0 +1,35 @@
+{
+  "withContent": {
+    "updateV1": "AQS0AQAEAQdjb250ZW50BFRleHQoAQdjb250ZW50BGxhbmcBdwJlbigBB2NvbnRlbnQJdGVtcG9yYXJ5AXgoAQdjb250ZW50BG1hcmsBdgEFY29sb3J3BWdyZWVuAbQBAQUB",
+    "updateV2": "AAACtAIAAAMEACg6MWNvbnRlbnRUZXh0Y29udGVudGxhbmdjb250ZW50dGVtcG9yYXJ5Y29udGVudG1hcmsHBAcEBwkHBAEBAAJBAQEEAHcCZW54dgEFY29sb3J3BWdyZWVuAbQBAQUA",
+    "json": {
+      "content": "Text"
+    },
+    "text": "Text",
+    "delta": [
+      {
+        "insert": "Text"
+      }
+    ],
+    "attributes": {
+      "lang": "en",
+      "mark": {
+        "color": "green"
+      }
+    },
+    "lang": "en",
+    "hasTemporary": false
+  },
+  "attributeOnly": {
+    "updateV1": "AQG1AQAoAQdjb250ZW50BGxhbmcBdwJlbgA=",
+    "updateV2": "AAACtQIAAAEoDgtjb250ZW50bGFuZwcEAQEAAQEBAQB3AmVuAA==",
+    "jsonAfterGetText": {
+      "content": ""
+    },
+    "text": "",
+    "delta": [],
+    "attributes": {
+      "lang": "en"
+    }
+  }
+}

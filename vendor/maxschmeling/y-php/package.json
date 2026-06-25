@@ -1,0 +1,15 @@
+{
+  "name": "yjs-php-fixtures",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fixtures": "node tools/generate-fixtures.mjs",
+    "verify": "npm run verify:php-updates && npm run verify:php-protocol",
+    "verify:php-updates": "node tools/verify-php-generated-updates.mjs",
+    "verify:php-protocol": "node tools/verify-php-generated-protocol.mjs"
+  },
+  "devDependencies": {
+    "y-protocols": "^1.0.6",
+    "yjs": "13.6.31"
+  }
+}

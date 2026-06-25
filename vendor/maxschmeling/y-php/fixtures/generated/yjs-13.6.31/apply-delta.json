@@ -1,0 +1,674 @@
+{
+  "cases": [
+    {
+      "name": "root-default-keeps-trailing-newline",
+      "target": "root",
+      "seed": null,
+      "seedDelta": null,
+      "delta": [
+        {
+          "insert": "Hello\n"
+        }
+      ],
+      "options": null,
+      "expectedString": "Hello\n",
+      "expectedDelta": [
+        {
+          "insert": "Hello\n"
+        }
+      ],
+      "expectedJson": {
+        "content": "Hello\n"
+      }
+    },
+    {
+      "name": "root-sanitize-true-keeps-trailing-newline",
+      "target": "root",
+      "seed": null,
+      "seedDelta": null,
+      "delta": [
+        {
+          "insert": "Hello\n"
+        }
+      ],
+      "options": {
+        "sanitize": true
+      },
+      "expectedString": "Hello\n",
+      "expectedDelta": [
+        {
+          "insert": "Hello\n"
+        }
+      ],
+      "expectedJson": {
+        "content": "Hello\n"
+      }
+    },
+    {
+      "name": "root-sanitize-false-strips-trailing-newline",
+      "target": "root",
+      "seed": null,
+      "seedDelta": null,
+      "delta": [
+        {
+          "insert": "Hello\n"
+        }
+      ],
+      "options": {
+        "sanitize": false
+      },
+      "expectedString": "Hello",
+      "expectedDelta": [
+        {
+          "insert": "Hello"
+        }
+      ],
+      "expectedJson": {
+        "content": "Hello"
+      }
+    },
+    {
+      "name": "root-sanitize-false-empty-newline",
+      "target": "root",
+      "seed": null,
+      "seedDelta": null,
+      "delta": [
+        {
+          "insert": "\n"
+        }
+      ],
+      "options": {
+        "sanitize": false
+      },
+      "expectedString": "",
+      "expectedDelta": [],
+      "expectedJson": {
+        "content": ""
+      }
+    },
+    {
+      "name": "root-sanitize-false-keeps-mid-text-newline",
+      "target": "root",
+      "seed": "Existing",
+      "seedDelta": null,
+      "delta": [
+        {
+          "retain": 3
+        },
+        {
+          "insert": "X\n"
+        }
+      ],
+      "options": {
+        "sanitize": false
+      },
+      "expectedString": "ExiX\nsting",
+      "expectedDelta": [
+        {
+          "insert": "ExiX\nsting"
+        }
+      ],
+      "expectedJson": {
+        "content": "ExiX\nsting"
+      }
+    },
+    {
+      "name": "root-sanitize-false-after-delete-strips-at-end",
+      "target": "root",
+      "seed": "AB",
+      "seedDelta": null,
+      "delta": [
+        {
+          "delete": 2
+        },
+        {
+          "insert": "C\n"
+        }
+      ],
+      "options": {
+        "sanitize": false
+      },
+      "expectedString": "C",
+      "expectedDelta": [
+        {
+          "insert": "C"
+        }
+      ],
+      "expectedJson": {
+        "content": "C"
+      }
+    },
+    {
+      "name": "nested-sanitize-false-strips-trailing-newline",
+      "target": "nested",
+      "seed": null,
+      "seedDelta": null,
+      "delta": [
+        {
+          "insert": "Nested\n"
+        }
+      ],
+      "options": {
+        "sanitize": false
+      },
+      "expectedString": "Nested",
+      "expectedDelta": [
+        {
+          "insert": "Nested"
+        }
+      ],
+      "expectedJson": {
+        "items": [
+          "Nested"
+        ]
+      }
+    },
+    {
+      "name": "xml-sanitize-false-strips-trailing-newline",
+      "target": "xml",
+      "seed": null,
+      "seedDelta": null,
+      "delta": [
+        {
+          "insert": "Xml\n"
+        }
+      ],
+      "options": {
+        "sanitize": false
+      },
+      "expectedString": "Xml",
+      "expectedDelta": [
+        {
+          "insert": "Xml"
+        }
+      ],
+      "expectedJson": {
+        "xml": "Xml"
+      }
+    },
+    {
+      "name": "root-format-retain",
+      "target": "root",
+      "seed": "Hi",
+      "seedDelta": null,
+      "delta": [
+        {
+          "retain": 1,
+          "attributes": {
+            "bold": true
+          }
+        }
+      ],
+      "options": null,
+      "expectedString": "Hi",
+      "expectedDelta": [
+        {
+          "insert": "H",
+          "attributes": {
+            "bold": true
+          }
+        },
+        {
+          "insert": "i"
+        }
+      ],
+      "expectedJson": {
+        "content": "Hi"
+      }
+    },
+    {
+      "name": "root-insert-embed",
+      "target": "root",
+      "seed": null,
+      "seedDelta": null,
+      "delta": [
+        {
+          "insert": "A"
+        },
+        {
+          "insert": {
+            "image": "cat.png"
+          },
+          "attributes": {
+            "alt": "Cat"
+          }
+        },
+        {
+          "insert": "B"
+        }
+      ],
+      "options": null,
+      "expectedString": "AB",
+      "expectedDelta": [
+        {
+          "insert": "A"
+        },
+        {
+          "insert": {
+            "image": "cat.png"
+          },
+          "attributes": {
+            "alt": "Cat"
+          }
+        },
+        {
+          "insert": "B"
+        }
+      ],
+      "expectedJson": {
+        "content": "AB"
+      }
+    },
+    {
+      "name": "nested-utf16-format-retain",
+      "target": "nested",
+      "seed": "A😀B",
+      "seedDelta": null,
+      "delta": [
+        {
+          "retain": 3,
+          "attributes": {
+            "bold": true
+          }
+        }
+      ],
+      "options": null,
+      "expectedString": "A😀B",
+      "expectedDelta": [
+        {
+          "insert": "A😀",
+          "attributes": {
+            "bold": true
+          }
+        },
+        {
+          "insert": "B"
+        }
+      ],
+      "expectedJson": {
+        "items": [
+          "A😀B"
+        ]
+      }
+    },
+    {
+      "name": "nested-insert-embed",
+      "target": "nested",
+      "seed": null,
+      "seedDelta": null,
+      "delta": [
+        {
+          "insert": "A"
+        },
+        {
+          "insert": {
+            "mention": "Grace"
+          },
+          "attributes": {
+            "role": "reviewer"
+          }
+        },
+        {
+          "insert": "B"
+        }
+      ],
+      "options": null,
+      "expectedString": "AB",
+      "expectedDelta": [
+        {
+          "insert": "A"
+        },
+        {
+          "insert": {
+            "mention": "Grace"
+          },
+          "attributes": {
+            "role": "reviewer"
+          }
+        },
+        {
+          "insert": "B"
+        }
+      ],
+      "expectedJson": {
+        "items": [
+          "AB"
+        ]
+      }
+    },
+    {
+      "name": "xml-format-retain",
+      "target": "xml",
+      "seed": "Xml",
+      "seedDelta": null,
+      "delta": [
+        {
+          "retain": 2,
+          "attributes": {
+            "bold": true
+          }
+        }
+      ],
+      "options": null,
+      "expectedString": "<bold>Xm</bold>l",
+      "expectedDelta": [
+        {
+          "insert": "Xm",
+          "attributes": {
+            "bold": true
+          }
+        },
+        {
+          "insert": "l"
+        }
+      ],
+      "expectedJson": {
+        "xml": "<bold>Xm</bold>l"
+      }
+    },
+    {
+      "name": "xml-insert-embed",
+      "target": "xml",
+      "seed": null,
+      "seedDelta": null,
+      "delta": [
+        {
+          "insert": "A"
+        },
+        {
+          "insert": {
+            "mention": "Lin"
+          },
+          "attributes": {
+            "role": "editor"
+          }
+        },
+        {
+          "insert": "B"
+        }
+      ],
+      "options": null,
+      "expectedString": "A<role 0=\"e\" 1=\"d\" 2=\"i\" 3=\"t\" 4=\"o\" 5=\"r\">[object Object]</role>B",
+      "expectedDelta": [
+        {
+          "insert": "A"
+        },
+        {
+          "insert": {
+            "mention": "Lin"
+          },
+          "attributes": {
+            "role": "editor"
+          }
+        },
+        {
+          "insert": "B"
+        }
+      ],
+      "expectedJson": {
+        "xml": "A<role 0=\"e\" 1=\"d\" 2=\"i\" 3=\"t\" 4=\"o\" 5=\"r\">[object Object]</role>B"
+      }
+    },
+    {
+      "name": "root-insert-clears-unmentioned-active-format",
+      "target": "root",
+      "seed": null,
+      "seedDelta": [
+        {
+          "insert": "Hello",
+          "attributes": {
+            "bold": true,
+            "italic": true
+          }
+        }
+      ],
+      "delta": [
+        {
+          "retain": 5
+        },
+        {
+          "insert": "!",
+          "attributes": {
+            "bold": true,
+            "italic": null
+          }
+        }
+      ],
+      "options": null,
+      "expectedString": "Hello!",
+      "expectedDelta": [
+        {
+          "insert": "Hello",
+          "attributes": {
+            "bold": true,
+            "italic": true
+          }
+        },
+        {
+          "insert": "!",
+          "attributes": {
+            "bold": true
+          }
+        }
+      ],
+      "expectedJson": {
+        "content": "Hello!"
+      }
+    },
+    {
+      "name": "xml-insert-clears-unmentioned-active-format",
+      "target": "xml",
+      "seed": null,
+      "seedDelta": [
+        {
+          "insert": "Xml",
+          "attributes": {
+            "bold": true,
+            "italic": true
+          }
+        }
+      ],
+      "delta": [
+        {
+          "retain": 3
+        },
+        {
+          "insert": "!",
+          "attributes": {
+            "bold": true,
+            "italic": null
+          }
+        }
+      ],
+      "options": null,
+      "expectedString": "<bold><italic>Xml</italic></bold><bold>!</bold>",
+      "expectedDelta": [
+        {
+          "insert": "Xml",
+          "attributes": {
+            "bold": true,
+            "italic": true
+          }
+        },
+        {
+          "insert": "!",
+          "attributes": {
+            "bold": true
+          }
+        }
+      ],
+      "expectedJson": {
+        "xml": "<bold><italic>Xml</italic></bold><bold>!</bold>"
+      }
+    },
+    {
+      "name": "nested-embed-clears-unmentioned-active-format",
+      "target": "nested",
+      "seed": null,
+      "seedDelta": [
+        {
+          "insert": "Seed",
+          "attributes": {
+            "bold": true,
+            "italic": true
+          }
+        }
+      ],
+      "delta": [
+        {
+          "retain": 4
+        },
+        {
+          "insert": {
+            "mention": "Ada"
+          },
+          "attributes": {
+            "bold": true,
+            "italic": null
+          }
+        }
+      ],
+      "options": null,
+      "expectedString": "Seed",
+      "expectedDelta": [
+        {
+          "insert": "Seed",
+          "attributes": {
+            "bold": true,
+            "italic": true
+          }
+        },
+        {
+          "insert": {
+            "mention": "Ada"
+          },
+          "attributes": {
+            "bold": true
+          }
+        }
+      ],
+      "expectedJson": {
+        "items": [
+          "Seed"
+        ]
+      }
+    },
+    {
+      "name": "map-format-delete-insert",
+      "target": "map",
+      "seed": "MapText",
+      "seedDelta": null,
+      "delta": [
+        {
+          "retain": 3,
+          "attributes": {
+            "bold": true
+          }
+        },
+        {
+          "delete": 1
+        },
+        {
+          "insert": " body",
+          "attributes": {
+            "italic": true
+          }
+        }
+      ],
+      "options": null,
+      "expectedString": "Map bodyext",
+      "expectedDelta": [
+        {
+          "insert": "Map",
+          "attributes": {
+            "bold": true
+          }
+        },
+        {
+          "insert": " body",
+          "attributes": {
+            "italic": true
+          }
+        },
+        {
+          "insert": "ext"
+        }
+      ],
+      "expectedJson": {
+        "map": {
+          "body": "Map bodyext"
+        }
+      }
+    },
+    {
+      "name": "map-sanitize-false-strips-trailing-newline",
+      "target": "map",
+      "seed": null,
+      "seedDelta": null,
+      "delta": [
+        {
+          "insert": "Map\n"
+        }
+      ],
+      "options": {
+        "sanitize": false
+      },
+      "expectedString": "Map",
+      "expectedDelta": [
+        {
+          "insert": "Map"
+        }
+      ],
+      "expectedJson": {
+        "map": {
+          "body": "Map"
+        }
+      }
+    },
+    {
+      "name": "map-insert-embed",
+      "target": "map",
+      "seed": null,
+      "seedDelta": null,
+      "delta": [
+        {
+          "insert": "A"
+        },
+        {
+          "insert": {
+            "mention": "Ada"
+          },
+          "attributes": {
+            "role": "author"
+          }
+        },
+        {
+          "insert": "B"
+        }
+      ],
+      "options": null,
+      "expectedString": "AB",
+      "expectedDelta": [
+        {
+          "insert": "A"
+        },
+        {
+          "insert": {
+            "mention": "Ada"
+          },
+          "attributes": {
+            "role": "author"
+          }
+        },
+        {
+          "insert": "B"
+        }
+      ],
+      "expectedJson": {
+        "map": {
+          "body": "AB"
+        }
+      }
+    }
+  ]
+}

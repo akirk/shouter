@@ -1,0 +1,400 @@
+{
+  "update": "AU0BNnsidXNlciI6eyJuYW1lIjoiQWRhIn0sImN1cnNvciI6eyJhbmNob3IiOjMsImhlYWQiOjd9fQ==",
+  "modifiedUpdate": "AU0BF3sidXNlciI6eyJuYW1lIjoiQWRhIn19",
+  "message": "AToBTQE2eyJ1c2VyIjp7Im5hbWUiOiJBZGEifSwiY3Vyc29yIjp7ImFuY2hvciI6MywiaGVhZCI6N319",
+  "queryMessage": "AAA=",
+  "decodedUpdate": [
+    {
+      "clientID": 77,
+      "clock": 1,
+      "state": {
+        "user": {
+          "name": "Ada"
+        },
+        "cursor": {
+          "anchor": 3,
+          "head": 7
+        }
+      }
+    }
+  ],
+  "states": {
+    "77": {
+      "user": {
+        "name": "Ada"
+      },
+      "cursor": {
+        "anchor": 3,
+        "head": 7
+      }
+    }
+  },
+  "removedStates": {},
+  "removeUpdate": "AU0CBG51bGw=",
+  "removeMessage": "AQgBTQIEbnVsbA==",
+  "decodedRemoveUpdate": [
+    {
+      "clientID": 77,
+      "clock": 2,
+      "state": null
+    }
+  ],
+  "sameClockRemoveUpdate": "AU0BBG51bGw=",
+  "decodedSameClockRemoveUpdate": [
+    {
+      "clientID": 77,
+      "clock": 1,
+      "state": null
+    }
+  ],
+  "undefinedUpdate": "AVEBPHsidXNlciI6eyJuYW1lIjoiQWRhIn0sIml0ZW1zIjpbbnVsbCxudWxsLHsidmlzaWJsZSI6dHJ1ZX1dfQ==",
+  "decodedUndefinedUpdate": [
+    {
+      "clientID": 81,
+      "clock": 1,
+      "state": {
+        "user": {
+          "name": "Ada"
+        },
+        "items": [
+          null,
+          null,
+          {
+            "visible": true
+          }
+        ]
+      }
+    }
+  ],
+  "specialNumberUpdate": "AVIBb3sibWV0cmljcyI6eyJuYW4iOm51bGwsInBvc2l0aXZlSW5maW5pdHkiOm51bGwsIm5lZ2F0aXZlSW5maW5pdHkiOm51bGwsImZpbml0ZSI6MS41fSwibGlzdCI6W251bGwsbnVsbCxudWxsLDNdfQ==",
+  "decodedSpecialNumberUpdate": [
+    {
+      "clientID": 82,
+      "clock": 1,
+      "state": {
+        "metrics": {
+          "nan": null,
+          "positiveInfinity": null,
+          "negativeInfinity": null,
+          "finite": 1.5
+        },
+        "list": [
+          null,
+          null,
+          null,
+          3
+        ]
+      }
+    }
+  ],
+  "fieldUpdate": "AU0CNnsidXNlciI6eyJuYW1lIjoiQWRhIn0sImN1cnNvciI6eyJhbmNob3IiOjEsImhlYWQiOjR9fQ==",
+  "decodedFieldUpdate": [
+    {
+      "clientID": 77,
+      "clock": 2,
+      "state": {
+        "user": {
+          "name": "Ada"
+        },
+        "cursor": {
+          "anchor": 1,
+          "head": 4
+        }
+      }
+    }
+  ],
+  "multiUpdate": "Ak0BF3sidXNlciI6eyJuYW1lIjoiQWRhIn19TgE4eyJ1c2VyIjp7Im5hbWUiOiJHcmFjZSJ9LCJjdXJzb3IiOnsiYW5jaG9yIjo5LCJoZWFkIjo5fX0=",
+  "decodedMultiUpdate": [
+    {
+      "clientID": 77,
+      "clock": 1,
+      "state": {
+        "user": {
+          "name": "Ada"
+        }
+      }
+    },
+    {
+      "clientID": 78,
+      "clock": 1,
+      "state": {
+        "user": {
+          "name": "Grace"
+        },
+        "cursor": {
+          "anchor": 9,
+          "head": 9
+        }
+      }
+    }
+  ],
+  "multiSubsetUpdate": "AU4BOHsidXNlciI6eyJuYW1lIjoiR3JhY2UifSwiY3Vyc29yIjp7ImFuY2hvciI6OSwiaGVhZCI6OX19",
+  "decodedMultiSubsetUpdate": [
+    {
+      "clientID": 78,
+      "clock": 1,
+      "state": {
+        "user": {
+          "name": "Grace"
+        },
+        "cursor": {
+          "anchor": 9,
+          "head": 9
+        }
+      }
+    }
+  ],
+  "multiStates": {
+    "77": {
+      "user": {
+        "name": "Ada"
+      }
+    },
+    "78": {
+      "user": {
+        "name": "Grace"
+      },
+      "cursor": {
+        "anchor": 9,
+        "head": 9
+      }
+    }
+  },
+  "richUpdate": "Ak8B5wF7InVzZXIiOnsibmFtZSI6Ilpvw6siLCJyb2xlcyI6WyJlZGl0b3IiLCJyZXZpZXdlciJdLCJmbGFncyI6eyJvbmxpbmUiOnRydWUsIm11dGVkIjpmYWxzZX0sIm1ldGEiOm51bGx9LCJjdXJzb3IiOnsiYW5jaG9yIjp7InR5cGUiOiJyZWxhdGl2ZSIsImlkIjp7ImNsaWVudCI6MSwiY2xvY2siOjJ9LCJhc3NvYyI6LTF9LCJyYW5nZXMiOlt7ImFuY2hvciI6MCwiaGVhZCI6NH1dfSwiZW1vamkiOiLwn5iAIn1QAVF7InVzZXIiOnsibmFtZSI6IkxpbiIsInJvbGVzIjpbInZpZXdlciJdfSwidmlld3BvcnQiOnsieCI6MTAsInkiOjIwLCJ6b29tIjoxLjI1fX0=",
+  "richMessage": "AcACAk8B5wF7InVzZXIiOnsibmFtZSI6Ilpvw6siLCJyb2xlcyI6WyJlZGl0b3IiLCJyZXZpZXdlciJdLCJmbGFncyI6eyJvbmxpbmUiOnRydWUsIm11dGVkIjpmYWxzZX0sIm1ldGEiOm51bGx9LCJjdXJzb3IiOnsiYW5jaG9yIjp7InR5cGUiOiJyZWxhdGl2ZSIsImlkIjp7ImNsaWVudCI6MSwiY2xvY2siOjJ9LCJhc3NvYyI6LTF9LCJyYW5nZXMiOlt7ImFuY2hvciI6MCwiaGVhZCI6NH1dfSwiZW1vamkiOiLwn5iAIn1QAVF7InVzZXIiOnsibmFtZSI6IkxpbiIsInJvbGVzIjpbInZpZXdlciJdfSwidmlld3BvcnQiOnsieCI6MTAsInkiOjIwLCJ6b29tIjoxLjI1fX0=",
+  "decodedRichUpdate": [
+    {
+      "clientID": 79,
+      "clock": 1,
+      "state": {
+        "user": {
+          "name": "Zoë",
+          "roles": [
+            "editor",
+            "reviewer"
+          ],
+          "flags": {
+            "online": true,
+            "muted": false
+          },
+          "meta": null
+        },
+        "cursor": {
+          "anchor": {
+            "type": "relative",
+            "id": {
+              "client": 1,
+              "clock": 2
+            },
+            "assoc": -1
+          },
+          "ranges": [
+            {
+              "anchor": 0,
+              "head": 4
+            }
+          ]
+        },
+        "emoji": "😀"
+      }
+    },
+    {
+      "clientID": 80,
+      "clock": 1,
+      "state": {
+        "user": {
+          "name": "Lin",
+          "roles": [
+            "viewer"
+          ]
+        },
+        "viewport": {
+          "x": 10,
+          "y": 20,
+          "zoom": 1.25
+        }
+      }
+    }
+  ],
+  "richStates": {
+    "79": {
+      "user": {
+        "name": "Zoë",
+        "roles": [
+          "editor",
+          "reviewer"
+        ],
+        "flags": {
+          "online": true,
+          "muted": false
+        },
+        "meta": null
+      },
+      "cursor": {
+        "anchor": {
+          "type": "relative",
+          "id": {
+            "client": 1,
+            "clock": 2
+          },
+          "assoc": -1
+        },
+        "ranges": [
+          {
+            "anchor": 0,
+            "head": 4
+          }
+        ]
+      },
+      "emoji": "😀"
+    },
+    "80": {
+      "user": {
+        "name": "Lin",
+        "roles": [
+          "viewer"
+        ]
+      },
+      "viewport": {
+        "x": 10,
+        "y": 20,
+        "zoom": 1.25
+      }
+    }
+  },
+  "richRemoveUpdate": "AU8CBG51bGw=",
+  "richRemoveMessage": "AQgBTwIEbnVsbA==",
+  "decodedRichRemoveUpdate": [
+    {
+      "clientID": 79,
+      "clock": 2,
+      "state": null
+    }
+  ],
+  "remoteEventSequence": [
+    {
+      "type": "change",
+      "event": {
+        "added": [
+          77
+        ],
+        "updated": [],
+        "removed": []
+      },
+      "origin": "remote-add"
+    },
+    {
+      "type": "update",
+      "event": {
+        "added": [
+          77
+        ],
+        "updated": [],
+        "removed": []
+      },
+      "origin": "remote-add"
+    },
+    {
+      "type": "update",
+      "event": {
+        "added": [],
+        "updated": [
+          77
+        ],
+        "removed": []
+      },
+      "origin": "remote-newer-same-state"
+    },
+    {
+      "type": "change",
+      "event": {
+        "added": [],
+        "updated": [
+          77
+        ],
+        "removed": []
+      },
+      "origin": "remote-newer-different-state"
+    },
+    {
+      "type": "update",
+      "event": {
+        "added": [],
+        "updated": [
+          77
+        ],
+        "removed": []
+      },
+      "origin": "remote-newer-different-state"
+    },
+    {
+      "type": "change",
+      "event": {
+        "added": [],
+        "updated": [],
+        "removed": [
+          77
+        ]
+      },
+      "origin": "remote-same-clock-remove"
+    },
+    {
+      "type": "update",
+      "event": {
+        "added": [],
+        "updated": [],
+        "removed": [
+          77
+        ]
+      },
+      "origin": "remote-same-clock-remove"
+    }
+  ],
+  "staleAfterRemoveSequence": [
+    {
+      "type": "change",
+      "event": {
+        "added": [
+          77
+        ],
+        "updated": [],
+        "removed": []
+      },
+      "origin": "remote-add-clock-2"
+    },
+    {
+      "type": "update",
+      "event": {
+        "added": [
+          77
+        ],
+        "updated": [],
+        "removed": []
+      },
+      "origin": "remote-add-clock-2"
+    },
+    {
+      "type": "change",
+      "event": {
+        "added": [],
+        "updated": [],
+        "removed": [
+          77
+        ]
+      },
+      "origin": "remote-remove-clock-3"
+    },
+    {
+      "type": "update",
+      "event": {
+        "added": [],
+        "updated": [],
+        "removed": [
+          77
+        ]
+      },
+      "origin": "remote-remove-clock-3"
+    }
+  ],
+  "staleAfterRemoveHasClient77": false
+}

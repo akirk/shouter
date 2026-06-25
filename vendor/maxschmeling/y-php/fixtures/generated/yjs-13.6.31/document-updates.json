@@ -1,0 +1,65 @@
+{
+  "text": "HelloYjs",
+  "stateVectorV1": "AQEL",
+  "updateV1": "AQUBAAQBB2NvbnRlbnQFSGVsbG+GAQQEYm9sZAR0cnVlhAEFASCEAQYDWWpzhgEJBGJvbGQEbnVsbAEBAQYB",
+  "updateV2": "AAIAAgJBAwQIAwAGAAcEAIYAhAGGHxhjb250ZW50SGVsbG9ib2xkIFlqc2JvbGQHBQQBAwQBAQAAAQUAeH4BAQEGAA==",
+  "updateV1Meta": {
+    "from": {
+      "1": 0
+    },
+    "to": {
+      "1": 11
+    }
+  },
+  "updateV2Meta": {
+    "from": {
+      "1": 0
+    },
+    "to": {
+      "1": 11
+    }
+  },
+  "pendingGap": {
+    "suffixUpdateV1": "AQGRAwKEkQMBAkNEAA==",
+    "suffixUpdateV2": "AAAD0QYAAQIAAYQEAkNEAgAAAAEBAgA=",
+    "prefixUpdateV1": "AQGRAwAEAQdjb250ZW50AkFCAA==",
+    "prefixUpdateV2": "AAACkQYAAAEEDAljb250ZW50QUIHAgEBAAABAQAA",
+    "suffixMetaV1": {
+      "from": {
+        "401": 2
+      },
+      "to": {
+        "401": 4
+      }
+    },
+    "suffixMetaV2": {
+      "from": {
+        "401": 2
+      },
+      "to": {
+        "401": 4
+      }
+    },
+    "prefixMetaV1": {
+      "from": {
+        "401": 0
+      },
+      "to": {
+        "401": 2
+      }
+    },
+    "prefixMetaV2": {
+      "from": {
+        "401": 0
+      },
+      "to": {
+        "401": 2
+      }
+    },
+    "stateVectorAfterSuffixV1": "AA==",
+    "stateVectorAfterPrefixV1": "AZEDBA==",
+    "json": {
+      "content": "ABCD"
+    }
+  }
+}

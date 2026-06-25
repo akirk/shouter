@@ -1,0 +1,406 @@
+{
+  "local": {
+    "json": {
+      "content": "AD"
+    },
+    "event": {
+      "origin": "local-transaction-origin",
+      "local": true,
+      "beforeStateVector": {},
+      "afterStateVector": {
+        "301": 4
+      },
+      "deleteSet": {
+        "301": [
+          {
+            "clock": 1,
+            "length": 2
+          }
+        ]
+      },
+      "changedTypeNames": [
+        "YText"
+      ],
+      "changedParentTypeNames": [
+        "YText"
+      ]
+    }
+  },
+  "remote": {
+    "updateV1": "AQOuAgAEAQdjb250ZW50AUGErgIAAkJDhK4CAgFEAa4CAQEC",
+    "updateV2": "AAAD7gQBAgAEAAMEAIQQC2NvbnRlbnRBQkNEBwECAQEBAAABAwABrgIBAQE=",
+    "json": {
+      "content": "AD"
+    },
+    "event": {
+      "origin": "remote-transaction-origin",
+      "local": false,
+      "beforeStateVector": {},
+      "afterStateVector": {
+        "302": 4
+      },
+      "deleteSet": {
+        "302": [
+          {
+            "clock": 1,
+            "length": 2
+          }
+        ]
+      },
+      "changedTypeNames": [
+        "YText"
+      ],
+      "changedParentTypeNames": [
+        "YText"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "name": "local-root-mixed",
+      "json": {
+        "content": "Hi",
+        "array": [
+          "A"
+        ],
+        "map": {
+          "title": "Doc"
+        },
+        "xml": "<p></p>"
+      },
+      "event": {
+        "origin": "local-root-mixed-origin",
+        "local": true,
+        "beforeStateVector": {},
+        "afterStateVector": {
+          "303": 5
+        },
+        "deleteSet": {},
+        "changedTypeNames": [
+          "YArray",
+          "YMap",
+          "YText",
+          "YXmlFragment"
+        ],
+        "changedParentTypeNames": [
+          "YArray",
+          "YMap",
+          "YText",
+          "YXmlFragment"
+        ]
+      }
+    },
+    {
+      "name": "local-nested-array",
+      "json": {
+        "array": [
+          [
+            "B"
+          ]
+        ]
+      },
+      "event": {
+        "origin": "local-nested-array-origin",
+        "local": true,
+        "beforeStateVector": {
+          "304": 1
+        },
+        "afterStateVector": {
+          "304": 3
+        },
+        "deleteSet": {
+          "304": [
+            {
+              "clock": 1,
+              "length": 1
+            }
+          ]
+        },
+        "changedTypeNames": [
+          "YArray"
+        ],
+        "changedParentTypeNames": [
+          "YArray",
+          "YArray"
+        ]
+      }
+    },
+    {
+      "name": "local-array-new-nested-text",
+      "json": {
+        "array": [
+          "Nested"
+        ]
+      },
+      "event": {
+        "origin": "local-array-new-nested-text-origin",
+        "local": true,
+        "beforeStateVector": {},
+        "afterStateVector": {
+          "313": 9
+        },
+        "deleteSet": {},
+        "changedTypeNames": [
+          "YArray"
+        ],
+        "changedParentTypeNames": [
+          "YArray"
+        ]
+      }
+    },
+    {
+      "name": "local-xml-parent-chain",
+      "json": {
+        "xml": "<p class=\"lead\">Hi!</p>"
+      },
+      "event": {
+        "origin": "local-xml-parent-chain-origin",
+        "local": true,
+        "beforeStateVector": {
+          "305": 4
+        },
+        "afterStateVector": {
+          "305": 6
+        },
+        "deleteSet": {},
+        "changedTypeNames": [
+          "YXmlElement",
+          "YXmlText"
+        ],
+        "changedParentTypeNames": [
+          "YXmlElement",
+          "YXmlFragment",
+          "YXmlText"
+        ]
+      }
+    },
+    {
+      "name": "local-map-replace-delete",
+      "json": {
+        "map": {
+          "title": "Published",
+          "flag": true
+        }
+      },
+      "event": {
+        "origin": "local-map-replace-delete-origin",
+        "local": true,
+        "beforeStateVector": {
+          "306": 2
+        },
+        "afterStateVector": {
+          "306": 4
+        },
+        "deleteSet": {
+          "306": [
+            {
+              "clock": 0,
+              "length": 2
+            }
+          ]
+        },
+        "changedTypeNames": [
+          "YMap"
+        ],
+        "changedParentTypeNames": [
+          "YMap"
+        ]
+      }
+    },
+    {
+      "name": "local-xml-text-attribute",
+      "json": {
+        "xml": "Xml"
+      },
+      "event": {
+        "origin": "local-xml-text-attribute-origin",
+        "local": true,
+        "beforeStateVector": {
+          "307": 5
+        },
+        "afterStateVector": {
+          "307": 7
+        },
+        "deleteSet": {
+          "307": [
+            {
+              "clock": 4,
+              "length": 1
+            }
+          ]
+        },
+        "changedTypeNames": [
+          "YXmlText"
+        ],
+        "changedParentTypeNames": [
+          "YXmlFragment",
+          "YXmlText"
+        ]
+      }
+    },
+    {
+      "name": "local-xml-hook-attribute",
+      "json": {
+        "xml": "[object Object]"
+      },
+      "event": {
+        "origin": "local-xml-hook-attribute-origin",
+        "local": true,
+        "beforeStateVector": {
+          "308": 3
+        },
+        "afterStateVector": {
+          "308": 5
+        },
+        "deleteSet": {
+          "308": [
+            {
+              "clock": 1,
+              "length": 2
+            }
+          ]
+        },
+        "changedTypeNames": [
+          "YXmlHook"
+        ],
+        "changedParentTypeNames": [
+          "YXmlFragment",
+          "YXmlHook"
+        ]
+      }
+    },
+    {
+      "name": "local-xml-element-shared-attribute",
+      "json": {
+        "xml": "<p body=\"Body\" inline=\"<span class=\"lead\">Inline</span>\" role=\"lead\"></p>"
+      },
+      "event": {
+        "origin": "local-xml-element-shared-attribute-origin",
+        "local": true,
+        "beforeStateVector": {
+          "312": 4
+        },
+        "afterStateVector": {
+          "312": 17
+        },
+        "deleteSet": {
+          "312": [
+            {
+              "clock": 1,
+              "length": 1
+            }
+          ]
+        },
+        "changedTypeNames": [
+          "YText",
+          "YXmlElement",
+          "YXmlElement"
+        ],
+        "changedParentTypeNames": [
+          "YText",
+          "YXmlElement",
+          "YXmlElement",
+          "YXmlFragment"
+        ]
+      }
+    },
+    {
+      "name": "local-xml-text-shared-attribute",
+      "json": {
+        "xml": "Xml"
+      },
+      "event": {
+        "origin": "local-xml-text-shared-attribute-origin",
+        "local": true,
+        "beforeStateVector": {
+          "314": 7
+        },
+        "afterStateVector": {
+          "314": 20
+        },
+        "deleteSet": {
+          "314": [
+            {
+              "clock": 4,
+              "length": 1
+            }
+          ]
+        },
+        "changedTypeNames": [
+          "YText",
+          "YXmlElement",
+          "YXmlText"
+        ],
+        "changedParentTypeNames": [
+          "YText",
+          "YXmlElement",
+          "YXmlFragment",
+          "YXmlText"
+        ]
+      }
+    },
+    {
+      "name": "local-nested-text-attribute",
+      "json": {
+        "array": [
+          "Nested"
+        ]
+      },
+      "event": {
+        "origin": "local-nested-text-attribute-origin",
+        "local": true,
+        "beforeStateVector": {
+          "309": 8
+        },
+        "afterStateVector": {
+          "309": 10
+        },
+        "deleteSet": {
+          "309": [
+            {
+              "clock": 7,
+              "length": 1
+            },
+            {
+              "clock": 9,
+              "length": 1
+            }
+          ]
+        },
+        "changedTypeNames": [
+          "YText"
+        ],
+        "changedParentTypeNames": [
+          "YArray",
+          "YText"
+        ]
+      }
+    },
+    {
+      "name": "local-map-text",
+      "json": {
+        "map": {
+          "body": "Map text"
+        }
+      },
+      "event": {
+        "origin": "local-map-text-origin",
+        "local": true,
+        "beforeStateVector": {
+          "310": 4
+        },
+        "afterStateVector": {
+          "310": 12
+        },
+        "deleteSet": {},
+        "changedTypeNames": [
+          "YText"
+        ],
+        "changedParentTypeNames": [
+          "YMap",
+          "YText"
+        ]
+      }
+    }
+  ]
+}

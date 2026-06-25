@@ -1,0 +1,89 @@
+# Y PHP
+
+Fresh PHP implementation of Yjs-compatible CRDT primitives, initially targeting Yjs `13.6.31`.
+
+This repository is intentionally starting from the binary compatibility layer:
+
+- lib0-compatible encoding and decoding primitives
+- generated fixtures from the JavaScript Yjs package
+- PHPUnit tests that compare PHP behavior against those fixtures
+
+## Current Status
+
+The current implementation supports a small but real sync core:
+
+- decode Yjs V1 updates into structs and delete sets
+- decode Yjs V2 updates into the same neutral struct/delete-set model
+- apply full and incremental V1 updates to a PHP `YDoc`
+- apply full and incremental V2 updates to a PHP `YDoc`
+- materialize top-level `YText`, `YArray`, `YMap`, subdoc JSON placeholders with PHP metadata accessors, nested `YArray`/`YMap`/`YText` content, and XML trees including formatted `YXmlText` into PHP values
+- derive and encode state vectors from applied updates
+- expose PHP document identity APIs for `clientID` and `guid`
+- encode full V1 state updates from PHP
+- encode full and state-vector-diff V2 updates from PHP for the currently supported struct/content model
+- encode partial V1/V2 state-vector diffs from PHP, including target clocks inside supported structs, XML and nested shared-type cascade delete-only diffs, array-owned XML fragment delete/edit cascades, and `ContentDeleted` GC segments
+- merge V1/V2 update payloads, convert update formats, parse update metadata, derive state vectors from updates, compute stateless update diffs for supported content, decode updates through public helpers, obfuscate updates with Yjs-compatible options, and expose Yjs-style unsuffixed V1 utility aliases
+- handle covered concurrent text/array/map/XML updates with origin/right-origin ordering, including generated multi-client conflict fixtures, nested shared-type delete/edit cascades, array-owned XML fragment delete/edit conflicts, and root text attribute conflict metadata
+- optionally encode deleted local root/nested text, array, map, and XML content as Yjs-compatible `ContentDeleted` segments for full state updates from `gc: true` PHP documents
+- encode/decode snapshots, test update containment, restore documents from snapshots, and read top-level/nested shared type values, array/map slices, text/XML text slices, and XML child/sibling navigation at snapshot boundaries
+- encode/decode V1 sync protocol messages, frame/apply explicit V2 sync/update payload messages, and handle V1/V2 sync handshakes with Yjs-compatible empty, partial, delete-only, and GC partial replies plus verified handler-generated reply messages and one-shot observed update message helpers
+- encode/decode awareness updates, modify awareness update payloads, frame awareness protocol messages including awareness query/reply messages, write filtered state/removal/clear messages, maintain PHP-native awareness state with active-client inspection, and expose separate awareness change/update observer streams plus one-shot helpers
+- create local PHP mutations for top-level text, array, map, text `applyDelta` APIs, root text attributes, stringable text/XML wrappers, iterable/countable collection/XML convenience/read APIs, array/XML append/prepend/pop/shift/splice/deleteAll helpers, array/map nested shared-type, binary, subdoc, and XML bulk helpers, XML `insertAfter` helpers, array/XML/text default-delete helpers, XML bulk-child helpers, snapshot read helpers, recursively nested shared types, subdoc content, nested text formatting, nested binary content, ordered/formatted XML children, Yjs-compatible XML attribute/key reuse, XML text attributes, bulk map/XML attribute helpers, and iterable map-like `YXmlHook` state
+- observe binary update payloads from applied updates and PHP-native mutations
+- observe PHP array/map/text and XML fragment/element/text/hook changes with update payloads and origins, including fixture-backed root/nested shared-type deep paths, node-relative XML deep paths, XML child replacement/range-delete deltas, tree-walker/query navigation, text/XML text attribute changes, hook child deltas, and hook map-key changes
+- pass transaction/update origins, Yjs-compatible shared-type observer change subsets, nested shared-type observer events, metadata-only shared-type changes, batched native transaction updates, one-shot document/shared-type observers, subdoc add/load/remove events, and fixture-backed PHP transaction event payloads through observer callbacks
+- perform initial PHP-native undo/redo for scoped root and nested text, array, map, XML text, XML element/text/hook attributes, root text attributes including attribute-only transactions, and XML root/element child structure transactions, with capture-timeout grouping, `stopCapturing()`, stack observers, Yjs-style `on`/`off`/`once`/`emit` event aliases, dynamic origin/scope tracking, capture/delete filters, targeted stack clearing, and fixture-backed remote map conflict behavior
+
+The test suite uses fixtures generated by JavaScript Yjs `13.6.31`. The npm verification scripts also apply PHP-generated V1/V2 update payloads with the real JavaScript Yjs package and consume PHP-generated sync/awareness messages with `y-protocols`.
+
+Not implemented yet:
+
+- full Yjs integration/conflict algorithm for all edge cases
+- complete nested shared-type parity with every Yjs API method
+- full XML edge-case coverage and complete Yjs-compatible XML event modeling
+- full Yjs UndoManager parity and complete transaction event modeling
+- garbage collection
+
+## Development
+
+Install PHP dependencies:
+
+```sh
+composer install
+```
+
+Install JavaScript dependencies for fixture generation:
+
+```sh
+npm install
+```
+
+Generate fixtures from Yjs `13.6.31`:
+
+```sh
+npm run fixtures
+```
+
+Run tests:
+
+```sh
+composer test
+```
+
+Verify PHP-generated update payloads against JavaScript Yjs:
+
+```sh
+npm run verify:php-updates
+```
+
+Verify PHP-generated sync and awareness protocol messages against JavaScript `y-protocols`:
+
+```sh
+npm run verify:php-protocol
+```
+
+Run both JavaScript-side verification passes:
+
+```sh
+npm run verify
+```

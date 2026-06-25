@@ -1,0 +1,21 @@
+{
+  "updateV1": "AQWzAQAHAQN4bWwGBACzAQADWG1sKACzAQAEbGFuZwF3AmVuKACzAQAJdGVtcG9yYXJ5AXgoALMBAARtYXJrAXYBBWNvbG9ydwRibHVlAbMBAQUB",
+  "updateV2": "AAAD8wIDAgECAAUHAAQAKB0XeG1sWG1sbGFuZ3RlbXBvcmFyeW1hcmtDAAQJBAMBAAABBgJBAQEFAHcCZW54dgEFY29sb3J3BGJsdWUBswEBBQA=",
+  "json": {
+    "xml": "Xml"
+  },
+  "text": "Xml",
+  "delta": [
+    {
+      "insert": "Xml"
+    }
+  ],
+  "attributes": {
+    "lang": "en",
+    "mark": {
+      "color": "blue"
+    }
+  },
+  "lang": "en",
+  "hasTemporary": false
+}

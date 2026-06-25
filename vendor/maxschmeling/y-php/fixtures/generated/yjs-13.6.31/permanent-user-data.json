@@ -1,0 +1,55 @@
+{
+  "user": {
+    "clientID": 311,
+    "description": "alice",
+    "updateV1": "AQi3AgAnAQV1c2VycwVhbGljZQEnALcCAANpZHMAJwC3AgACZHMACAC3AgEBfbcEBAEHY29udGVudAFBhLcCBAJCQ4S3AgYCREUDALcCAgYBtwIBBQIBtwIBBQI=",
+    "updateV2": "AAAD9wQFBgEAAgYESAAJJwIIAAQAhAEDJBt1c2Vyc2FsaWNlaWRzZHNjb250ZW50QUJDREVFAAMCBwFCAAcBAAACAQAAAwFAAAEBAQgAfbcEBgG3AgEFAgG3AgEFAQ==",
+    "ids": [
+      311
+    ],
+    "encodedDeleteSets": [
+      "AbcCAQUC"
+    ],
+    "clientLookup": "alice",
+    "deletedLookups": [
+      {
+        "id": {
+          "client": 311,
+          "clock": 5
+        },
+        "user": "alice"
+      },
+      {
+        "id": {
+          "client": 311,
+          "clock": 6
+        },
+        "user": "alice"
+      },
+      {
+        "id": {
+          "client": 311,
+          "clock": 4
+        },
+        "user": null
+      },
+      {
+        "id": {
+          "client": 311,
+          "clock": 7
+        },
+        "user": null
+      }
+    ]
+  },
+  "filtered": {
+    "clientID": 312,
+    "description": "bob",
+    "ids": [
+      312
+    ],
+    "encodedDeleteSets": [],
+    "clientLookup": "bob",
+    "deletedLookup": null
+  }
+}

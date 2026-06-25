@@ -1,0 +1,1439 @@
+{
+  "deepArrayPaths": [
+    {
+      "targetType": "YMap",
+      "path": [
+        0
+      ],
+      "changes": {
+        "keys": {
+          "title": {
+            "action": "add"
+          }
+        },
+        "delta": []
+      }
+    }
+  ],
+  "deepMapPaths": [
+    {
+      "targetType": "YMap",
+      "path": [
+        "items",
+        0
+      ],
+      "changes": {
+        "keys": {
+          "title": {
+            "action": "add"
+          }
+        },
+        "delta": []
+      }
+    }
+  ],
+  "deepMapNestedTextPaths": [
+    {
+      "targetType": "YText",
+      "path": [
+        "body"
+      ],
+      "changes": {
+        "keys": {
+          "lang": {
+            "action": "add"
+          }
+        },
+        "delta": [
+          {
+            "retain": 3
+          },
+          {
+            "insert": " text",
+            "attributes": {
+              "emphasis": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "deepMapNestedMapTextPaths": [
+    {
+      "targetType": "YMap",
+      "path": [
+        "root"
+      ],
+      "changes": {
+        "keys": {
+          "status": {
+            "action": "update",
+            "oldValue": "draft"
+          }
+        },
+        "delta": []
+      }
+    },
+    {
+      "targetType": "YText",
+      "path": [
+        "root",
+        "body"
+      ],
+      "changes": {
+        "keys": {
+          "lang": {
+            "action": "add"
+          }
+        },
+        "delta": [
+          {
+            "retain": 4
+          },
+          {
+            "insert": " text",
+            "attributes": {
+              "bold": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "deepTextPaths": [
+    {
+      "targetType": "YText",
+      "path": [],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "insert": "Hi"
+          }
+        ]
+      }
+    }
+  ],
+  "rootArrayParentAndChildEvent": {
+    "path": [],
+    "changes": {
+      "keys": {},
+      "delta": [
+        {
+          "retain": 1
+        },
+        {
+          "insert": [
+            "tail"
+          ]
+        }
+      ]
+    }
+  },
+  "rootMapParentAndChildEvent": {
+    "path": [],
+    "changes": {
+      "keys": {
+        "title": {
+          "action": "add"
+        }
+      },
+      "delta": []
+    }
+  },
+  "deepNestedArrayPaths": [
+    {
+      "targetType": "YArray",
+      "path": [],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "retain": 1
+          },
+          {
+            "insert": [
+              "x"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "deepNestedMapPaths": [
+    {
+      "targetType": "YArray",
+      "path": [
+        "child"
+      ],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "insert": [
+              "x"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "deepNestedTextPaths": [
+    {
+      "targetType": "YText",
+      "path": [],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "insert": "Hi"
+          }
+        ]
+      }
+    }
+  ],
+  "deepNestedTextAttributePaths": [
+    {
+      "targetType": "YText",
+      "path": [],
+      "changes": {
+        "keys": {
+          "lang": {
+            "action": "update",
+            "oldValue": "en"
+          }
+        },
+        "delta": []
+      }
+    }
+  ],
+  "deepMapNestedXmlFragmentPaths": [
+    {
+      "targetType": "YXmlElement",
+      "path": [
+        "xml",
+        1
+      ],
+      "changes": {
+        "keys": {
+          "class": {
+            "action": "add"
+          }
+        },
+        "delta": [],
+        "attributesChanged": [
+          "class"
+        ]
+      }
+    },
+    {
+      "targetType": "YXmlFragment",
+      "path": [
+        "xml"
+      ],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "retain": 2
+          },
+          {
+            "insert": [
+              "<br></br>"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "targetType": "YXmlText",
+      "path": [
+        "xml",
+        0
+      ],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "retain": 1
+          },
+          {
+            "insert": "!"
+          }
+        ]
+      }
+    }
+  ],
+  "deepNestedXmlFragmentPaths": [
+    {
+      "targetType": "YXmlFragment",
+      "path": [],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "retain": 1
+          },
+          {
+            "insert": [
+              "B",
+              "<p>C</p>"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "deepXmlPaths": [
+    {
+      "targetType": "YXmlElement",
+      "path": [
+        0
+      ],
+      "changes": {
+        "keys": {
+          "class": {
+            "action": "add"
+          }
+        },
+        "delta": [],
+        "attributesChanged": [
+          "class"
+        ]
+      }
+    },
+    {
+      "targetType": "YXmlText",
+      "path": [
+        0,
+        0
+      ],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "retain": 2
+          },
+          {
+            "insert": "!"
+          }
+        ]
+      }
+    }
+  ],
+  "deepXmlElementPaths": [
+    {
+      "targetType": "YXmlElement",
+      "path": [],
+      "changes": {
+        "keys": {
+          "class": {
+            "action": "add"
+          }
+        },
+        "delta": [],
+        "attributesChanged": [
+          "class"
+        ]
+      }
+    },
+    {
+      "targetType": "YXmlText",
+      "path": [
+        0
+      ],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "retain": 2
+          },
+          {
+            "insert": "!"
+          }
+        ]
+      }
+    }
+  ],
+  "deepXmlElementSharedAttributePaths": [
+    {
+      "targetType": "YText",
+      "path": [
+        "body"
+      ],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "insert": "Hi"
+          }
+        ]
+      }
+    },
+    {
+      "targetType": "YXmlElement",
+      "path": [
+        "element"
+      ],
+      "changes": {
+        "keys": {
+          "class": {
+            "action": "add"
+          }
+        },
+        "delta": [
+          {
+            "insert": [
+              "Xml"
+            ]
+          }
+        ],
+        "attributesChanged": [
+          "class"
+        ]
+      }
+    },
+    {
+      "targetType": "YXmlElement",
+      "path": [],
+      "changes": {
+        "keys": {
+          "role": {
+            "action": "add"
+          }
+        },
+        "delta": [],
+        "attributesChanged": [
+          "role"
+        ]
+      }
+    }
+  ],
+  "deepXmlElementSharedAttributeReplacePaths": [
+    {
+      "targetType": "YXmlElement",
+      "path": [],
+      "changes": {
+        "keys": {
+          "body": {
+            "action": "update",
+            "oldValue": ""
+          },
+          "inline": {
+            "action": "add"
+          }
+        },
+        "delta": [],
+        "attributesChanged": [
+          "body",
+          "inline"
+        ]
+      }
+    }
+  ],
+  "deepXmlElementBulkChildPaths": [
+    {
+      "targetType": "YXmlElement",
+      "path": [],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "retain": 1
+          },
+          {
+            "insert": [
+              "<em></em>",
+              "[object Object]"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "targetType": "YXmlText",
+      "path": [
+        0
+      ],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "retain": 1
+          },
+          {
+            "insert": "!"
+          }
+        ]
+      }
+    }
+  ],
+  "deepXmlElementReplaceChildPaths": [
+    {
+      "targetType": "YXmlElement",
+      "path": [],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "retain": 1
+          },
+          {
+            "insert": [
+              "<strong>C</strong>"
+            ]
+          },
+          {
+            "delete": 1
+          }
+        ]
+      }
+    },
+    {
+      "targetType": "YXmlText",
+      "path": [
+        0
+      ],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "retain": 1
+          },
+          {
+            "insert": "!"
+          }
+        ]
+      }
+    }
+  ],
+  "deepXmlTextPaths": [
+    {
+      "targetType": "YXmlText",
+      "path": [],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "retain": 2
+          },
+          {
+            "insert": "!"
+          }
+        ]
+      }
+    }
+  ],
+  "deepXmlTextSharedAttributePaths": [
+    {
+      "targetType": "YText",
+      "path": [
+        "body"
+      ],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "insert": "Hi"
+          }
+        ]
+      }
+    },
+    {
+      "targetType": "YXmlElement",
+      "path": [
+        "element"
+      ],
+      "changes": {
+        "keys": {
+          "class": {
+            "action": "add"
+          }
+        },
+        "delta": [
+          {
+            "insert": [
+              "Xml"
+            ]
+          }
+        ],
+        "attributesChanged": [
+          "class"
+        ]
+      }
+    },
+    {
+      "targetType": "YXmlText",
+      "path": [],
+      "changes": {
+        "keys": {
+          "role": {
+            "action": "add"
+          }
+        },
+        "delta": []
+      }
+    }
+  ],
+  "deepXmlTextSharedAttributeReplacePaths": [
+    {
+      "targetType": "YXmlText",
+      "path": [],
+      "changes": {
+        "keys": {
+          "body": {
+            "action": "update",
+            "oldValue": ""
+          },
+          "inline": {
+            "action": "add"
+          }
+        },
+        "delta": []
+      }
+    }
+  ],
+  "deepXmlHookPaths": [
+    {
+      "targetType": "YText",
+      "path": [
+        "body"
+      ],
+      "changes": {
+        "keys": {},
+        "delta": [
+          {
+            "insert": "Hi"
+          }
+        ]
+      }
+    },
+    {
+      "targetType": "YXmlElement",
+      "path": [
+        "element"
+      ],
+      "changes": {
+        "keys": {
+          "class": {
+            "action": "add"
+          }
+        },
+        "delta": [
+          {
+            "insert": [
+              "Xml"
+            ]
+          }
+        ],
+        "attributesChanged": [
+          "class"
+        ]
+      }
+    },
+    {
+      "targetType": "YXmlHook",
+      "path": [],
+      "changes": {
+        "keys": {
+          "role": {
+            "action": "add"
+          }
+        },
+        "delta": []
+      }
+    }
+  ],
+  "observerAddedDuringDispatchCalls": [
+    "first",
+    "second",
+    "third",
+    "first",
+    "second",
+    "third",
+    "third"
+  ],
+  "documentLifecycleOrder": [
+    "beforeAllTransactions",
+    "beforeTransaction:lifecycle-origin",
+    "beforeObserverCalls:lifecycle-origin",
+    "observe:lifecycle-origin",
+    "afterTransaction:lifecycle-origin",
+    "afterTransactionCleanup:lifecycle-origin",
+    "update:lifecycle-origin",
+    "updateV2:lifecycle-origin",
+    "afterAllTransactions"
+  ],
+  "remoteDocumentLifecycleOrder": {
+    "firstApply": [
+      "beforeAllTransactions",
+      "beforeTransaction:remote-lifecycle-origin",
+      "beforeObserverCalls:remote-lifecycle-origin",
+      "observe:remote-lifecycle-origin",
+      "afterTransaction:remote-lifecycle-origin",
+      "afterTransactionCleanup:remote-lifecycle-origin",
+      "update:remote-lifecycle-origin",
+      "updateV2:remote-lifecycle-origin",
+      "afterAllTransactions"
+    ],
+    "duplicateApply": [
+      "beforeAllTransactions",
+      "beforeTransaction:remote-duplicate-lifecycle-origin",
+      "beforeObserverCalls:remote-duplicate-lifecycle-origin",
+      "afterTransaction:remote-duplicate-lifecycle-origin",
+      "afterTransactionCleanup:remote-duplicate-lifecycle-origin",
+      "afterAllTransactions"
+    ]
+  },
+  "subdocEvents": {
+    "order": [
+      "update:subdoc-add-origin",
+      "updateV2:subdoc-add-origin",
+      "subdocs:subdoc-add-origin",
+      "afterAllTransactions",
+      "subdocs:null",
+      "afterAllTransactions",
+      "update:subdoc-load-transaction-origin",
+      "updateV2:subdoc-load-transaction-origin",
+      "subdocs:subdoc-load-transaction-origin",
+      "afterAllTransactions",
+      "update:subdoc-add-delete-same-origin",
+      "updateV2:subdoc-add-delete-same-origin",
+      "subdocs:subdoc-add-delete-same-origin",
+      "afterAllTransactions",
+      "update:subdoc-remove-origin",
+      "updateV2:subdoc-remove-origin",
+      "subdocs:subdoc-remove-origin",
+      "subdocs:null",
+      "afterAllTransactions"
+    ],
+    "events": [
+      {
+        "origin": "subdoc-add-origin",
+        "local": true,
+        "loaded": [
+          {
+            "guid": "map-child",
+            "meta": {
+              "scope": "map"
+            },
+            "shouldLoad": true
+          }
+        ],
+        "added": [
+          {
+            "guid": "array-child",
+            "meta": {
+              "scope": "array"
+            },
+            "shouldLoad": false
+          },
+          {
+            "guid": "transactional-child",
+            "meta": {
+              "scope": "transactional"
+            },
+            "shouldLoad": false
+          },
+          {
+            "guid": "map-child",
+            "meta": {
+              "scope": "map"
+            },
+            "shouldLoad": true
+          }
+        ],
+        "removed": [],
+        "liveGuids": [
+          "array-child",
+          "transactional-child",
+          "map-child"
+        ]
+      },
+      {
+        "origin": null,
+        "local": true,
+        "loaded": [
+          {
+            "guid": "array-child",
+            "meta": {
+              "scope": "array"
+            },
+            "shouldLoad": false
+          }
+        ],
+        "added": [],
+        "removed": [],
+        "liveGuids": [
+          "array-child",
+          "transactional-child",
+          "map-child"
+        ]
+      },
+      {
+        "origin": "subdoc-load-transaction-origin",
+        "local": true,
+        "loaded": [
+          {
+            "guid": "transactional-child",
+            "meta": {
+              "scope": "transactional"
+            },
+            "shouldLoad": true
+          }
+        ],
+        "added": [],
+        "removed": [],
+        "liveGuids": [
+          "array-child",
+          "transactional-child",
+          "map-child"
+        ]
+      },
+      {
+        "origin": "subdoc-add-delete-same-origin",
+        "local": true,
+        "loaded": [
+          {
+            "guid": "transient-child",
+            "meta": {
+              "scope": "transient"
+            },
+            "shouldLoad": true
+          }
+        ],
+        "added": [],
+        "removed": [],
+        "liveGuids": [
+          "array-child",
+          "transactional-child",
+          "map-child"
+        ]
+      },
+      {
+        "origin": "subdoc-remove-origin",
+        "local": true,
+        "loaded": [],
+        "added": [],
+        "removed": [
+          {
+            "guid": "map-child",
+            "meta": {
+              "scope": "map"
+            },
+            "shouldLoad": true
+          }
+        ],
+        "liveGuids": [
+          "array-child",
+          "transactional-child"
+        ]
+      },
+      {
+        "origin": null,
+        "local": true,
+        "loaded": [],
+        "added": [],
+        "removed": [
+          {
+            "guid": "map-child",
+            "meta": {
+              "scope": "map"
+            },
+            "shouldLoad": true
+          }
+        ],
+        "liveGuids": [
+          "array-child",
+          "transactional-child"
+        ]
+      }
+    ],
+    "liveGuids": [
+      "array-child",
+      "transactional-child"
+    ]
+  },
+  "remoteSubdocEvents": {
+    "firstApply": [
+      {
+        "origin": "remote-subdoc-origin",
+        "local": false,
+        "loaded": [
+          {
+            "guid": "remote-array-child",
+            "meta": {
+              "source": "array"
+            },
+            "shouldLoad": true
+          }
+        ],
+        "added": [
+          {
+            "guid": "remote-array-child",
+            "meta": {
+              "source": "array"
+            },
+            "shouldLoad": true
+          },
+          {
+            "guid": "remote-map-child",
+            "meta": {
+              "source": "map"
+            },
+            "shouldLoad": false
+          }
+        ],
+        "removed": [],
+        "liveGuids": [
+          "remote-array-child",
+          "remote-map-child"
+        ]
+      }
+    ],
+    "duplicateApply": [],
+    "liveGuids": [
+      "remote-array-child",
+      "remote-map-child"
+    ]
+  },
+  "reentrantTextMutation": {
+    "json": {
+      "content": "AB"
+    },
+    "notificationOrderPrefix": [
+      "observe:reentrant-text-mutation-origin",
+      "afterTransaction:reentrant-text-mutation-origin",
+      "update:reentrant-text-mutation-origin"
+    ],
+    "observerEvents": [
+      {
+        "value": "A",
+        "origin": "reentrant-text-mutation-origin"
+      },
+      {
+        "value": "AB",
+        "origin": null
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "text-insert-delete-insert",
+      "type": "text",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "insert": "AC"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "text-format-range",
+      "type": "text",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "retain": 1
+            },
+            {
+              "retain": 3,
+              "attributes": {
+                "bold": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "array-insert-delete-insert",
+      "type": "array",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "insert": [
+                "B",
+                "C"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "map-add-key",
+      "type": "map",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {
+            "a": {
+              "action": "add"
+            }
+          },
+          "delta": []
+        }
+      }
+    },
+    {
+      "name": "map-update-key",
+      "type": "map",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {
+            "a": {
+              "action": "update",
+              "oldValue": 1
+            }
+          },
+          "delta": []
+        }
+      }
+    },
+    {
+      "name": "map-delete-key",
+      "type": "map",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {
+            "a": {
+              "action": "delete",
+              "oldValue": 1
+            }
+          },
+          "delta": []
+        }
+      }
+    },
+    {
+      "name": "nested-array-insert-delete-insert",
+      "type": "array",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "retain": 1
+            },
+            {
+              "insert": [
+                "C",
+                "D"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "nested-map-update-key",
+      "type": "map",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {
+            "a": {
+              "action": "update",
+              "oldValue": 1
+            }
+          },
+          "delta": []
+        }
+      }
+    },
+    {
+      "name": "nested-text-attribute-update-key",
+      "type": "array",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {
+            "lang": {
+              "action": "update",
+              "oldValue": "en"
+            }
+          },
+          "delta": []
+        }
+      }
+    },
+    {
+      "name": "nested-xml-fragment-insert-delete-insert",
+      "type": "array",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "retain": 1
+            },
+            {
+              "insert": [
+                "<p>C</p>"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-fragment-insert-delete-insert",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "insert": [
+                "<p>B</p>"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-fragment-hook-insert-delete",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "retain": 1
+            },
+            {
+              "insert": [
+                "[object Object]"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-element-attribute-update",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [],
+          "attributesChanged": [
+            "class"
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-element-attribute-add-key",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {
+            "class": {
+              "action": "add"
+            }
+          },
+          "delta": [],
+          "attributesChanged": [
+            "class"
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-element-attribute-update-key",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {
+            "class": {
+              "action": "update",
+              "oldValue": "base"
+            }
+          },
+          "delta": [],
+          "attributesChanged": [
+            "class"
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-element-attribute-delete-key",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {
+            "class": {
+              "action": "delete",
+              "oldValue": "base"
+            }
+          },
+          "delta": [],
+          "attributesChanged": [
+            "class"
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-element-child-insert-delete",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "retain": 1
+            },
+            {
+              "insert": [
+                "<strong>C</strong>"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-element-child-replace-middle",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "retain": 1
+            },
+            {
+              "insert": [
+                "<strong>D</strong>"
+              ]
+            },
+            {
+              "delete": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-element-child-and-text-update",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "retain": 1
+            },
+            {
+              "insert": [
+                "<strong>C</strong>"
+              ]
+            },
+            {
+              "delete": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-fragment-delete-middle-range",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "retain": 1
+            },
+            {
+              "delete": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-fragment-insert-multiple-elements",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "insert": [
+                "<a></a>",
+                "<b></b>"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-element-insert-multiple-child-types",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "insert": [
+                "A",
+                "<em></em>",
+                "[object Object]"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-element-hook-insert-delete",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "retain": 1
+            },
+            {
+              "insert": [
+                "[object Object]"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-hook-map-update-key",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {
+            "role": {
+              "action": "update",
+              "oldValue": "base"
+            }
+          },
+          "delta": []
+        }
+      }
+    },
+    {
+      "name": "xml-hook-map-add-update-delete-keys",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {
+            "role": {
+              "action": "update",
+              "oldValue": "base"
+            },
+            "active": {
+              "action": "add"
+            },
+            "removeMe": {
+              "action": "delete",
+              "oldValue": true
+            }
+          },
+          "delta": []
+        }
+      }
+    },
+    {
+      "name": "xml-text-format-range",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {},
+          "delta": [
+            {
+              "retain": 1
+            },
+            {
+              "retain": 3,
+              "attributes": {
+                "bold": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "xml-text-attribute-update-key",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {
+            "lang": {
+              "action": "update",
+              "oldValue": "en"
+            }
+          },
+          "delta": []
+        }
+      }
+    },
+    {
+      "name": "xml-text-shared-attribute-update-key",
+      "type": "xml",
+      "event": {
+        "path": [],
+        "changes": {
+          "keys": {
+            "body": {
+              "action": "update",
+              "oldValue": ""
+            },
+            "inline": {
+              "action": "add"
+            }
+          },
+          "delta": []
+        }
+      }
+    }
+  ]
+}

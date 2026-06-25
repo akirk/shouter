@@ -1,0 +1,98 @@
+{
+  "cases": [
+    {
+      "name": "insert-attribute-delta",
+      "updateV1": "AQOMAQAGAQdjb250ZW50BGJvbGQEdHJ1ZYSMAQACSGmGjAECBGJvbGQEbnVsbAA=",
+      "updateV2": "AAIAAgPMAgECAAQABQYAhACGFhFjb250ZW50Ym9sZEhpYm9sZAcEAgQBAQAAAQMAeH4A",
+      "json": {
+        "content": "Hi"
+      },
+      "delta": [
+        {
+          "insert": "Hi",
+          "attributes": {
+            "bold": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "format-range-delta",
+      "updateV1": "AQSNAQAEAQdjb250ZW50A0hpIISNAQIFdGhlcmXGjQECjQEDBml0YWxpYwR0cnVlho0BBwZpdGFsaWMEbnVsbAA=",
+      "updateV2": "AAIAAgPNAgMDBAAKAQYHBACEAMYAhiEbY29udGVudEhpIHRoZXJlaXRhbGljaXRhbGljBwMFRgABAQAAAQQAeH4A",
+      "json": {
+        "content": "Hi there"
+      },
+      "delta": [
+        {
+          "insert": "Hi "
+        },
+        {
+          "insert": "there",
+          "attributes": {
+            "italic": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "overlapping-format-delete-delta",
+      "updateV1": "AQmOAQAEAQdjb250ZW50A0hlbISOAQICbG+EjgEEASCEjgEFAndvhI4BBwNybGRGjgEABGJvbGQEdHJ1ZcaOAQSOAQUEYm9sZARudWxsxo4BAo4BAwZpdGFsaWMEdHJ1ZcaOAQeOAQgGaXRhbGljBG51bGwBjgEBBQE=",
+      "updateV2": "AAMAAwEDzgIKBwUAAgRGRAoEAApECgcEAIQDRgDGMSZjb250ZW50SGVsbG8gd29ybGRib2xkYm9sZGl0YWxpY2l0YWxpYwcDAgECA0QARgABAQAAAQkAeH54fgGOAQEFAA==",
+      "json": {
+        "content": "Helloworld"
+      },
+      "delta": [
+        {
+          "insert": "Hel",
+          "attributes": {
+            "bold": true
+          }
+        },
+        {
+          "insert": "lo",
+          "attributes": {
+            "bold": true,
+            "italic": true
+          }
+        },
+        {
+          "insert": "wo",
+          "attributes": {
+            "italic": true
+          }
+        },
+        {
+          "insert": "rld"
+        }
+      ]
+    },
+    {
+      "name": "embed-delta",
+      "updateV1": "AQWPAQAEAQdjb250ZW50AUGGjwEAA2FsdAUiQ2F0IoWPAQETeyJpbWFnZSI6ImNhdC5wbmcifYaPAQIDYWx0BG51bGzEjwECjwEDAUIA",
+      "updateV2": "AAIAAgPPAgQEAAMAAAEGCQQAhgCFAIYAxBUPY29udGVudEFhbHRhbHRCBwFDAAEBAQAAAQUAdwNDYXR2AQVpbWFnZXcHY2F0LnBuZ34A",
+      "json": {
+        "content": "AB"
+      },
+      "delta": [
+        {
+          "insert": "A"
+        },
+        {
+          "insert": {
+            "image": "cat.png"
+          },
+          "attributes": {
+            "alt": "Cat"
+          }
+        },
+        {
+          "insert": "B",
+          "attributes": {
+            "alt": "Cat"
+          }
+        }
+      ]
+    }
+  ]
+}
